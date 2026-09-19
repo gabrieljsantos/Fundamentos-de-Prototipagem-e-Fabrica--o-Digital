@@ -23,9 +23,11 @@ function inline(value) {
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
     .replace(/\*([^*]+)\*/g, "<em>$1</em>")
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, href) => {
-      const converted = /(?:^|\/)README\.md(?:#|$)/.test(href)
-        ? `../index.html${href.includes("#") ? `#${href.split("#")[1]}` : ""}`
-        : href.replace(/^\.\//, "").replace(/\.md(?=#|$)/, ".html");
+      const [target, fragment] = href.split("#");
+      const convertedTarget = /(?:^|\/)README\.md$/.test(target)
+        ? "../index.html"
+        : target.replace(/^\.\//, "").replace(/\.md$/, ".html");
+      const converted = `${convertedTarget}${fragment ? `#${slugify(fragment)}` : ""}`;
       return `<a href="${converted}">${label}</a>`;
     });
 }
