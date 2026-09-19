@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Material de apoio sobre eletrônica, Arduino, prototipagem e fabricação digital.">
+  <title>Fundamentos de Prototipagem e Fabricação Digital</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%2311110f'/%3E%3Cpath d='M18 32h10m8 0h10M28 22v20m8-20v20' stroke='%23b9f227' stroke-width='5'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header__inner shell">
+      <a class="brand" href="index.html"><span class="brand__mark">FP</span><span>Fundamentos de Prototipagem</span></a>
+      <nav class="nav" aria-label="Navegação principal">
+        <a href="#conteudos">Conteúdos</a>
+        <a href="praticas.html">Práticas</a>
+        <a class="nav__report" href="relatorio.html">Relatório</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero__grid shell">
+        <div class="hero__copy">
+          <div>
+            <p class="eyebrow">Eletrônica · Arduino · Microcontroladores</p>
+            <h1>Aprender fazendo conexões.</h1>
+          </div>
+          <p class="hero__lead">Uma trilha progressiva para entender fundamentos físicos, componentes, sinais, programação e projetos — da energia ao protótipo.</p>
+        </div>
+        <aside class="hero__side" aria-label="Resumo do material">
+          <strong>06</strong>
+          <p>módulos organizados em uma sequência de estudo, consulta e prática.</p>
+          <p><b>Comece pelos fundamentos.</b><br>Avance quando conseguir explicar, conectar e testar cada etapa.</p>
+        </aside>
+      </div>
+    </section>
+
+    <aside class="safety">
+      <div class="shell"><strong>Segurança</strong><span>Confira tensão, corrente, polaridade e pinagem. Nunca ligue motores ou cargas de corrente elevada diretamente a uma GPIO e não aplique 5 V em entradas limitadas a 3,3 V.</span></div>
+    </aside>
+
+    <section class="section" id="conteudos">
+      <div class="shell">
+        <div class="section__head">
+          <p class="eyebrow">Percurso de aprendizagem</p>
+          <div><h2>Conteúdos</h2><p class="section__intro">Abra cada módulo para ver seus assuntos. Os materiais detalhados serão incorporados ao site progressivamente.</p></div>
+        </div>
+        <div class="curriculum">
+          <details class="module" open>
+            <summary><span class="module__number">01</span><h3>Fundamentos físicos</h3><span class="module__toggle">+</span></summary>
+            <div class="module__body"><ul class="topic-list">
+              <li><b>Energia e conversão</b><br><span>Conservação, conversão e eficiência</span></li>
+              <li><b>Grandezas elétricas</b><br><span>Tensão, corrente, resistência, potência e Lei de Ohm</span></li>
+              <li><b>Circuitos e alimentação</b><br><span>Série, paralelo, GND, VCC e polaridade</span></li>
+              <li><b>Montagem e segurança</b><br><span>Protoboard, curto-circuito, ESD, ruído e bounce</span></li>
+            </ul></div>
+          </details>
+          <details class="module">
+            <summary><span class="module__number">02</span><h3>Microcontroladores, Arduino e GPIO</h3><span class="module__toggle">+</span></summary>
+            <div class="module__body"><ul class="topic-list">
+              <li><b>Microcontrolador e Arduino</b><br><span>CPU, memória, periféricos e firmware</span></li>
+              <li><b>IDE, USB e bibliotecas</b><br><span>Sketch, compilação, upload, drivers e Monitor Serial</span></li>
+              <li><b>GPIO e sinais digitais</b><br><span>Entrada, saída, níveis lógicos, pull-up e pull-down</span></li>
+              <li><b>Sinais e comunicação</b><br><span>ADC, PWM, duty cycle, I²C, SPI e UART</span></li>
+            </ul></div>
+          </details>
+          <details class="module">
+            <summary><span class="module__number">03</span><h3>LED comum, LED RGB e resistores</h3><span class="module__toggle">+</span></summary>
+            <div class="module__body"><ul class="topic-list">
+              <li><b>LED comum</b><br><span>Diodo, polaridade, ânodo e cátodo</span></li>
+              <li><b>Resistor do LED</b><br><span>Cálculo, valor comercial, potência e código de cores</span></li>
+              <li><b>LED RGB</b><br><span>Mistura aditiva, canais e tipos de terminal comum</span></li>
+              <li><b>Guia prático</b><br><span>Ligação, pisca-LED, brilho PWM e controle de cor</span></li>
+            </ul></div>
+          </details>
+          <details class="module">
+            <summary><span class="module__number">04</span><h3>Entradas, buzzer e blocos</h3><span class="module__toggle">+</span></summary>
+            <div class="module__body"><ul class="topic-list">
+              <li><b>Botões e entradas</b><br><span>Entrada flutuante, pull-up, ruído e debounce</span></li>
+              <li><b>Potenciômetro e LDR</b><br><span>Divisor de tensão, leitura analógica e mapeamento</span></li>
+              <li><b>Buzzer e som</b><br><span>Frequência, período, tom e proteção</span></li>
+              <li><b>Programação em blocos</b><br><span>Sequência, variável, condição, repetição e temporização</span></li>
+            </ul></div>
+          </details>
+          <details class="module">
+            <summary><span class="module__number">05</span><h3>Módulos, sensores e atuadores</h3><span class="module__toggle">+</span></summary>
+            <div class="module__body"><ul class="topic-list">
+              <li><b>Módulos e potência</b><br><span>Pinagem, transistor, driver e diodo de roda livre</span></li>
+              <li><b>Sensores</b><br><span>Ultrassônico, TRIG, ECHO, PIR e presença</span></li>
+              <li><b>Motores</b><br><span>Motor DC, ponte H, direção, velocidade e servomotor</span></li>
+              <li><b>Display e conversão</b><br><span>LCD I²C, endereço, contraste e LM2596</span></li>
+            </ul></div>
+          </details>
+          <details class="module">
+            <summary><span class="module__number">06</span><h3>Revisão e aprofundamento</h3><span class="module__toggle">+</span></summary>
+            <div class="module__body"><ul class="topic-list">
+              <li><b>Respostas comentadas</b><br><span>Conversão, conexão segura, sensores e GPIO</span></li>
+              <li><b>Exercícios e diagnóstico</b><br><span>Fundamentos, conexões, gabarito e método de teste</span></li>
+              <li><b>Aprofundamento</b><br><span>Medição, potência, sinais, comunicação e programação</span></li>
+              <li><b>PictoBlox e Tinkercad</b><br><span>Modos, simulação, blocos, texto e documentação</span></li>
+            </ul></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section projects" id="projetos">
+      <div class="shell">
+        <div class="section__head"><p class="eyebrow">Aplicação prática</p><div><h2>Projetos</h2><p class="section__intro">Treze propostas presentes no material-base. A primeira série de conexões e blocos já está disponível em uma página própria.</p><p><a class="text-link" href="praticas.html">Abrir conexões e blocos →</a></p></div></div>
+        <div class="project-grid">
+          <article class="project"><small>Saída digital</small><h3>Pisca-LED</h3><p>Polaridade e temporização</p></article>
+          <article class="project"><small>PWM</small><h3>Controle de brilho</h3><p>LED, resistor e modulação</p></article>
+          <article class="project"><small>Três canais</small><h3>Misturador RGB</h3><p>PWM e mistura aditiva</p></article>
+          <article class="project"><small>Entrada digital</small><h3>Botão controla LED</h3><p>Pull-up e condição</p></article>
+          <article class="project"><small>Entrada analógica</small><h3>Controle com potenciômetro</h3><p>Divisor, ADC e mapeamento</p></article>
+          <article class="project"><small>Sensor</small><h3>Luz automática</h3><p>LDR, leitura e decisão</p></article>
+          <article class="project"><small>Som</small><h3>Alarme sonoro</h3><p>Buzzer, frequência e tempo</p></article>
+          <article class="project"><small>Distância</small><h3>Medidor ultrassônico</h3><p>TRIG, ECHO e tempo de voo</p></article>
+          <article class="project"><small>Presença</small><h3>Detector de movimento</h3><p>PIR e entrada digital</p></article>
+          <article class="project"><small>Movimento</small><h3>Controle de servo</h3><p>Pulso, ângulo e alimentação</p></article>
+          <article class="project"><small>Potência</small><h3>Controle de motor DC</h3><p>Ponte H, direção e PWM</p></article>
+          <article class="project"><small>Alimentação</small><h3>Fonte ajustável</h3><p>LM2596 e multímetro</p></article>
+          <article class="project"><small>Interface</small><h3>Acionamento de carga</h3><p>Transistor e driver</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section__head"><p class="eyebrow">Antes de conectar</p><div><h2>Perguntas fundamentais</h2></div></div>
+        <ol class="questions">
+          <li>O que desejo medir ou controlar?</li><li>Qual tensão alimenta o componente e quanta corrente ele consome?</li>
+          <li>Qual é a função de cada terminal?</li><li>A GPIO será entrada, saída ou terá função especial?</li>
+          <li>O sinal é digital, analógico, PWM, I²C, SPI ou UART?</li><li>Preciso de resistor, divisor, transistor, driver, diodo ou fonte externa?</li>
+          <li>Os dispositivos precisam compartilhar GND?</li><li>Qual bloco representa a ação e qual código ele gera?</li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material em desenvolvimento · consulte o relatório de progresso</p></div></footer>
+</body>
+</html>

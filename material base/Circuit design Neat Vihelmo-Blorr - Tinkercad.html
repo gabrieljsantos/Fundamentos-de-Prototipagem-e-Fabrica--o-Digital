@@ -1,0 +1,177 @@
+<!DOCTYPE html><html><head><base href="/"><title>Circuit design Neat Vihelmo-Blorr - Tinkercad</title><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touce-icon" href="/img/favicon.ico"><meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html,charset=utf-8"><meta http-equiv="X-UA-Compatible" content="chrome=1"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5"><meta name="twitter:dnt" content="on"><meta name="google-site-verification" content="ggwscoHgFB3_aRLEQkfobIno_rxQ62bp-i4Oa-ZFDMQ"><meta property="og:title" content="Circuit design Neat Vihelmo-Blorr - Tinkercad"><meta name="description" content="Tinkercad is a free, easy-to-use app for 3D design, electronics, and coding."><meta property="og:description" content="Tinkercad is a free, easy-to-use app for 3D design, electronics, and coding."><meta property="og:image" content="https://csg.us-east-1.prd.tinkercad.com/things/kQpWFPuv4uC/t725.png?rev=1770472451692000000&amp;s=&amp;v=1&amp;type=circuits"><meta property="og:site_name" content="Tinkercad"><meta property="og:url" content="/things/kQpWFPuv4uC?googleCourseId=&quot;&quot;&amp;googleItemId=&quot;&quot;&amp;googleAttachmentId=&quot;&quot;"><link href="/font-awesome.min.css" rel="stylesheet"><script src="https://www.recaptcha.net/recaptcha/api.js" async defer></script><link rel="manifest" href="/manifest.json"><script>if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js').then(function(registration) {
+            console.log("Registered service worker with scope: ", registration.scope);
+        }, function(error) {
+            console.log("Service worker registration failed: ", error);
+        });
+    });
+}</script><script>window.__webpack_public_path__ = 'https://www.tinkercad.com/assets_fe_07d30b2a75e15483a9f9142aa538ba2a57d17e41/js/tinkercad-frontend/browser/';
+window.__webpack_editor_public_path__ = 'https://editor.tinkercad.com/assets_v2_32kufvm';
+window.__webpack_web_components_public_path = 'https://www.tinkercad.com/assets_fe_07d30b2a75e15483a9f9142aa538ba2a57d17e41/web_components/';
+window.googleGA = function() {};
+window._gaq = function() {};
+</script><script type="text/javascript" src="/js/webgl_utils.js"></script><script type="text/javascript" src="/js/webgl_check.js"></script><script>window.ldClientId = '5d407e1b44690006c0951bb7';</script><script type="text/javascript" src="https://editor.tinkercad.com/assets_v2_32kufvm/js/featureFlagsBundle.js" integrity="sha384-9/9a1cbzlxBMp3L7GyZGI6jOrJK730/54t6t7mqXtYb8AV/NUpLodlnIMg3rAoHe" crossorigin="anonymous"></script><script>var LOCALE_CODES = [{
+    locale: 'en',
+    codes: ['en', 'en-us'],
+    name: 'English'
+}, {
+    locale: 'cs',
+    codes: ['cs', 'cs-cz'],
+    name: 'Čeština'
+}, {
+    locale: 'de',
+    codes: ['de', 'de-at', 'de-ch', 'de-de', 'de-li', 'de-lu'],
+    name: 'Deutsch'
+}, {
+    locale: 'es',
+    codes: ['es', 'es-ar', 'es-bo', 'es-cl', 'es-co', 'es-cr',
+    'es-do', 'es-ec', 'es-es', 'es-gt', 'es-gt', 'es-hn', 'es-mx',
+    'es-ni', 'es-pa', 'es-pe', 'es-pr', 'es-us', 'es-uy', 'es-ve'],
+    name: 'Español'
+}, {
+    locale: 'fr',
+    codes: ['fr', 'fr-be', 'fr-ca', 'fr-ch', 'fr-fr', 'fr-lu', 'fr-mc', 'fr-nl'],
+    name: 'Français'
+}, {
+    locale: 'it',
+    codes: ['it', 'it-it', 'it-ch'],
+    name: 'Italiano'
+}, {
+    locale: 'hu',
+    codes: ['hu', 'hu-hu'],
+    name: 'Magyar'
+}, {
+    locale: 'nl',
+    codes: ['nl', 'nl-be', 'nl-nl'],
+    name: 'Nederlands'
+}, {
+    locale: 'pl',
+    codes: ['pl', 'pl-pl'],
+    name: 'Polski'
+}, {
+    locale: 'pt-BR',
+    codes: ['pt-br', 'pt-pt'],
+    name: 'Português'
+}, {
+    locale: 'ru',
+    codes: ['ru-mo', 'ru-ru'],
+    name: 'Русский'
+}, {
+    locale: 'tr',
+    codes: ['tr', 'tr-tr'],
+    name: 'Türkçe'
+}, {
+    locale: 'zh-Hans',
+    codes: ['zh-cn', 'zh-Hans'],
+    name: '中文 (简体)'
+}, {
+    locale: 'zh-Hant',
+    codes: ['zh-tw', 'zh-Hant'],
+    name: '中文 (繁体)'
+}, {
+    locale: 'ja',
+    codes: ['ja', 'ja-jp'],
+    name: '日本語'
+}, {
+    locale: 'ko',
+    codes: ['ko', 'ko-kr'],
+    name: '한국어'
+}];
+
+var localeCode = 'en';
+var cookies = document.cookie.split('; ');
+
+if (navigator && navigator.language) {
+    LOCALE_CODES.forEach(function(item) {
+        if (item.codes.includes(navigator.language.toLowerCase())) {
+            localeCode = item.locale;
+        }
+    });
+}
+
+for (var i = 0; i < cookies.length; i++) {
+    if (cookies[i].startsWith('locale_code=')) {
+        localeCode = cookies[i].substring(12);
+    }
+}
+
+window.LOCALE_CODE = localeCode;
+document.documentElement.setAttribute('lang', localeCode);</script><script src="https://www.tinkercad.com/script.js" data-website-id="3e34840f-4d39-42a6-8cf1-12f442f92835" data-do-not-track="true" data-exclude-search="true" defer></script><link rel="stylesheet" href="https://www.tinkercad.com/assets_fe_07d30b2a75e15483a9f9142aa538ba2a57d17e41/js/tinkercad-frontend/browser/variables.css"><link rel="stylesheet" href="https://www.tinkercad.com/assets_fe_07d30b2a75e15483a9f9142aa538ba2a57d17e41/js/tinkercad-frontend/browser/typography.css"><style type="text/css">.notifications-wrapper {
+    display: none;
+}
+
+body.loaded .notifications-wrapper {
+    display: block;
+}
+
+#page-learn lesson,
+#page-learn project-gallery {
+    padding-top: 81px;
+}
+
+#page-learn.with-announce lesson,
+#page-learn.with-announce project-gallery {
+    padding-top: 81px;
+}
+
+.colorful-footer .footer-blocks .dropdown-menu {
+    transform: translateY(calc(-100% - 0px));
+}</style><script>window.base_url = "https://editor.tinkercad.com/assets_cc_1faad5n/js";
+
+var envOptions = {
+    staticContentUrl: 'https://editor.tinkercad.com',
+    shareJsUrl: 'https://colab.tinkercad.com'
+    };
+    </script><link href="https://s3-us-west-1.amazonaws.com/123d-circuits-assets/apple-touch-icon.png" rel="apple-touch-icon" sizes="72x72" type="image/vnd.microsoft.icon"><link href="https://s3-us-west-1.amazonaws.com/123d-circuits-assets/apple-touch-icon-57x57-precomposed.png" rel="apple-touch-icon" sizes="57x57" type="image/vnd.microsoft.icon"><link href="https://s3-us-west-1.amazonaws.com/123d-circuits-assets/apple-touch-icon-72x72-precomposed.png" rel="apple-touch-icon" sizes="72x72" type="image/vnd.microsoft.icon"><link href="https://s3-us-west-1.amazonaws.com/123d-circuits-assets/apple-touch-icon-114x114-precomposed.png" rel="apple-touch-icon" sizes="114x114" type="image/vnd.microsoft.icon"><link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&amp;amp;subset=cyrillic,latin,latin-ext" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'"><link href="https://editor.tinkercad.com/assets_v2_32kufvm/style/communicatorBundle.css" rel="stylesheet" type="text/css"><link href="https://editor.tinkercad.com/assets_cc_1faad5n/js/circuits.css" media="all" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://editor.tinkercad.com/assets_v2_32kufvm/js/vendorBundle.js" integrity="sha384-Ew4+3N4i1PV9JR3+pyvYa3NS69eHYDyEIo7kxqV+uMtmkkXJTfDVMFI1rcHV4JVd" crossorigin="anonymous"></script><script type="text/javascript" src="https://colab.tinkercad.com/collaboration/jsapi/v1"></script><style>.ignite-widget {
+    float: left;
+    height: 100%;
+    width: 0px;
+    margin-top: -50px;
+    padding-top: 50px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    z-index: 1420;
+    transition: left 300ms;
+    position: relative;
+}</style></head><body><div id="main"><div style="min-height:380px"><div class="root_container js-editor js-editor--circuit editorContainer"><div class="loading"><div class="loading_spinner"><div class="circuits_spinner"><div class="circuits_spinner__bounce1"></div><div class="circuits_spinner__bounce2"></div><div class="circuits_spinner__bounce3"></div></div></div></div><div class="loading_error_container hide"><a class="btn loading_error" target="_blank" href="/help"></a>This shouldn't take so long, click here to troubleshoot</div><div class="loading_text"><span class="loading_text_status">Initializing</span></div></div><script type="text/javascript" src="https://editor.tinkercad.com/assets_v2_32kufvm/js/communicatorBundle.js" integrity="sha384-faP2HPGCL1D6yTeYj8AVRYctxVBs8ESnmAVcp6h9/RxiENHT+JrTSz40SqICQIwX" crossorigin="anonymous"></script><script type="text/javascript" src="https://editor.tinkercad.com/assets_cc_1faad5n/js/vendor-compiled.js?body=1" integrity="sha384-gKbl7nkcCoI1fG6oIjOoikJYJZf5QHrcoEM1q9H4ziLELw0z5p59W45kVdmCWpse" crossorigin="anonymous"></script><script type="text/javascript" src="https://editor.tinkercad.com/assets_cc_1faad5n/js/circuits-compiled.js" integrity="sha384-9Q/zR5RieC5SMch4MP6ZW4lqhmFUg4Wbm/A0lUkSUnL7jtRlXlTYG2uZg5skrHT3" crossorigin="anonymous" charset="utf-8"></script><script id="loadEditorScript" type="module">var shareprops;
+
+var meta = {
+    "name": "Neat Vihelmo-Blorr",
+    "shareprops": shareprops,
+    "language": window.LOCALE_CODE || 'en',
+    "contenturl": "https://api-reader-prd.tinkercad.com",
+    "docid": "kQpWFPuv4uC",
+    "metaid": "kQpWFPuv4uC",
+    "staticContentUrl": "https://editor.tinkercad.com",
+    "colabHost": "https://colab.tinkercad.com",
+    "arduinoCompile": "https://prod-circuits-compiler.tinkercad.com",
+    "arduinoCompileNew": "https://circuits-compiler.tinkercad.com",
+    "csgHostUrl": "https://csg-prd.tinkercad.com",
+    "fusionTeamUrl": 'autodesk360.com',
+    "apiReaderUrl": 'https://api-reader-prd.tinkercad.com',
+    "recaptchaSiteKey": '6LdoFbEUAAAAAHzRmSSadntUVx2s-daq8ewPv1KS',
+    "googleCourseId": "",
+    "googleItemId": "",
+    "googleAttachmentId": "",
+    "version": "",
+    "contentfulApiKey": '2S1whBR1jkdivB6wuqq6zAPqdah2wFzvTOgb2t3C1jw',
+    "contentfulHost": 'www.tinkercad.com',
+    "contentfulSpace": 'jl5ii4oqrdmc',
+};
+if (true) {
+    meta["userId"] = 'gD1ErMln8AG';
+    meta["profile_pic"] = ['/img/avatar-active_40.png', {"alt":"You","class":"avatar avatar avatar--medium","title":"You","width":45,"height":45}]
+}
+
+var editMode = 1;
+var docId = 'kQpWFPuv4uC';
+
+const circuit_editor = new CircuitEditorApp('.js-editor', editMode,
+    docId, null, 'breadboard', meta, false, () => {});
+window.circuit_editor = circuit_editor;
+
+document.getElementById("loadEditorScript").remove();</script></div></div></body></html>
