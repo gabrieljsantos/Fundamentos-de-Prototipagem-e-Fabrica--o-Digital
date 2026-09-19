@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Tensão, corrente e resistor do LED — material de apoio de Fundamentos-de-Prototipagem-e-Fabrica--o-Digital."><title>Tensão, corrente e resistor do LED — Fundamentos-de-Prototipagem-e-Fabrica--o-Digital</title><link rel="stylesheet" href="../styles.css?v=5"></head>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Tensão, corrente e resistor do LED — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>Tensão, corrente e resistor do LED — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=5"></head>
 <body><main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 13 de 33</p><h1>Tensão, corrente e resistor do LED</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
 <p><a href="../index.html">← Voltar ao início</a></p>
 <h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
@@ -23,9 +23,9 @@
 <p>O <strong>resistor limitador</strong> fica em série com o LED e controla a corrente. Sem ele, uma pequena variação de tensão pode provocar grande aumento de corrente.</p>
 <p>O resistor recebe a diferença entre a tensão da fonte e a tensão direta do LED.</p>
 <h3 id="calculo-do-resistor">Cálculo do resistor</h3>
-<pre data-language="text"><code>R = (Vfonte − Vf_LED) / I_LED</code></pre>
+<pre data-language="text"><button class="copy-code" type="button">Copiar</button><code>R = (Vfonte − Vf_LED) / I_LED</code></pre>
 <p>Exemplo com 5 V, <code>Vf = 2 V</code> e corrente desejada de 10 mA:</p>
-<pre data-language="text"><code>10 mA = 0,010 A
+<pre data-language="text"><button class="copy-code" type="button">Copiar</button><code>10 mA = 0,010 A
 R = (5 − 2) / 0,010 = 300 Ω</code></pre>
 <p>Se <code>Vfonte</code> não for maior que <code>Vf</code>, esse cálculo simples não representa uma ligação funcional. Se o LED for controlado por GPIO, use a tensão real do nível HIGH e respeite os limites da porta.</p>
 <h3 id="valor-comercial">Valor comercial</h3>
@@ -33,9 +33,9 @@ R = (5 − 2) / 0,010 = 300 Ω</code></pre>
 <p>Não substitua por um valor menor sem recalcular corrente, potência e limites.</p>
 <h3 id="potencia-do-resistor">Potência do resistor</h3>
 <p>A <strong>potência do resistor</strong> é a energia por segundo que ele dissipa como calor. Calcule:</p>
-<pre data-language="text"><code>P = I² × R</code></pre>
+<pre data-language="text"><button class="copy-code" type="button">Copiar</button><code>P = I² × R</code></pre>
 <p>Para 10 mA e 330 Ω:</p>
-<pre data-language="text"><code>P = 0,010² × 330 = 0,033 W</code></pre>
+<pre data-language="text"><button class="copy-code" type="button">Copiar</button><code>P = 0,010² × 330 = 0,033 W</code></pre>
 <p>Um resistor de 1/4 W suporta nominalmente 0,25 W e oferece folga nesse exemplo. Condições térmicas e especificações do fabricante continuam relevantes.</p>
 <h3 id="codigo-de-cores">Código de cores</h3>
 <p>No resistor de quatro faixas, as duas primeiras representam dígitos, a terceira é o multiplicador e a quarta é a tolerância.</p>
@@ -66,4 +66,20 @@ R = (5 − 2) / 0,010 = 300 Ω</code></pre>
 <p><a href="03a-led-comum.html">← Anterior: LED comum</a> · <a href="03c-led-rgb.html">Próximo: LED RGB →</a></p>
 <p><a href="../index.html">← Voltar ao início</a></p></article></div>
 <nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="03a-led-comum.html">← Conteúdo anterior</a><a href="03c-led-rgb.html">Próximo conteúdo →</a></nav></main>
-<footer class="footer"><div class="shell"><b>Fundamentos-de-Prototipagem-e-Fabrica--o-Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer>
+<script>
+document.addEventListener('click', async (event) => {
+  const button = event.target.closest('.copy-code');
+  if (!button) return;
+  const code = button.parentElement.querySelector('code');
+  if (!code) return;
+  try {
+    await navigator.clipboard.writeText(code.textContent);
+    button.textContent = 'Copiado';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1400);
+  } catch {
+    button.textContent = 'Selecione o código';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1600);
+  }
+});
+</script></body></html>

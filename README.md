@@ -1,4 +1,4 @@
-# Fundamentos-de-Prototipagem-e-Fabrica--o-Digital
+# Fundamentos de Prototipagem e Fabricação Digital
 
 Material de apoio para revisar os conceitos e as práticas introdutórias da formação. O conteúdo segue uma ordem progressiva: fundamentos físicos, microcontroladores, componentes, conexões e projetos.
 

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Botões, interruptores e entradas digitais — material de apoio de Fundamentos-de-Prototipagem-e-Fabrica--o-Digital."><title>Botões, interruptores e entradas digitais — Fundamentos-de-Prototipagem-e-Fabrica--o-Digital</title><link rel="stylesheet" href="../styles.css?v=5"></head>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Botões, interruptores e entradas digitais — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>Botões, interruptores e entradas digitais — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=5"></head>
 <body><main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 17 de 33</p><h1>Botões, interruptores e entradas digitais</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
 <p><a href="../index.html">← Voltar ao início</a></p>
 <h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
@@ -20,7 +20,7 @@
 <p>Uma <strong>entrada flutuante</strong> não está firmemente ligada a HIGH nem a LOW. Como uma entrada consome corrente mínima, interferências podem alterar sua tensão e produzir leituras imprevisíveis.</p>
 <h3 id="pull-up">Pull-up</h3>
 <p>Um <strong>resistor pull-up</strong> conecta fracamente a entrada ao VCC e define HIGH como estado de repouso. O botão pode conectar a entrada ao GND quando pressionado.</p>
-<pre data-language="cpp"><code>pinMode(2, INPUT_PULLUP);
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>pinMode(2, INPUT_PULLUP);
 bool pressionado = digitalRead(2) == LOW;</code></pre>
 <p>Nesse circuito, solto significa HIGH e pressionado significa LOW.</p>
 <h3 id="pull-down">Pull-down</h3>
@@ -31,7 +31,7 @@ bool pressionado = digitalRead(2) == LOW;</code></pre>
 <p>Fios curtos, conexões firmes, pull-up/pull-down e filtragem adequada ajudam. A solução depende da origem do ruído.</p>
 <h3 id="bounce-e-debounce">Bounce e debounce</h3>
 <p><strong>Bounce</strong> é o repique mecânico do contato: durante alguns instantes, um único toque pode produzir várias transições. <strong>Debounce</strong> é o tratamento usado para aceitar apenas uma mudança válida.</p>
-<pre data-language="cpp"><code>if (digitalRead(2) == LOW) {
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>if (digitalRead(2) == LOW) {
   delay(20); // exemplo introdutório; projetos maiores preferem lógica sem bloqueio
   if (digitalRead(2) == LOW) {
     // toque confirmado
@@ -46,4 +46,20 @@ bool pressionado = digitalRead(2) == LOW;</code></pre>
 <p><a href="04b-divisor-potenciometro-ldr.html">Próximo: divisor e sensores resistivos →</a></p>
 <p><a href="../index.html">← Voltar ao início</a></p></article></div>
 <nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="04-entradas-buzzer-blocos.html">← Conteúdo anterior</a><a href="04b-divisor-potenciometro-ldr.html">Próximo conteúdo →</a></nav></main>
-<footer class="footer"><div class="shell"><b>Fundamentos-de-Prototipagem-e-Fabrica--o-Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer>
+<script>
+document.addEventListener('click', async (event) => {
+  const button = event.target.closest('.copy-code');
+  if (!button) return;
+  const code = button.parentElement.querySelector('code');
+  if (!code) return;
+  try {
+    await navigator.clipboard.writeText(code.textContent);
+    button.textContent = 'Copiado';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1400);
+  } catch {
+    button.textContent = 'Selecione o código';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1600);
+  }
+});
+</script></body></html>

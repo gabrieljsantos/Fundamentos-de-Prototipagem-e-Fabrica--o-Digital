@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Revisão de módulos, sensores e atuadores — material de apoio de Fundamentos-de-Prototipagem-e-Fabrica--o-Digital."><title>Revisão de módulos, sensores e atuadores — Fundamentos-de-Prototipagem-e-Fabrica--o-Digital</title><link rel="stylesheet" href="../styles.css?v=5"></head>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Revisão de módulos, sensores e atuadores — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>Revisão de módulos, sensores e atuadores — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=5"></head>
 <body><main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 21 de 33</p><h1>Revisão de módulos, sensores e atuadores</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
 <p><a href="../index.html">← Voltar ao início</a></p>
 <h3 id="ordem-recomendada">Ordem recomendada</h3>
@@ -24,4 +24,20 @@
 </ol>
 <p><a href="../index.html">← Voltar ao início</a></p></article></div>
 <nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="04d-blocos-codigo.html">← Conteúdo anterior</a><a href="05a-modulos-transistores.html">Próximo conteúdo →</a></nav></main>
-<footer class="footer"><div class="shell"><b>Fundamentos-de-Prototipagem-e-Fabrica--o-Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer>
+<script>
+document.addEventListener('click', async (event) => {
+  const button = event.target.closest('.copy-code');
+  if (!button) return;
+  const code = button.parentElement.querySelector('code');
+  if (!code) return;
+  try {
+    await navigator.clipboard.writeText(code.textContent);
+    button.textContent = 'Copiado';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1400);
+  } catch {
+    button.textContent = 'Selecione o código';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1600);
+  }
+});
+</script></body></html>

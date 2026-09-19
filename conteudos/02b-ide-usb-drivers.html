@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Arduino IDE, USB, drivers e bibliotecas — material de apoio de Fundamentos-de-Prototipagem-e-Fabrica--o-Digital."><title>Arduino IDE, USB, drivers e bibliotecas — Fundamentos-de-Prototipagem-e-Fabrica--o-Digital</title><link rel="stylesheet" href="../styles.css?v=5"></head>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Arduino IDE, USB, drivers e bibliotecas — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>Arduino IDE, USB, drivers e bibliotecas — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=5"></head>
 <body><main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 08 de 33</p><h1>Arduino IDE, USB, drivers e bibliotecas</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
 <p><a href="../index.html">← Voltar ao início</a></p>
 <h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
@@ -16,38 +16,60 @@
 <li><a href="#monitor-serial">Monitor Serial</a></li>
 </ul>
 <h3 id="arduino-ide">Arduino IDE</h3>
-<p>A <strong>Arduino IDE</strong> é o ambiente usado para editar o programa, verificar erros, compilar, carregar o código na placa, instalar suporte a placas e bibliotecas e acessar a comunicação serial.</p>
+<p>A <strong>Arduino IDE</strong> é o ambiente usado para editar o programa, verificar erros, compilar, carregar o código na placa, instalar suporte a placas e bibliotecas e acessar a comunicação serial. No menu <strong>Ferramentas</strong>, normalmente são escolhidos a placa, a porta, o programador e opções como frequência, partição e velocidade de upload.</p>
+<p>Na IDE 2, a barra lateral reúne o editor, o gerenciador de placas, o gerenciador de bibliotecas, o Monitor Serial e o Serial Plotter. A IDE 1.x oferece as mesmas funções em menus diferentes. O importante é conferir a versão da IDE e seguir a documentação da placa instalada.</p>
 <h3 id="sketch">Sketch</h3>
 <p><strong>Sketch</strong> é o nome tradicional de um programa ou projeto Arduino. Sua estrutura básica contém:</p>
-<pre data-language="cpp"><code>void setup() {
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>void setup() {
   // Executa uma vez ao ligar ou reiniciar.
 }
 
 void loop() {
   // Repete enquanto a placa estiver funcionando.
 }</code></pre>
+<p>Um sketch pode ser dividido em arquivos <code>.ino</code>, <code>.h</code> e <code>.cpp</code>. Variáveis globais, constantes, funções auxiliares e classes ajudam a separar responsabilidades. Por exemplo, a leitura de um sensor pode ficar em uma função <code>lerTemperatura()</code> e o controle do atuador em <code>acionarRele()</code>, deixando o <code>loop()</code> mais fácil de entender.</p>
 <h3 id="compilacao">Compilação</h3>
 <p><strong>Compilação</strong> é a tradução do código escrito pelo estudante para instruções adequadas ao microcontrolador. O processo também detecta erros de sintaxe e combina o sketch com bibliotecas e arquivos da placa.</p>
 <p>Compilar com sucesso não garante que a ligação elétrica ou a lógica estejam corretas.</p>
+<p>Erros comuns incluem biblioteca ausente, nome de função digitado incorretamente, variável fora de escopo, falta de ponto e vírgula e conflito entre duas bibliotecas com o mesmo nome. O aviso de memória informa quanto do programa e da RAM está sendo utilizado; pouca RAM pode causar travamentos mesmo quando a compilação termina.</p>
 <h3 id="upload">Upload</h3>
 <p><strong>Upload</strong>, ou carregamento, é o envio do programa compilado à memória da placa. Ele depende da placa correta, porta correta, cabo com dados, driver reconhecido e mecanismo de gravação funcionando.</p>
 <p>Depois do upload, o microcontrolador pode executar sem o computador, desde que receba alimentação adequada.</p>
+<p>Em placas como Arduino Uno, o bootloader recebe o código pela serial. Em algumas placas ESP32, é necessário manter o botão <strong>BOOT</strong> pressionado durante parte do processo; outras entram automaticamente no modo de gravação. Nunca interrompa a alimentação durante a escrita da memória e confirme a mensagem final de sucesso.</p>
 <h3 id="porta-usb">Porta USB</h3>
 <p>A <strong>porta USB</strong> pode fornecer alimentação e transportar dados. Algumas placas possuem conversor USB/serial; outras implementam USB diretamente no microcontrolador.</p>
 <p>Um cabo que serve apenas para carga pode acender a placa, mas não permite upload. Evite puxar pelo fio, forçar o conector ou desconectar durante a gravação. Motores e servos não devem depender indiscriminadamente da alimentação USB.</p>
+<p>Também existem diferenças entre USB 2.0 e USB 3.x, hubs, extensões e conectores USB-C. Uma falha intermitente pode ser causada por cabo ruim, queda de tensão, mau contato ou excesso de corrente. Para diagnosticar, teste outro cabo de dados, outra porta do computador e a placa sem periféricos conectados.</p>
 <h3 id="porta-serial">Porta serial</h3>
 <p>A <strong>porta serial</strong> é o canal lógico que o sistema operacional apresenta para comunicação com a placa. No Windows pode aparecer como COM; em Linux e macOS, como um dispositivo com outro padrão de nome.</p>
 <p>Se mais de uma placa estiver conectada, identifique qual porta aparece ou desaparece ao conectar e desconectar o dispositivo com segurança.</p>
 <h3 id="driver-usb">Driver USB</h3>
 <p>O <strong>driver USB</strong> é o software que permite ao sistema operacional reconhecer e operar a interface da placa. Algumas interfaces usam drivers já incluídos no sistema; outras exigem driver do fabricante, como em certas placas com CH340 ou CP210x.</p>
 <p>Instale drivers somente de fonte confiável e compatível com o componente da placa.</p>
+<p>Exemplos frequentes de interfaces USB/serial são <strong>ATmega16U2</strong>, <strong>CH340/CH341</strong>, <strong>CP2102/CP210x</strong> e <strong>FT232</strong>. O driver não é a biblioteca do sensor e não é o pacote da placa: ele atua no sistema operacional para criar a comunicação USB. Sinais de problema incluem porta que não aparece, dispositivo desconhecido ou porta que desaparece durante o upload.</p>
 <h3 id="pacote-de-placa">Pacote de placa</h3>
-<p>O <strong>pacote de placa</strong> fornece à IDE compilador, definições de pinos e métodos de upload para uma família. O suporte ao ESP32, por exemplo, não é a mesma coisa que uma biblioteca de sensor.</p>
+<p>O <strong>pacote de placa</strong> fornece à IDE compilador, definições de pinos, variantes de placa, arquivos de inicialização e métodos de upload para uma família. Exemplos: <strong>Arduino AVR Boards</strong> para Uno/Nano/Mega, <strong>esp32 by Espressif Systems</strong> para placas ESP32, <strong>esp8266 by ESP8266 Community</strong> e pacotes para RP2040.</p>
+<p>O pacote é instalado em <strong>Ferramentas → Placa → Gerenciador de Placas</strong>. Depois da instalação, selecione o modelo exato, pois “ESP32 Dev Module”, “NodeMCU-32S”, Uno e Nano podem ter memórias, bootloaders e pinagens diferentes. Atualizar um pacote pode alterar opções de compilação; registre a versão quando um projeto precisar ser reproduzido.</p>
 <h3 id="biblioteca">Biblioteca</h3>
 <p>Uma <strong>biblioteca</strong> é código reutilizável que oferece funções para componentes ou tarefas. Ela pode simplificar LCD, servo ou sensor, mas não corrige alimentação e fiação erradas.</p>
+<p>Exemplos de bibliotecas e usos:</p>
+<ul>
+<li><strong>Servo</strong>: gera sinais para servomotores, usando <code>attach()</code> e <code>write()</code>.</li>
+<li><strong>Wire</strong>: implementa I²C, com <code>begin()</code>, <code>beginTransmission()</code> e <code>requestFrom()</code>.</li>
+<li><strong>SPI</strong>: controla periféricos SPI, como cartões SD, displays e conversores.</li>
+<li><strong>LiquidCrystal_I2C</strong>: facilita o uso de LCD 16x2 ou 20x4 com módulo I²C.</li>
+<li><strong>Adafruit GFX</strong> e bibliotecas de display: desenham texto, linhas e formas em OLED/TFT.</li>
+<li><strong>DHT sensor library</strong>: lê sensores DHT11/DHT22, respeitando o intervalo entre leituras.</li>
+<li><strong>DallasTemperature</strong> e <strong>OneWire</strong>: trabalham com sensores DS18B20.</li>
+<li><strong>PubSubClient</strong>: implementa publicação e assinatura MQTT em projetos conectados.</li>
+<li><strong>WiFi</strong> ou <strong>WiFi.h</strong>: conecta placas compatíveis a redes sem fio.</li>
+<li><strong>ArduinoJson</strong>: cria e interpreta objetos JSON para APIs, MQTT e configurações.</li>
+</ul>
+<p>No <strong>Gerenciador de Bibliotecas</strong>, pesquise pelo nome, leia o autor, a versão, a arquitetura suportada e os exemplos antes de instalar. Depois, use <strong>Arquivo → Exemplos</strong> para abrir um sketch de teste. Bibliotecas instaladas manualmente normalmente ficam na pasta <code>libraries</code> do diretório do usuário e podem exigir reinício da IDE.</p>
+<p>Uma biblioteca pode depender de outra. Por exemplo, uma biblioteca de sensor I²C pode exigir <code>Wire</code>; uma biblioteca de display pode depender de uma biblioteca gráfica. Conflitos aparecem quando duas bibliotecas oferecem o mesmo arquivo ou quando o código foi escrito para uma versão diferente. Fixar versões e registrar dependências ajuda a reproduzir o projeto.</p>
 <h3 id="monitor-serial">Monitor Serial</h3>
 <p>O <strong>Monitor Serial</strong> envia e recebe texto ou dados pela comunicação serial. Ele ajuda a acompanhar leituras e depurar decisões.</p>
-<pre data-language="cpp"><code>void setup() {
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>void setup() {
   Serial.begin(9600);
 }
 
@@ -56,6 +78,8 @@ void loop() {
   delay(1000);
 }</code></pre>
 <p>A velocidade escolhida no monitor deve corresponder ao valor configurado no programa.</p>
+<p>Além de <code>Serial.println()</code>, use rótulos e unidades para tornar a leitura útil, por exemplo <code>Serial.print("Temperatura: "); Serial.print(valor); Serial.println(" °C");</code>. O monitor também pode enviar comandos: <code>Serial.read()</code>, <code>Serial.readStringUntil('\n')</code> e <code>Serial.available()</code> permitem criar menus e alterar parâmetros sem recompilar.</p>
+<p>O <strong>Serial Plotter</strong> transforma números enviados em linhas gráficas, útil para observar temperatura, luz, aceleração ou ruído. Evite imprimir mensagens de texto no mesmo fluxo quando precisar de um gráfico limpo. Em placas com mais de uma UART, confira se está usando <code>Serial</code>, <code>Serial1</code> ou <code>Serial2</code> e quais pinos correspondem a cada porta.</p>
 <h3 id="fluxo-de-trabalho">Fluxo de trabalho</h3>
 <ol>
 <li>Conecte a placa com cabo de dados.</li>
@@ -65,13 +89,33 @@ void loop() {
 <li>Carregue o programa.</li>
 <li>Use o Monitor Serial quando necessário.</li>
 </ol>
+<p>Para um projeto com sensor, um fluxo recomendado é: instalar o pacote da placa; instalar a biblioteca; abrir o exemplo da biblioteca; testar o sensor sozinho; conferir a alimentação e a pinagem; integrar o código ao projeto; registrar placa, versão do pacote, bibliotecas e velocidade serial.</p>
 <h3 id="verifique-se-entendeu">Verifique se entendeu</h3>
 <ol>
 <li>Por que uma placa pode acender sem aparecer na IDE?</li>
 <li>Qual é a diferença entre compilação e upload?</li>
 <li>Qual é a diferença entre driver, pacote de placa e biblioteca?</li>
+<li>Qual biblioteca e pacote de placa são necessários para um ESP32 conectado por Wi‑Fi?</li>
+<li>Por que um cabo USB de carga pode acender a placa sem permitir upload?</li>
+<li>Como verificar se uma biblioteca possui exemplo compatível com o seu componente?</li>
 </ol>
 <p><a href="02a-microcontrolador-arduino.html">← Anterior: microcontrolador</a> · <a href="02c-gpio-digital.html">Próximo: GPIO digital →</a></p>
 <p><a href="../index.html">← Voltar ao início</a></p></article></div>
 <nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="02a-microcontrolador-arduino.html">← Conteúdo anterior</a><a href="02c-gpio-digital.html">Próximo conteúdo →</a></nav></main>
-<footer class="footer"><div class="shell"><b>Fundamentos-de-Prototipagem-e-Fabrica--o-Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer>
+<script>
+document.addEventListener('click', async (event) => {
+  const button = event.target.closest('.copy-code');
+  if (!button) return;
+  const code = button.parentElement.querySelector('code');
+  if (!code) return;
+  try {
+    await navigator.clipboard.writeText(code.textContent);
+    button.textContent = 'Copiado';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1400);
+  } catch {
+    button.textContent = 'Selecione o código';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1600);
+  }
+});
+</script></body></html>

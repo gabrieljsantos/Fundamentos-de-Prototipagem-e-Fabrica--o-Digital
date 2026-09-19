@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Guia prático: ligar e programar LEDs — material de apoio de Fundamentos-de-Prototipagem-e-Fabrica--o-Digital."><title>Guia prático: ligar e programar LEDs — Fundamentos-de-Prototipagem-e-Fabrica--o-Digital</title><link rel="stylesheet" href="../styles.css?v=5"></head>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Guia prático: ligar e programar LEDs — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>Guia prático: ligar e programar LEDs — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=5"></head>
 <body><main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 15 de 33</p><h1>Guia prático: ligar e programar LEDs</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--done">Com diagrama e blocos</span></aside><article class="article-content">
 <p><a href="../index.html">← Voltar ao início</a></p>
 <h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
@@ -21,7 +21,7 @@
 <li>Revise as fileiras da protoboard e a polaridade.</li>
 <li>Alimente e teste.</li>
 </ol>
-<pre data-language="text"><code>GPIO ── resistor ── ânodo → LED → cátodo ── GND</code></pre>
+<pre data-language="text"><button class="copy-code" type="button">Copiar</button><code>GPIO ── resistor ── ânodo → LED → cátodo ── GND</code></pre>
 <h3 id="piscar-led">Piscar LED</h3>
 <div class="article-table-wrap"><table class="article-table"><thead><tr><th>Bloco</th><th>Código</th></tr></thead><tbody>
 <tr><td>definir pino 9 como saída</td><td><code>pinMode(9, OUTPUT);</code></td></tr>
@@ -29,7 +29,7 @@
 <tr><td>aguardar 500 ms</td><td><code>delay(500);</code></td></tr>
 <tr><td>definir pino 9 como BAIXO</td><td><code>digitalWrite(9, LOW);</code></td></tr>
 </tbody></table></div>
-<pre data-language="cpp"><code>const int led = 9;
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>const int led = 9;
 
 void setup() {
   pinMode(led, OUTPUT);
@@ -57,7 +57,7 @@ void loop() {
       </svg>
   <div class="didactic-grid didactic-grid--code">
     <div class="didactic-panel"><h3>Blocos equivalentes</h3><div class="block-stack"><div class="block block--event">no início</div><div class="block">configurar pino <em>9</em> como <em>SAÍDA</em></div><div class="block block--loop"><span>para sempre</span><div class="block__inside"><div class="block block--high">pino <em>9</em> → <em>HIGH</em></div><div class="block block--wait">aguardar <em>500 ms</em></div><div class="block block--low">pino <em>9</em> → <em>LOW</em></div><div class="block block--wait">aguardar <em>500 ms</em></div></div></div></div></div>
-    <div class="didactic-panel"><h3>Código comentado</h3><pre data-language="cpp"><code>const int led = 9;       // LED ligado ao pino digital 9
+    <div class="didactic-panel"><h3>Código comentado</h3><pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>const int led = 9;       // LED ligado ao pino digital 9
 
 void setup() {
   pinMode(led, OUTPUT);  // define o pino como saída
@@ -72,7 +72,7 @@ void loop() {
   </div>
 </section><h3 id="controle-de-brilho-com-pwm">Controle de brilho com PWM</h3>
 <p>O <strong>PWM</strong> altera o ciclo de trabalho dos pulsos e, com isso, o brilho percebido. Use uma GPIO compatível.</p>
-<pre data-language="cpp"><code>const int led = 9;
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>const int led = 9;
 
 void setup() {
   pinMode(led, OUTPUT);
@@ -95,7 +95,7 @@ void loop() {
 </ol>
 <h3 id="controle-de-cor">Controle de cor</h3>
 <p>Exemplo para RGB de cátodo comum no Uno clássico:</p>
-<pre data-language="cpp"><code>const int vermelho = 9;
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>const int vermelho = 9;
 const int verde = 10;
 const int azul = 11;
 
@@ -130,4 +130,20 @@ void loop() {
 <p><a href="03c-led-rgb.html">← Anterior: LED RGB</a> · <a href="03-leds-resistores.html">Revisão do tópico 3 →</a></p>
 <p><a href="../index.html">← Voltar ao início</a></p></article></div>
 <nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="03c-led-rgb.html">← Conteúdo anterior</a><a href="04-entradas-buzzer-blocos.html">Próximo conteúdo →</a></nav></main>
-<footer class="footer"><div class="shell"><b>Fundamentos-de-Prototipagem-e-Fabrica--o-Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer>
+<script>
+document.addEventListener('click', async (event) => {
+  const button = event.target.closest('.copy-code');
+  if (!button) return;
+  const code = button.parentElement.querySelector('code');
+  if (!code) return;
+  try {
+    await navigator.clipboard.writeText(code.textContent);
+    button.textContent = 'Copiado';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1400);
+  } catch {
+    button.textContent = 'Selecione o código';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1600);
+  }
+});
+</script></body></html>

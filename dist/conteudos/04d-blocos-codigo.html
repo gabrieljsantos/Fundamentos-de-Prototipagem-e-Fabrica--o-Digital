@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Programação em blocos e código — material de apoio de Fundamentos-de-Prototipagem-e-Fabrica--o-Digital."><title>Programação em blocos e código — Fundamentos-de-Prototipagem-e-Fabrica--o-Digital</title><link rel="stylesheet" href="../styles.css?v=5"></head>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Programação em blocos e código — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>Programação em blocos e código — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=5"></head>
 <body><main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 20 de 33</p><h1>Programação em blocos e código</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
 <p><a href="../index.html">← Voltar ao início</a></p>
 <h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
@@ -15,11 +15,11 @@
 <p>Uma <strong>sequência</strong> é a ordem em que as instruções executam. Ler o sensor antes de testar seu valor é diferente de testar uma variável antiga e só depois atualizar a leitura.</p>
 <h3 id="variavel">Variável</h3>
 <p>Uma <strong>variável</strong> guarda um valor com nome. Pode armazenar leitura, estado, tempo ou resultado de cálculo.</p>
-<pre data-language="cpp"><code>int distancia = 20;
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>int distancia = 20;
 bool ligado = true;</code></pre>
 <h3 id="condicao">Condição</h3>
 <p>Uma <strong>condição</strong> escolhe ações conforme uma expressão verdadeira ou falsa.</p>
-<pre data-language="cpp"><code>if (distancia &lt; 20) {
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>if (distancia &lt; 20) {
   digitalWrite(led, HIGH);
 } else {
   digitalWrite(led, LOW);
@@ -47,7 +47,7 @@ bool ligado = true;</code></pre>
 </tbody></table></div>
 <p>Os nomes e o código gerado variam entre Tinkercad, mBlock e outras plataformas. Compare a intenção do bloco, não apenas o texto.</p>
 <h3 id="exemplo-integrado">Exemplo integrado</h3>
-<pre data-language="cpp"><code>int leitura = analogRead(A0);
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>int leitura = analogRead(A0);
 int brilho = map(leitura, 0, 1023, 0, 255);
 
 if (brilho &gt; 128) {
@@ -64,4 +64,20 @@ if (brilho &gt; 128) {
 <p><a href="04c-buzzer-som.html">← Anterior: buzzer</a> · <a href="04-entradas-buzzer-blocos.html">Revisão do tópico 4 →</a></p>
 <p><a href="../index.html">← Voltar ao início</a></p></article></div>
 <nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="04c-buzzer-som.html">← Conteúdo anterior</a><a href="05-modulos.html">Próximo conteúdo →</a></nav></main>
-<footer class="footer"><div class="shell"><b>Fundamentos-de-Prototipagem-e-Fabrica--o-Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer>
+<script>
+document.addEventListener('click', async (event) => {
+  const button = event.target.closest('.copy-code');
+  if (!button) return;
+  const code = button.parentElement.querySelector('code');
+  if (!code) return;
+  try {
+    await navigator.clipboard.writeText(code.textContent);
+    button.textContent = 'Copiado';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1400);
+  } catch {
+    button.textContent = 'Selecione o código';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1600);
+  }
+});
+</script></body></html>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Divisor de tensão, potenciômetro e LDR — material de apoio de Fundamentos-de-Prototipagem-e-Fabrica--o-Digital."><title>Divisor de tensão, potenciômetro e LDR — Fundamentos-de-Prototipagem-e-Fabrica--o-Digital</title><link rel="stylesheet" href="../styles.css?v=5"></head>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Divisor de tensão, potenciômetro e LDR — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>Divisor de tensão, potenciômetro e LDR — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=5"></head>
 <body><main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 18 de 33</p><h1>Divisor de tensão, potenciômetro e LDR</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
 <p><a href="../index.html">← Voltar ao início</a></p>
 <h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
@@ -13,7 +13,7 @@
 </ul>
 <h3 id="divisor-de-tensao">Divisor de tensão</h3>
 <p>Um <strong>divisor de tensão</strong> usa dois resistores em série para produzir uma fração da tensão de entrada:</p>
-<pre data-language="text"><code>Vin ── R1 ──┬── Vout
+<pre data-language="text"><button class="copy-code" type="button">Copiar</button><code>Vin ── R1 ──┬── Vout
             R2
              │
             GND
@@ -31,11 +31,11 @@ Vout = Vin × R2 / (R1 + R2)</code></pre>
 <p>A posição do LDR no divisor define se a tensão medida cresce ou diminui com a luminosidade. O valor também depende do modelo e das condições, por isso limiares devem ser calibrados.</p>
 <h3 id="leitura-analogica">Leitura analógica</h3>
 <p>A <strong>leitura analógica</strong> converte a tensão do ADC em um número:</p>
-<pre data-language="cpp"><code>int leitura = analogRead(A0);</code></pre>
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>int leitura = analogRead(A0);</code></pre>
 <p>A faixa numérica e a tensão de referência dependem da placa. No Uno clássico, é comum encontrar 0 a 1023; no ESP32, resolução e configuração podem mudar.</p>
 <h3 id="mapeamento">Mapeamento</h3>
 <p><strong>Mapeamento</strong> converte uma faixa numérica em outra. Por exemplo, uma leitura de 0 a 1023 pode controlar PWM de 0 a 255:</p>
-<pre data-language="cpp"><code>int leitura = analogRead(A0);
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>int leitura = analogRead(A0);
 int brilho = map(leitura, 0, 1023, 0, 255);
 analogWrite(9, brilho);</code></pre>
 <p><code>map()</code> não limita valores automaticamente nem cria precisão adicional. Confira as faixas reais.</p>
@@ -48,4 +48,20 @@ analogWrite(9, brilho);</code></pre>
 <p><a href="04a-botoes-entradas.html">← Anterior: botões</a> · <a href="04c-buzzer-som.html">Próximo: buzzer →</a></p>
 <p><a href="../index.html">← Voltar ao início</a></p></article></div>
 <nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="04a-botoes-entradas.html">← Conteúdo anterior</a><a href="04c-buzzer-som.html">Próximo conteúdo →</a></nav></main>
-<footer class="footer"><div class="shell"><b>Fundamentos-de-Prototipagem-e-Fabrica--o-Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer>
+<script>
+document.addEventListener('click', async (event) => {
+  const button = event.target.closest('.copy-code');
+  if (!button) return;
+  const code = button.parentElement.querySelector('code');
+  if (!code) return;
+  try {
+    await navigator.clipboard.writeText(code.textContent);
+    button.textContent = 'Copiado';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1400);
+  } catch {
+    button.textContent = 'Selecione o código';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1600);
+  }
+});
+</script></body></html>

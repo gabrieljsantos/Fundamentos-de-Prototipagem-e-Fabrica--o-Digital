@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Sensores ultrassônico e PIR — material de apoio de Fundamentos-de-Prototipagem-e-Fabrica--o-Digital."><title>Sensores ultrassônico e PIR — Fundamentos-de-Prototipagem-e-Fabrica--o-Digital</title><link rel="stylesheet" href="../styles.css?v=5"></head>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Sensores ultrassônico e PIR — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>Sensores ultrassônico e PIR — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=5"></head>
 <body><main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 23 de 33</p><h1>Sensores ultrassônico e PIR</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
 <p><a href="../index.html">← Voltar ao início</a></p>
 <h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
@@ -22,8 +22,8 @@
 <p>Em certos módulos alimentados com 5 V, ECHO também chega a 5 V. Uma placa de 3,3 V pode exigir divisor ou conversor de nível.</p>
 <h3 id="tempo-de-voo">Tempo de voo</h3>
 <p><strong>Tempo de voo</strong> é o intervalo entre emissão e retorno. Como o som percorre ida e volta:</p>
-<pre data-language="text"><code>distância = velocidade do som × tempo / 2</code></pre>
-<pre data-language="cpp"><code>digitalWrite(trig, LOW);  delayMicroseconds(2);
+<pre data-language="text"><button class="copy-code" type="button">Copiar</button><code>distância = velocidade do som × tempo / 2</code></pre>
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>digitalWrite(trig, LOW);  delayMicroseconds(2);
 digitalWrite(trig, HIGH); delayMicroseconds(10);
 digitalWrite(trig, LOW);
 long tempo = pulseIn(echo, HIGH);
@@ -43,4 +43,20 @@ float distanciaCm = tempo * 0.0343 / 2.0;</code></pre>
 <p><a href="05a-modulos-transistores.html">← Anterior: módulos e transistores</a> · <a href="05c-motores-servo.html">Próximo: motores →</a></p>
 <p><a href="../index.html">← Voltar ao início</a></p></article></div>
 <nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="05a-modulos-transistores.html">← Conteúdo anterior</a><a href="05c-motores-servo.html">Próximo conteúdo →</a></nav></main>
-<footer class="footer"><div class="shell"><b>Fundamentos-de-Prototipagem-e-Fabrica--o-Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer>
+<script>
+document.addEventListener('click', async (event) => {
+  const button = event.target.closest('.copy-code');
+  if (!button) return;
+  const code = button.parentElement.querySelector('code');
+  if (!code) return;
+  try {
+    await navigator.clipboard.writeText(code.textContent);
+    button.textContent = 'Copiado';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1400);
+  } catch {
+    button.textContent = 'Selecione o código';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1600);
+  }
+});
+</script></body></html>
