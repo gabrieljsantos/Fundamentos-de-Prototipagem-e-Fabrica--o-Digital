@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Sensores ultrassônico e PIR — material de apoio de prototipagem e fabricação digital."><title>Sensores ultrassônico e PIR — Fundamentos de Prototipagem</title><link rel="stylesheet" href="../styles.css"></head>
+<body><header class="site-header"><div class="site-header__inner shell"><a class="brand" href="../index.html"><span class="brand__mark">FP</span><span>Fundamentos de Prototipagem</span></a><nav class="nav" aria-label="Navegação principal"><a href="../index.html#conteudos">Conteúdos</a><a href="../praticas.html">Apoios</a><a class="nav__report" href="../relatorio.html">Relatório</a></nav></div></header>
+<main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 23 de 30</p><h1>Sensores ultrassônico e PIR</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
+<ul>
+<li><a href="#sensor-ultrassônico">Sensor ultrassônico</a></li>
+<li><a href="#trig">TRIG</a></li>
+<li><a href="#echo">ECHO</a></li>
+<li><a href="#tempo-de-voo">Tempo de voo</a></li>
+<li><a href="#sensor-pir">Sensor PIR</a></li>
+<li><a href="#detecção-de-presença">Detecção de presença</a></li>
+</ul>
+<h3 id="sensor-ultrassonico">Sensor ultrassônico</h3>
+<p>Um <strong>sensor ultrassônico</strong> de distância emite som acima da faixa audível e mede o tempo até o eco retornar. O HC-SR04 é um exemplo comum, mas tensão e pinagem devem ser confirmadas no modelo usado.</p>
+<p>Superfícies pequenas, macias ou inclinadas podem produzir leituras ruins. Temperatura também altera a velocidade do som.</p>
+<h3 id="trig">TRIG</h3>
+<p><strong>TRIG</strong> é a entrada do módulo usada para solicitar uma medição. Do ponto de vista do microcontrolador, o pino ligado a TRIG funciona como saída.</p>
+<p>No HC-SR04, usa-se normalmente um pulso curto conforme a documentação.</p>
+<h3 id="echo">ECHO</h3>
+<p><strong>ECHO</strong> é a saída do módulo que permanece ativa durante um tempo relacionado ao percurso do som. Do ponto de vista do microcontrolador, o pino ligado a ECHO é entrada.</p>
+<p>Em certos módulos alimentados com 5 V, ECHO também chega a 5 V. Uma placa de 3,3 V pode exigir divisor ou conversor de nível.</p>
+<h3 id="tempo-de-voo">Tempo de voo</h3>
+<p><strong>Tempo de voo</strong> é o intervalo entre emissão e retorno. Como o som percorre ida e volta:</p>
+<pre data-language="text"><code>distância = velocidade do som × tempo / 2</code></pre>
+<pre data-language="cpp"><code>digitalWrite(trig, LOW);  delayMicroseconds(2);
+digitalWrite(trig, HIGH); delayMicroseconds(10);
+digitalWrite(trig, LOW);
+long tempo = pulseIn(echo, HIGH);
+float distanciaCm = tempo * 0.0343 / 2.0;</code></pre>
+<h3 id="sensor-pir">Sensor PIR</h3>
+<p>Um <strong>sensor PIR</strong> detecta mudanças de radiação infravermelha no campo de visão. Movimento de corpos quentes pode alterar o sinal. O módulo normalmente fornece uma saída digital.</p>
+<p>Alguns possuem trimpots de sensibilidade e duração e precisam de tempo de estabilização.</p>
+<h3 id="deteccao-de-presenca">Detecção de presença</h3>
+<p><strong>Detecção de presença</strong> no PIR significa identificar uma mudança compatível com movimento, não reconhecer pessoa nem medir distância. Um objeto parado pode deixar de ser detectado mesmo permanecendo na área.</p>
+<p>Posição, direção do movimento, fontes de calor e ambiente influenciam o resultado.</p>
+<h3 id="verifique-se-entendeu">Verifique se entendeu</h3>
+<ol>
+<li>Por que a distância é dividida por dois?</li>
+<li>TRIG e ECHO correspondem a quais direções de sinal?</li>
+<li>Por que um PIR não substitui um ultrassônico?</li>
+</ol>
+<p><a href="05a-modulos-transistores.html">← Anterior: módulos e transistores</a> · <a href="05c-motores-servo.html">Próximo: motores →</a></p>
+<p><a href="../index.html">← Voltar ao início</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="05a-modulos-transistores.html">← Conteúdo anterior</a><a href="05c-motores-servo.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>

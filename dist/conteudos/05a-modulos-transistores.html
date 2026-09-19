@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Módulos, pinagem e interfaces de potência — material de apoio de prototipagem e fabricação digital."><title>Módulos, pinagem e interfaces de potência — Fundamentos de Prototipagem</title><link rel="stylesheet" href="../styles.css"></head>
+<body><header class="site-header"><div class="site-header__inner shell"><a class="brand" href="../index.html"><span class="brand__mark">FP</span><span>Fundamentos de Prototipagem</span></a><nav class="nav" aria-label="Navegação principal"><a href="../index.html#conteudos">Conteúdos</a><a href="../praticas.html">Apoios</a><a class="nav__report" href="../relatorio.html">Relatório</a></nav></div></header>
+<main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 22 de 30</p><h1>Módulos, pinagem e interfaces de potência</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
+<ul>
+<li><a href="#módulo">Módulo</a></li>
+<li><a href="#datasheet-e-pinagem">Datasheet e pinagem</a></li>
+<li><a href="#nível-lógico">Nível lógico</a></li>
+<li><a href="#driver-de-potência">Driver de potência</a></li>
+<li><a href="#transistor-npn">Transistor NPN</a></li>
+<li><a href="#transistor-pnp">Transistor PNP</a></li>
+<li><a href="#diodo-de-roda-livre">Diodo de roda livre</a></li>
+</ul>
+<h3 id="modulo">Módulo</h3>
+<p>Um <strong>módulo</strong> é uma placa que reúne um componente principal e circuitos auxiliares para executar uma função. Um módulo de sensor pode incluir regulador, resistores e comparador; um módulo de motor pode incluir driver e conectores.</p>
+<p>O módulo simplifica a montagem, mas não elimina a necessidade de conhecer alimentação, sinais, limites e código.</p>
+<h3 id="datasheet-e-pinagem">Datasheet e pinagem</h3>
+<p>O <strong>datasheet</strong> descreve características e limites. A <strong>pinagem</strong> associa cada terminal à sua função. Confira o código exato do módulo, pois placas visualmente parecidas podem trocar a ordem dos pinos.</p>
+<p>Antes de usar, responda: o que mede ou controla, como alimenta, quais pinos são sinais, qual interface usa, quais níveis aceita e que proteção exige.</p>
+<h3 id="nivel-logico">Nível lógico</h3>
+<p>O <strong>nível lógico</strong> é a faixa de tensão reconhecida como LOW ou HIGH. Um módulo pode ser alimentado com 5 V e ainda usar sinais de 3,3 V, ou pode enviar 5 V a uma placa que não tolera esse valor. Alimentação compatível não garante sinais compatíveis.</p>
+<h3 id="driver-de-potencia">Driver de potência</h3>
+<p>Um <strong>driver de potência</strong> recebe sinais de controle e fornece tensão ou corrente adequada à carga. Ponte H, driver de LED e driver de relé são exemplos.</p>
+<p>Driver USB é software do computador; driver de potência é circuito eletrônico.</p>
+<h3 id="transistor-npn">Transistor NPN</h3>
+<p>Um <strong>transistor NPN</strong> possui base, coletor e emissor. Como chave no lado do GND, uma corrente pequena de base permite controlar corrente maior na carga:</p>
+<pre data-language="text"><code>VCC ── carga ── coletor
+                 NPN
+GPIO ─ resistor ─ base
+GND ─────────── emissor</code></pre>
+<p>HIGH tende a ligar. O resistor de base limita corrente. Calcule o circuito conforme corrente da carga e ganho forçado adequado; não suponha que qualquer NPN serve para qualquer motor.</p>
+<h3 id="transistor-pnp">Transistor PNP</h3>
+<p>Um <strong>transistor PNP</strong> costuma atuar no lado positivo, entre VCC e a carga. Ele conduz quando a base fica suficientemente abaixo do emissor, portanto a lógica tende a ser invertida.</p>
+<p>Uma GPIO de 3,3 V pode não desligar diretamente um PNP com emissor em 5 V. Outro estágio ou driver pode ser necessário. NPN e PNP não são trocados apenas invertendo a peça.</p>
+<h3 id="diodo-de-roda-livre">Diodo de roda livre</h3>
+<p>O <strong>diodo de roda livre</strong> fornece caminho para a corrente de uma carga indutiva quando ela é desligada, reduzindo o pico de tensão que poderia danificar o transistor ou a placa. É comum em bobinas, relés e motores controlados por um único transistor.</p>
+<p>A orientação do diodo é importante. Em pontes H, a proteção pode já existir no driver; consulte o datasheet.</p>
+<h3 id="verifique-se-entendeu">Verifique se entendeu</h3>
+<ol>
+<li>Por que alimentação e nível lógico são verificações separadas?</li>
+<li>Qual é a função do resistor de base?</li>
+<li>Por que cargas indutivas geram preocupação ao desligar?</li>
+</ol>
+<p><a href="05b-sensores.html">Próximo: sensores →</a></p>
+<p><a href="../index.html">← Voltar ao início</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="05-modulos.html">← Conteúdo anterior</a><a href="05b-sensores.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>

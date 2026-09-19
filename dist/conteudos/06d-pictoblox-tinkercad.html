@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="PictoBlox, Tinkercad e documentação — material de apoio de prototipagem e fabricação digital."><title>PictoBlox, Tinkercad e documentação — Fundamentos de Prototipagem</title><link rel="stylesheet" href="../styles.css"></head>
+<body><header class="site-header"><div class="site-header__inner shell"><a class="brand" href="../index.html"><span class="brand__mark">FP</span><span>Fundamentos de Prototipagem</span></a><nav class="nav" aria-label="Navegação principal"><a href="../index.html#conteudos">Conteúdos</a><a href="../praticas.html">Apoios</a><a class="nav__report" href="../relatorio.html">Relatório</a></nav></div></header>
+<main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 30 de 30</p><h1>PictoBlox, Tinkercad e documentação</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
+<ul>
+<li><a href="#documentação-do-pictoblox">Documentação do PictoBlox</a></li>
+<li><a href="#stage-mode-e-upload-mode">Stage Mode e Upload Mode</a></li>
+<li><a href="#arduino-no-pictoblox">Arduino no PictoBlox</a></li>
+<li><a href="#tinkercad-circuits">Tinkercad Circuits</a></li>
+<li><a href="#blocos-texto-e-simulação">Blocos, texto e simulação</a></li>
+<li><a href="#limites-do-simulador">Limites do simulador</a></li>
+<li><a href="#links-de-estudo">Links de estudo</a></li>
+</ul>
+<h3 id="documentacao-do-pictoblox">Documentação do PictoBlox</h3>
+<p>O <strong>PictoBlox</strong> é um ambiente educacional que oferece programação em blocos e Python, além de extensões para placas e componentes. Na interface em blocos, um script é formado por blocos encaixados em uma sequência.</p>
+<p>A documentação oficial deve ser o primeiro lugar para conferir instalação, compatibilidade, nomes atuais dos menus, placas suportadas e comportamento dos blocos:</p>
+<ul>
+<li><a href="https://ai.thestempedia.com/docs/pictoblox/">Documentação oficial do PictoBlox</a></li>
+<li><a href="https://ai.thestempedia.com/docs/pictoblox/pictoblox-tutorials/getting-started-with-pictoblox/">Introdução ao PictoBlox e à interface</a></li>
+<li><a href="https://ai.thestempedia.com/extension/arduino-uno-extension-pictoblox/">Extensão do Arduino Uno e seus blocos</a></li>
+<li><a href="https://ai.thestempedia.com/docs/pictoblox/troubleshooting-guide-for-pictoblox/">Solução de problemas do PictoBlox</a></li>
+</ul>
+<h3 id="stage-mode-e-upload-mode">Stage Mode e Upload Mode</h3>
+<p>No <strong>Stage Mode</strong>, o PictoBlox interage com a placa em tempo real. A placa precisa permanecer conectada ao computador, e algumas placas precisam receber firmware de comunicação.</p>
+<p>No <strong>Upload Mode</strong>, os blocos são convertidos e gravados na placa. Depois do upload, a placa pode executar o programa sem continuar conectada ao PictoBlox, desde que receba alimentação.</p>
+<div class="article-table-wrap"><table class="article-table"><thead><tr><th>Necessidade</th><th>Modo indicado</th></tr></thead><tbody>
+<tr><td>Interagir com personagens e palco em tempo real</td><td>Stage Mode</td></tr>
+<tr><td>Observar rapidamente sensores no computador</td><td>Stage Mode</td></tr>
+<tr><td>Fazer robô ou circuito funcionar sozinho</td><td>Upload Mode</td></tr>
+<tr><td>Comparar blocos com o código C++ equivalente</td><td>Upload Mode, quando a interface oferecer a visualização</td></tr>
+</tbody></table></div>
+<h3 id="arduino-no-pictoblox">Arduino no PictoBlox</h3>
+<p>Fluxo geral, sujeito à versão e à placa:</p>
+<ol>
+<li>Instale ou abra o PictoBlox.</li>
+<li>Escolha o ambiente de blocos.</li>
+<li>Selecione a placa correta.</li>
+<li>Conecte a placa por um cabo USB com dados.</li>
+<li>Escolha a porta serial.</li>
+<li>Adicione a extensão necessária.</li>
+<li>Escolha Stage Mode ou Upload Mode.</li>
+<li>Monte o script e teste.</li>
+</ol>
+<p>No Upload Mode, um bloco inicial como “quando Arduino iniciar” corresponde ao começo da execução. Blocos de repetição representam laços; blocos de pino digital representam configuração, leitura ou escrita.</p>
+<p>Consulte o tutorial oficial de <a href="https://ai.thestempedia.com/docs/pictoblox/arduino-uno-with-pictoblox/program-arduino-board-with-pictoblox/">Arduino Uno com PictoBlox e pisca-LED</a>.</p>
+<h3 id="tinkercad-circuits">Tinkercad Circuits</h3>
+<p>O <strong>Tinkercad Circuits</strong> permite montar circuitos virtuais, inserir Arduino e protoboard, programar e iniciar uma simulação. Ele é útil para observar conexões e testar uma ideia antes da montagem física.</p>
+<p>Comece em:</p>
+<ul>
+<li><a href="https://www.tinkercad.com/learn">Área de aprendizagem do Tinkercad</a></li>
+<li><a href="https://images.tinkercad.com/jl5ii4oqrdmc/1eTWASZYKjnMX9u5ioLh8Y/bb2dfb24cfc4bd66adc485baaecedf97/Tinkercad_Getting_Started_Guide_ISTE.pdf">Guia oficial de introdução ao Tinkercad Circuits</a></li>
+<li><a href="https://www.autodesk.com/solutions/circuit-design-software">Visão geral oficial de circuitos da Autodesk</a></li>
+</ul>
+<p>Fluxo geral:</p>
+<ol>
+<li>Abra a área de circuitos e crie um circuito.</li>
+<li>Posicione Arduino, protoboard e componentes.</li>
+<li>Configure valores e faça as conexões.</li>
+<li>Abra o editor de código.</li>
+<li>Escolha blocos, blocos com texto ou texto, conforme disponível.</li>
+<li>Inicie a simulação.</li>
+<li>Observe o comportamento e pare a simulação antes de alterar o circuito.</li>
+</ol>
+<h3 id="blocos-texto-e-simulacao">Blocos, texto e simulação</h3>
+<p>Blocos e código textual representam os mesmos elementos fundamentais:</p>
+<div class="article-table-wrap"><table class="article-table"><thead><tr><th>Intenção</th><th>Bloco comum</th><th>Código Arduino</th></tr></thead><tbody>
+<tr><td>iniciar configuração</td><td>quando iniciar</td><td><code>setup()</code></td></tr>
+<tr><td>repetir continuamente</td><td>sempre</td><td><code>loop()</code></td></tr>
+<tr><td>preparar pino</td><td>definir pino como entrada/saída</td><td><code>pinMode()</code></td></tr>
+<tr><td>comandar saída</td><td>definir pino ALTO/BAIXO</td><td><code>digitalWrite()</code></td></tr>
+<tr><td>ler entrada</td><td>ler pino digital</td><td><code>digitalRead()</code></td></tr>
+<tr><td>ler ADC</td><td>ler entrada analógica</td><td><code>analogRead()</code></td></tr>
+<tr><td>decidir</td><td>se / senão</td><td><code>if / else</code></td></tr>
+<tr><td>esperar</td><td>aguardar</td><td><code>delay()</code></td></tr>
+</tbody></table></div>
+<p>Não memorize somente o nome do bloco. Identifique a intenção, as entradas do bloco, o valor produzido e a instrução equivalente.</p>
+<h3 id="limites-do-simulador">Limites do simulador</h3>
+<p>Uma simulação ajuda a verificar lógica e conexões, mas não garante que a montagem real funcionará. Ela pode simplificar:</p>
+<ul>
+<li>tolerâncias e variação entre componentes;</li>
+<li>ruído e mau contato;</li>
+<li>aquecimento e dissipação;</li>
+<li>corrente de partida de motores;</li>
+<li>limites reais da fonte e dos fios;</li>
+<li>componentes ou bibliotecas não disponíveis;</li>
+<li>diferenças entre modelos semelhantes.</li>
+</ul>
+<p>Depois da simulação, consulte o datasheet, recalcule proteção e teste a montagem real por etapas.</p>
+<h3 id="links-de-estudo">Links de estudo</h3>
+<h4 id="pictoblox">PictoBlox</h4>
+<ul>
+<li><a href="https://ai.thestempedia.com/docs/pictoblox/">Página principal da documentação</a></li>
+<li><a href="https://ai.thestempedia.com/docs/pictoblox/pictoblox-tutorials/getting-started-with-pictoblox/">Primeiro script</a></li>
+<li><a href="https://ai.thestempedia.com/docs/pictoblox/arduino-uno-with-pictoblox/program-arduino-board-with-pictoblox/">Arduino Uno no PictoBlox</a></li>
+<li><a href="https://ai.thestempedia.com/docs/pictoblox/arduino-uno-with-pictoblox/interface-sensors-with-arduino-using-pictoblox/">Sensores com Arduino no PictoBlox</a></li>
+<li><a href="https://ai.thestempedia.com/extension/">Catálogo de extensões</a></li>
+</ul>
+<h4 id="tinkercad">Tinkercad</h4>
+<ul>
+<li><a href="https://www.tinkercad.com/learn">Aprender Tinkercad</a></li>
+<li><a href="https://images.tinkercad.com/jl5ii4oqrdmc/1eTWASZYKjnMX9u5ioLh8Y/bb2dfb24cfc4bd66adc485baaecedf97/Tinkercad_Getting_Started_Guide_ISTE.pdf">Guia introdutório de circuitos</a></li>
+<li><a href="https://www.autodesk.com/solutions/circuit-design-software">Circuitos na Autodesk</a></li>
+</ul>
+<p><a href="06c-aprofundamento.html">← Anterior: aprofundamento</a> · <a href="06-revisao.html">Revisão do tópico 6 →</a></p>
+<p><a href="../index.html">← Voltar ao início</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="06c-aprofundamento.html">← Conteúdo anterior</a><span></span></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>

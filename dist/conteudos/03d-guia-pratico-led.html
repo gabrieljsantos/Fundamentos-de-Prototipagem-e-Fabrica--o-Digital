@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Guia prático: ligar e programar LEDs — material de apoio de prototipagem e fabricação digital."><title>Guia prático: ligar e programar LEDs — Fundamentos de Prototipagem</title><link rel="stylesheet" href="../styles.css"></head>
+<body><header class="site-header"><div class="site-header__inner shell"><a class="brand" href="../index.html"><span class="brand__mark">FP</span><span>Fundamentos de Prototipagem</span></a><nav class="nav" aria-label="Navegação principal"><a href="../index.html#conteudos">Conteúdos</a><a href="../praticas.html">Apoios</a><a class="nav__report" href="../relatorio.html">Relatório</a></nav></div></header>
+<main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 15 de 30</p><h1>Guia prático: ligar e programar LEDs</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--done">Com apoio visual</span></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
+<ul>
+<li><a href="#ligação-do-led-comum">Ligação do LED comum</a></li>
+<li><a href="#piscar-led">Piscar LED</a></li>
+<li><a href="#controle-de-brilho-com-pwm">Controle de brilho com PWM</a></li>
+<li><a href="#ligação-do-led-rgb">Ligação do LED RGB</a></li>
+<li><a href="#controle-de-cor">Controle de cor</a></li>
+<li><a href="#erros-comuns">Erros comuns</a></li>
+</ul>
+<h3 id="ligacao-do-led-comum">Ligação do LED comum</h3>
+<ol>
+<li>Confirme a tensão da placa e a corrente segura da GPIO.</li>
+<li>Identifique ânodo, cátodo e tensão direta.</li>
+<li>Escolha a corrente desejada dentro dos limites.</li>
+<li>Calcule o resistor e selecione um valor comercial seguro.</li>
+<li>Com a placa desligada, monte GPIO, resistor, LED e GND em série.</li>
+<li>Revise as fileiras da protoboard e a polaridade.</li>
+<li>Alimente e teste.</li>
+</ol>
+<pre data-language="text"><code>GPIO ── resistor ── ânodo → LED → cátodo ── GND</code></pre>
+<h3 id="piscar-led">Piscar LED</h3>
+<div class="article-table-wrap"><table class="article-table"><thead><tr><th>Bloco</th><th>Código</th></tr></thead><tbody>
+<tr><td>definir pino 9 como saída</td><td><code>pinMode(9, OUTPUT);</code></td></tr>
+<tr><td>definir pino 9 como ALTO</td><td><code>digitalWrite(9, HIGH);</code></td></tr>
+<tr><td>aguardar 500 ms</td><td><code>delay(500);</code></td></tr>
+<tr><td>definir pino 9 como BAIXO</td><td><code>digitalWrite(9, LOW);</code></td></tr>
+</tbody></table></div>
+<pre data-language="cpp"><code>const int led = 9;
+
+void setup() {
+  pinMode(led, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(led, HIGH);
+  delay(500);
+  digitalWrite(led, LOW);
+  delay(500);
+}</code></pre>
+<h3 id="controle-de-brilho-com-pwm">Controle de brilho com PWM</h3>
+<p>O <strong>PWM</strong> altera o ciclo de trabalho dos pulsos e, com isso, o brilho percebido. Use uma GPIO compatível.</p>
+<pre data-language="cpp"><code>const int led = 9;
+
+void setup() {
+  pinMode(led, OUTPUT);
+}
+
+void loop() {
+  analogWrite(led, 64);
+  delay(1000);
+  analogWrite(led, 192);
+  delay(1000);
+}</code></pre>
+<p>Os valores 0 a 255 correspondem ao Uno clássico. Em outra placa, confira funções e resolução. Em blocos, procure “definir PWM do pino para valor”.</p>
+<h3 id="ligacao-do-led-rgb">Ligação do LED RGB</h3>
+<ol>
+<li>Identifique se é ânodo comum ou cátodo comum.</li>
+<li>Identifique os terminais R, G e B.</li>
+<li>Calcule e instale um resistor em cada canal.</li>
+<li>Escolha três GPIOs PWM se desejar intensidades variáveis.</li>
+<li>Conecte o terminal comum ao GND ou VCC conforme o tipo.</li>
+</ol>
+<h3 id="controle-de-cor">Controle de cor</h3>
+<p>Exemplo para RGB de cátodo comum no Uno clássico:</p>
+<pre data-language="cpp"><code>const int vermelho = 9;
+const int verde = 10;
+const int azul = 11;
+
+void setup() {
+  pinMode(vermelho, OUTPUT);
+  pinMode(verde, OUTPUT);
+  pinMode(azul, OUTPUT);
+}
+
+void definirCor(int r, int g, int b) {
+  analogWrite(vermelho, r);
+  analogWrite(verde, g);
+  analogWrite(azul, b);
+}
+
+void loop() {
+  definirCor(255, 255, 0); // amarelo
+}</code></pre>
+<p>Para ânodo comum, a lógica geralmente deve ser invertida.</p>
+<h3 id="erros-comuns">Erros comuns</h3>
+<ul>
+<li>LED invertido.</li>
+<li>Ausência de resistor ou resistor muito baixo.</li>
+<li>GPIO escolhida sem suporte ao recurso necessário.</li>
+<li>Confusão entre ânodo comum e cátodo comum.</li>
+<li>Um único resistor para os três canais RGB.</li>
+<li>Limites do Uno usados em outra placa sem verificação.</li>
+<li>Perna longa usada como única forma de identificar terminal.</li>
+</ul>
+<h3 id="diagnostico-rapido">Diagnóstico rápido</h3>
+<p>Se não acender, desligue e confira polaridade, fileiras da protoboard, GND, número da porta e configuração <code>OUTPUT</code>. Depois teste o LED com fonte e resistor conhecidos. Se a cor estiver errada, revise a ordem dos canais. Se o brilho estiver invertido, confira o tipo de terminal comum.</p>
+<p><a href="03c-led-rgb.html">← Anterior: LED RGB</a> · <a href="03-leds-resistores.html">Revisão do tópico 3 →</a></p>
+<p><a href="../index.html">← Voltar ao início</a></p>
+<section class="didactic-support" aria-labelledby="apoio-led">
+  <div class="didactic-support__head"><p class="eyebrow">Apoio didático 02</p><h2 id="apoio-led">Pisca-LED: conexão, blocos e código</h2><p>As três representações descrevem o mesmo projeto. Use o diagrama para montar, os blocos para enxergar a sequência e o código para conferir a tradução textual.</p></div>
+  <div class="representation-flow">
+    <div><span>01</span><b>Conectar</b><small>D3, resistor, LED e GND</small></div><i>→</i><div><span>02</span><b>Organizar</b><small>ALTO, espera, BAIXO, espera</small></div><i>→</i><div><span>03</span><b>Programar</b><small>digitalWrite e delay</small></div>
+  </div>
+  <svg class="lesson-diagram" viewBox="0 0 720 370" role="img" aria-labelledby="gpio-diagram-title gpio-diagram-desc">
+        <title id="gpio-diagram-title">Arduino conectado a um LED pelo pino 3</title><desc id="gpio-diagram-desc">O pino digital 3 passa por um resistor de 220 ohms e pelo LED antes de retornar ao GND.</desc>
+        <rect x="42" y="48" width="250" height="275" rx="22" fill="#147f9b" stroke="#11110f" stroke-width="5"/><text x="167" y="150" fill="white" font-size="31" font-weight="800" text-anchor="middle">ARDUINO</text><text x="167" y="188" fill="white" font-size="25" text-anchor="middle">UNO</text>
+        <text x="247" y="94" fill="white" font-size="16" font-weight="700">D3</text><text x="242" y="290" fill="white" font-size="16" font-weight="700">GND</text>
+        <path d="M278 90H365" stroke="#3657ff" stroke-width="8" fill="none"/><rect x="365" y="74" width="110" height="32" rx="8" fill="#f6d99d" stroke="#11110f" stroke-width="4"/><path d="M393 76v28m20-28v28m20-28v28" stroke="#7b3b19" stroke-width="5"/><text x="420" y="62" text-anchor="middle" font-size="15" font-weight="700">220 Ω</text>
+        <path d="M475 90h64" stroke="#3657ff" stroke-width="8"/><path d="M539 90v22m42-22v22" stroke="#11110f" stroke-width="4"/><path d="M529 92a31 31 0 0 1 62 0v38h-62z" fill="#ff5a36" stroke="#11110f" stroke-width="4"/><path d="M560 130v100H278v56" stroke="#11110f" stroke-width="8" fill="none"/>
+        <text x="612" y="104" font-size="18" font-weight="700">LED</text><text x="378" y="255" font-size="16">cátodo → GND</text>
+      </svg>
+  <div class="didactic-grid didactic-grid--code">
+    <div class="didactic-panel"><h3>Blocos equivalentes</h3><div class="block-stack"><div class="block block--event">no início</div><div class="block">configurar pino <em>3</em> como <em>SAÍDA</em></div><div class="block block--loop"><span>para sempre</span><div class="block__inside"><div class="block">pino <em>3</em> → <em>ALTO</em></div><div class="block block--wait">aguardar <em>1000 ms</em></div><div class="block">pino <em>3</em> → <em>BAIXO</em></div><div class="block block--wait">aguardar <em>1000 ms</em></div></div></div></div></div>
+    <div class="didactic-panel"><h3>Código comentado</h3><pre data-language="cpp"><code>const int led = 3;       // LED ligado ao pino digital 3
+
+void setup() {
+  pinMode(led, OUTPUT);  // define o pino como saída
+}
+
+void loop() {
+  digitalWrite(led, HIGH); // acende o LED
+  delay(1000);             // espera 1 segundo
+  digitalWrite(led, LOW);  // apaga o LED
+  delay(1000);             // espera 1 segundo
+}</code></pre></div>
+  </div>
+</section></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="03c-led-rgb.html">← Conteúdo anterior</a><a href="04-entradas-buzzer-blocos.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>

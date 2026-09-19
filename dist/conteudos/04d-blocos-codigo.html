@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Programação em blocos e código — material de apoio de prototipagem e fabricação digital."><title>Programação em blocos e código — Fundamentos de Prototipagem</title><link rel="stylesheet" href="../styles.css"></head>
+<body><header class="site-header"><div class="site-header__inner shell"><a class="brand" href="../index.html"><span class="brand__mark">FP</span><span>Fundamentos de Prototipagem</span></a><nav class="nav" aria-label="Navegação principal"><a href="../index.html#conteudos">Conteúdos</a><a href="../praticas.html">Apoios</a><a class="nav__report" href="../relatorio.html">Relatório</a></nav></div></header>
+<main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 20 de 30</p><h1>Programação em blocos e código</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
+<ul>
+<li><a href="#sequência">Sequência</a></li>
+<li><a href="#variável">Variável</a></li>
+<li><a href="#condição">Condição</a></li>
+<li><a href="#repetição">Repetição</a></li>
+<li><a href="#temporização">Temporização</a></li>
+<li><a href="#mapa-de-blocos-para-código">Mapa de blocos para código</a></li>
+</ul>
+<h3 id="sequencia">Sequência</h3>
+<p>Uma <strong>sequência</strong> é a ordem em que as instruções executam. Ler o sensor antes de testar seu valor é diferente de testar uma variável antiga e só depois atualizar a leitura.</p>
+<h3 id="variavel">Variável</h3>
+<p>Uma <strong>variável</strong> guarda um valor com nome. Pode armazenar leitura, estado, tempo ou resultado de cálculo.</p>
+<pre data-language="cpp"><code>int distancia = 20;
+bool ligado = true;</code></pre>
+<h3 id="condicao">Condição</h3>
+<p>Uma <strong>condição</strong> escolhe ações conforme uma expressão verdadeira ou falsa.</p>
+<pre data-language="cpp"><code>if (distancia &lt; 20) {
+  digitalWrite(led, HIGH);
+} else {
+  digitalWrite(led, LOW);
+}</code></pre>
+<p>Corresponde aos blocos “se” e “senão”.</p>
+<h3 id="repeticao">Repetição</h3>
+<p>Uma <strong>repetição</strong> executa instruções mais de uma vez. O <code>loop()</code> já repete continuamente no Arduino. Blocos “repita N vezes” e “enquanto” correspondem a estruturas como <code>for</code> e <code>while</code>.</p>
+<h3 id="temporizacao">Temporização</h3>
+<p><strong>Temporização</strong> controla quando uma ação ocorre. <code>delay()</code> pausa o programa inteiro; é simples para introdução, mas pode impedir outras tarefas. <code>millis()</code> permite verificar tempo sem interromper toda a execução.</p>
+<h3 id="mapa-de-blocos-para-codigo">Mapa de blocos para código</h3>
+<div class="article-table-wrap"><table class="article-table"><thead><tr><th>Bloco comum</th><th>Código ou estrutura</th></tr></thead><tbody>
+<tr><td>ao iniciar</td><td><code>setup()</code></td></tr>
+<tr><td>sempre</td><td><code>loop()</code></td></tr>
+<tr><td>definir variável</td><td>declaração ou atribuição</td></tr>
+<tr><td>se / senão</td><td><code>if / else</code></td></tr>
+<tr><td>repetir N vezes</td><td><code>for</code></td></tr>
+<tr><td>enquanto</td><td><code>while</code></td></tr>
+<tr><td>aguardar</td><td><code>delay()</code></td></tr>
+<tr><td>ler pino digital</td><td><code>digitalRead()</code></td></tr>
+<tr><td>ler pino analógico</td><td><code>analogRead()</code></td></tr>
+<tr><td>definir saída</td><td><code>digitalWrite()</code></td></tr>
+<tr><td>definir PWM</td><td><code>analogWrite()</code> ou função equivalente</td></tr>
+<tr><td>mapear valor</td><td><code>map()</code> ou cálculo proporcional</td></tr>
+<tr><td>tocar tom</td><td><code>tone()</code></td></tr>
+</tbody></table></div>
+<p>Os nomes e o código gerado variam entre Tinkercad, mBlock e outras plataformas. Compare a intenção do bloco, não apenas o texto.</p>
+<h3 id="exemplo-integrado">Exemplo integrado</h3>
+<pre data-language="cpp"><code>int leitura = analogRead(A0);
+int brilho = map(leitura, 0, 1023, 0, 255);
+
+if (brilho &gt; 128) {
+  tone(8, 440);
+} else {
+  noTone(8);
+}</code></pre>
+<h3 id="verifique-se-entendeu">Verifique se entendeu</h3>
+<ol>
+<li>Por que a ordem das instruções importa?</li>
+<li>Qual é a função de uma variável?</li>
+<li>Qual é a limitação de <code>delay()</code>?</li>
+</ol>
+<p><a href="04c-buzzer-som.html">← Anterior: buzzer</a> · <a href="04-entradas-buzzer-blocos.html">Revisão do tópico 4 →</a></p>
+<p><a href="../index.html">← Voltar ao início</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="04c-buzzer-som.html">← Conteúdo anterior</a><a href="05-modulos.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Botões, interruptores e entradas digitais — material de apoio de prototipagem e fabricação digital."><title>Botões, interruptores e entradas digitais — Fundamentos de Prototipagem</title><link rel="stylesheet" href="../styles.css"></head>
+<body><header class="site-header"><div class="site-header__inner shell"><a class="brand" href="../index.html"><span class="brand__mark">FP</span><span>Fundamentos de Prototipagem</span></a><nav class="nav" aria-label="Navegação principal"><a href="../index.html#conteudos">Conteúdos</a><a href="../praticas.html">Apoios</a><a class="nav__report" href="../relatorio.html">Relatório</a></nav></div></header>
+<main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 17 de 30</p><h1>Botões, interruptores e entradas digitais</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
+<ul>
+<li><a href="#botão">Botão</a></li>
+<li><a href="#interruptor">Interruptor</a></li>
+<li><a href="#entrada-flutuante">Entrada flutuante</a></li>
+<li><a href="#pull-up">Pull-up</a></li>
+<li><a href="#pull-down">Pull-down</a></li>
+<li><a href="#ruído">Ruído</a></li>
+<li><a href="#bounce-e-debounce">Bounce e debounce</a></li>
+</ul>
+<h3 id="botao">Botão</h3>
+<p>Um <strong>botão</strong> é um contato momentâneo: muda de estado enquanto está pressionado e retorna ao ser solto. O microcontrolador não “lê o botão” diretamente; ele lê a tensão produzida pelo circuito ligado ao botão.</p>
+<h3 id="interruptor">Interruptor</h3>
+<p>Um <strong>interruptor</strong> abre ou fecha um caminho e normalmente mantém a posição. Para o programa, botão e interruptor podem ser entradas digitais, mas seu comportamento mecânico e a lógica desejada são diferentes.</p>
+<h3 id="entrada-flutuante">Entrada flutuante</h3>
+<p>Uma <strong>entrada flutuante</strong> não está firmemente ligada a HIGH nem a LOW. Como uma entrada consome corrente mínima, interferências podem alterar sua tensão e produzir leituras imprevisíveis.</p>
+<h3 id="pull-up">Pull-up</h3>
+<p>Um <strong>resistor pull-up</strong> conecta fracamente a entrada ao VCC e define HIGH como estado de repouso. O botão pode conectar a entrada ao GND quando pressionado.</p>
+<pre data-language="cpp"><code>pinMode(2, INPUT_PULLUP);
+bool pressionado = digitalRead(2) == LOW;</code></pre>
+<p>Nesse circuito, solto significa HIGH e pressionado significa LOW.</p>
+<h3 id="pull-down">Pull-down</h3>
+<p>Um <strong>resistor pull-down</strong> conecta fracamente a entrada ao GND e define LOW como repouso. O botão conecta a entrada ao VCC ao ser pressionado. Algumas placas oferecem pull-down interno; outras exigem resistor externo.</p>
+<p>O resistor impede estado flutuante. Ele também evita que o acionamento una VCC e GND diretamente quando o circuito está montado corretamente.</p>
+<h3 id="ruido">Ruído</h3>
+<p><strong>Ruído</strong> é uma variação indesejada no sinal. Cabos longos, motores, fontes chaveadas, GND ruim e entradas flutuantes podem causar falsos acionamentos.</p>
+<p>Fios curtos, conexões firmes, pull-up/pull-down e filtragem adequada ajudam. A solução depende da origem do ruído.</p>
+<h3 id="bounce-e-debounce">Bounce e debounce</h3>
+<p><strong>Bounce</strong> é o repique mecânico do contato: durante alguns instantes, um único toque pode produzir várias transições. <strong>Debounce</strong> é o tratamento usado para aceitar apenas uma mudança válida.</p>
+<pre data-language="cpp"><code>if (digitalRead(2) == LOW) {
+  delay(20); // exemplo introdutório; projetos maiores preferem lógica sem bloqueio
+  if (digitalRead(2) == LOW) {
+    // toque confirmado
+  }
+}</code></pre>
+<h3 id="verifique-se-entendeu">Verifique se entendeu</h3>
+<ol>
+<li>Por que pressionado equivale a LOW com <code>INPUT_PULLUP</code>?</li>
+<li>Qual é a diferença entre botão e interruptor?</li>
+<li>Por que debounce e combate a ruído não são exatamente a mesma coisa?</li>
+</ol>
+<p><a href="04b-divisor-potenciometro-ldr.html">Próximo: divisor e sensores resistivos →</a></p>
+<p><a href="../index.html">← Voltar ao início</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="04-entradas-buzzer-blocos.html">← Conteúdo anterior</a><a href="04b-divisor-potenciometro-ldr.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>

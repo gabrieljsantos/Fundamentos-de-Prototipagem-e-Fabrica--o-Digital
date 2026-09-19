@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Arduino IDE, USB, drivers e bibliotecas — material de apoio de prototipagem e fabricação digital."><title>Arduino IDE, USB, drivers e bibliotecas — Fundamentos de Prototipagem</title><link rel="stylesheet" href="../styles.css"></head>
+<body><header class="site-header"><div class="site-header__inner shell"><a class="brand" href="../index.html"><span class="brand__mark">FP</span><span>Fundamentos de Prototipagem</span></a><nav class="nav" aria-label="Navegação principal"><a href="../index.html#conteudos">Conteúdos</a><a href="../praticas.html">Apoios</a><a class="nav__report" href="../relatorio.html">Relatório</a></nav></div></header>
+<main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 08 de 30</p><h1>Arduino IDE, USB, drivers e bibliotecas</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
+<ul>
+<li><a href="#arduino-ide">Arduino IDE</a></li>
+<li><a href="#sketch">Sketch</a></li>
+<li><a href="#compilação">Compilação</a></li>
+<li><a href="#upload">Upload</a></li>
+<li><a href="#porta-usb">Porta USB</a></li>
+<li><a href="#porta-serial">Porta serial</a></li>
+<li><a href="#driver-usb">Driver USB</a></li>
+<li><a href="#pacote-de-placa">Pacote de placa</a></li>
+<li><a href="#biblioteca">Biblioteca</a></li>
+<li><a href="#monitor-serial">Monitor Serial</a></li>
+</ul>
+<h3 id="arduino-ide">Arduino IDE</h3>
+<p>A <strong>Arduino IDE</strong> é o ambiente usado para editar o programa, verificar erros, compilar, carregar o código na placa, instalar suporte a placas e bibliotecas e acessar a comunicação serial.</p>
+<h3 id="sketch">Sketch</h3>
+<p><strong>Sketch</strong> é o nome tradicional de um programa ou projeto Arduino. Sua estrutura básica contém:</p>
+<pre data-language="cpp"><code>void setup() {
+  // Executa uma vez ao ligar ou reiniciar.
+}
+
+void loop() {
+  // Repete enquanto a placa estiver funcionando.
+}</code></pre>
+<h3 id="compilacao">Compilação</h3>
+<p><strong>Compilação</strong> é a tradução do código escrito pelo estudante para instruções adequadas ao microcontrolador. O processo também detecta erros de sintaxe e combina o sketch com bibliotecas e arquivos da placa.</p>
+<p>Compilar com sucesso não garante que a ligação elétrica ou a lógica estejam corretas.</p>
+<h3 id="upload">Upload</h3>
+<p><strong>Upload</strong>, ou carregamento, é o envio do programa compilado à memória da placa. Ele depende da placa correta, porta correta, cabo com dados, driver reconhecido e mecanismo de gravação funcionando.</p>
+<p>Depois do upload, o microcontrolador pode executar sem o computador, desde que receba alimentação adequada.</p>
+<h3 id="porta-usb">Porta USB</h3>
+<p>A <strong>porta USB</strong> pode fornecer alimentação e transportar dados. Algumas placas possuem conversor USB/serial; outras implementam USB diretamente no microcontrolador.</p>
+<p>Um cabo que serve apenas para carga pode acender a placa, mas não permite upload. Evite puxar pelo fio, forçar o conector ou desconectar durante a gravação. Motores e servos não devem depender indiscriminadamente da alimentação USB.</p>
+<h3 id="porta-serial">Porta serial</h3>
+<p>A <strong>porta serial</strong> é o canal lógico que o sistema operacional apresenta para comunicação com a placa. No Windows pode aparecer como COM; em Linux e macOS, como um dispositivo com outro padrão de nome.</p>
+<p>Se mais de uma placa estiver conectada, identifique qual porta aparece ou desaparece ao conectar e desconectar o dispositivo com segurança.</p>
+<h3 id="driver-usb">Driver USB</h3>
+<p>O <strong>driver USB</strong> é o software que permite ao sistema operacional reconhecer e operar a interface da placa. Algumas interfaces usam drivers já incluídos no sistema; outras exigem driver do fabricante, como em certas placas com CH340 ou CP210x.</p>
+<p>Instale drivers somente de fonte confiável e compatível com o componente da placa.</p>
+<h3 id="pacote-de-placa">Pacote de placa</h3>
+<p>O <strong>pacote de placa</strong> fornece à IDE compilador, definições de pinos e métodos de upload para uma família. O suporte ao ESP32, por exemplo, não é a mesma coisa que uma biblioteca de sensor.</p>
+<h3 id="biblioteca">Biblioteca</h3>
+<p>Uma <strong>biblioteca</strong> é código reutilizável que oferece funções para componentes ou tarefas. Ela pode simplificar LCD, servo ou sensor, mas não corrige alimentação e fiação erradas.</p>
+<h3 id="monitor-serial">Monitor Serial</h3>
+<p>O <strong>Monitor Serial</strong> envia e recebe texto ou dados pela comunicação serial. Ele ajuda a acompanhar leituras e depurar decisões.</p>
+<pre data-language="cpp"><code>void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  Serial.println("Programa em execução");
+  delay(1000);
+}</code></pre>
+<p>A velocidade escolhida no monitor deve corresponder ao valor configurado no programa.</p>
+<h3 id="fluxo-de-trabalho">Fluxo de trabalho</h3>
+<ol>
+<li>Conecte a placa com cabo de dados.</li>
+<li>Selecione o modelo e a porta.</li>
+<li>Verifique ou compile o sketch.</li>
+<li>Corrija os erros apresentados.</li>
+<li>Carregue o programa.</li>
+<li>Use o Monitor Serial quando necessário.</li>
+</ol>
+<h3 id="verifique-se-entendeu">Verifique se entendeu</h3>
+<ol>
+<li>Por que uma placa pode acender sem aparecer na IDE?</li>
+<li>Qual é a diferença entre compilação e upload?</li>
+<li>Qual é a diferença entre driver, pacote de placa e biblioteca?</li>
+</ol>
+<p><a href="02a-microcontrolador-arduino.html">← Anterior: microcontrolador</a> · <a href="02c-gpio-digital.html">Próximo: GPIO digital →</a></p>
+<p><a href="../index.html">← Voltar ao início</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="02a-microcontrolador-arduino.html">← Conteúdo anterior</a><a href="02c-gpio-digital.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>

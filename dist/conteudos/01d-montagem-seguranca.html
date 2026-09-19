@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Protoboard, curto-circuito, ESD e ruído elétrico — material de apoio de prototipagem e fabricação digital."><title>Protoboard, curto-circuito, ESD e ruído elétrico — Fundamentos de Prototipagem</title><link rel="stylesheet" href="../styles.css"></head>
+<body><header class="site-header"><div class="site-header__inner shell"><a class="brand" href="../index.html"><span class="brand__mark">FP</span><span>Fundamentos de Prototipagem</span></a><nav class="nav" aria-label="Navegação principal"><a href="../index.html#conteudos">Conteúdos</a><a href="../praticas.html">Apoios</a><a class="nav__report" href="../relatorio.html">Relatório</a></nav></div></header>
+<main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 05 de 30</p><h1>Protoboard, curto-circuito, ESD e ruído elétrico</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
+<ul>
+<li><a href="#protoboard">Protoboard</a></li>
+<li><a href="#curto-circuito">Curto-circuito</a></li>
+<li><a href="#esd">ESD</a></li>
+<li><a href="#ruído-elétrico">Ruído elétrico</a></li>
+<li><a href="#bounce">Bounce</a></li>
+</ul>
+<h3 id="protoboard">Protoboard</h3>
+<p>A <strong>protoboard</strong> é uma matriz de contatos para montar circuitos sem solda. É necessário conhecer as uniões metálicas internas; a proximidade visual dos furos não garante conexão.</p>
+<p>Na região central, cada grupo curto de cinco furos costuma estar interligado. O canal central separa os lados e permite instalar circuitos integrados DIP. Os barramentos laterais costumam distribuir alimentação, mas podem ser interrompidos no meio.</p>
+<p>Confirme as marcações ou use a continuidade do multímetro. Antes de energizar, verifique se VCC e GND não ocupam o mesmo grupo conectado.</p>
+<h3 id="curto-circuito">Curto-circuito</h3>
+<p>Um <strong>curto-circuito</strong> é uma conexão de resistência muito baixa entre pontos com diferença de potencial. A corrente pode ultrapassar os limites dos fios, da fonte ou da placa, causando aquecimento e danos.</p>
+<p>Exemplos incluem unir VCC diretamente ao GND, deslocar um módulo uma fileira ou deixar uma peça metálica encostar na placa energizada.</p>
+<p>Curto-circuito não é exatamente igual a <strong>sobrecarga</strong>. No curto, surge um caminho de resistência muito baixa. Na sobrecarga, a carga exige mais corrente do que a fonte ou o condutor suporta, mesmo sem ligação direta entre os polos.</p>
+<h3 id="esd">ESD</h3>
+<p><strong>ESD</strong>, ou descarga eletrostática, é uma transferência rápida de carga acumulada entre objetos. Uma descarga pequena demais para ser sentida ainda pode danificar entradas eletrônicas.</p>
+<p>Segure placas pelas bordas, evite tocar nos contatos, descarregue-se antes do manuseio e use pulseira e superfície antiestática quando disponíveis. A proteção ESD não substitui as proteções elétricas do circuito.</p>
+<h3 id="ruido-eletrico">Ruído elétrico</h3>
+<p><strong>Ruído elétrico</strong> é uma variação indesejada misturada à alimentação ou ao sinal. Pode gerar leituras instáveis, falsos acionamentos, falhas de comunicação e reinicializações.</p>
+<p>Fontes comuns incluem motores, relés, fontes chaveadas, cabos longos, entradas flutuantes e conexões ruins. Medidas possíveis incluem fios curtos, GND bem conectado, pull-up ou pull-down, capacitores de desacoplamento, separação entre sinal e potência, proteção de cargas indutivas e filtragem adequada.</p>
+<h3 id="bounce">Bounce</h3>
+<p><strong>Bounce</strong>, ou repique de contato, é a sequência rápida de aberturas e fechamentos que ocorre mecanicamente quando um botão muda de estado. O programa pode interpretar um único toque como vários.</p>
+<p>Bounce e ruído não são sinônimos. O bounce tem origem no contato mecânico; o ruído pode vir de diversas fontes elétricas e eletromagnéticas. O debounce pode ser feito por hardware ou por software.</p>
+<h3 id="procedimento-seguro">Procedimento seguro</h3>
+<ol>
+<li>Desligue as fontes.</li>
+<li>Confira as ligações internas da protoboard.</li>
+<li>Identifique VCC, GND e polaridade.</li>
+<li>Monte alimentação e proteção antes dos sinais.</li>
+<li>Procure conexões diretas entre VCC e GND.</li>
+<li>Energize por etapas e observe o comportamento.</li>
+<li>Desligue imediatamente diante de fumaça, cheiro ou calor excessivo.</li>
+</ol>
+<h3 id="verifique-se-entendeu">Verifique se entendeu</h3>
+<ol>
+<li>Por que furos próximos podem não estar conectados?</li>
+<li>Qual é a diferença entre curto-circuito e sobrecarga?</li>
+<li>Como uma ESD imperceptível pode danificar um componente?</li>
+<li>Qual é a diferença entre ruído e bounce?</li>
+</ol>
+<p><a href="01c-circuitos-alimentacao.html">← Anterior: circuitos</a> · <a href="01-fundamentos.html">Revisão dos fundamentos →</a></p>
+<p><a href="../index.html">← Voltar ao início</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="01c-circuitos-alimentacao.html">← Conteúdo anterior</a><a href="02-microcontroladores-gpio.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>

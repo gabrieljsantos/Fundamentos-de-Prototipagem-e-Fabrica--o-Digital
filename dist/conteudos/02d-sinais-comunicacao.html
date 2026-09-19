@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="ADC, PWM, I²C, SPI e UART — material de apoio de prototipagem e fabricação digital."><title>ADC, PWM, I²C, SPI e UART — Fundamentos de Prototipagem</title><link rel="stylesheet" href="../styles.css"></head>
+<body><header class="site-header"><div class="site-header__inner shell"><a class="brand" href="../index.html"><span class="brand__mark">FP</span><span>Fundamentos de Prototipagem</span></a><nav class="nav" aria-label="Navegação principal"><a href="../index.html#conteudos">Conteúdos</a><a href="../praticas.html">Apoios</a><a class="nav__report" href="../relatorio.html">Relatório</a></nav></div></header>
+<main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 10 de 30</p><h1>ADC, PWM, I²C, SPI e UART</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
+<ul>
+<li><a href="#adc-e-entrada-analógica">ADC e entrada analógica</a></li>
+<li><a href="#pwm">PWM</a></li>
+<li><a href="#duty-cycle">Duty cycle</a></li>
+<li><a href="#frequência">Frequência</a></li>
+<li><a href="#i²c">I²C</a></li>
+<li><a href="#spi">SPI</a></li>
+<li><a href="#uart">UART</a></li>
+</ul>
+<h3 id="adc-e-entrada-analogica">ADC e entrada analógica</h3>
+<p>Uma <strong>entrada analógica</strong> recebe uma tensão dentro de uma faixa permitida. O <strong>ADC</strong>, conversor analógico-digital, representa essa tensão por um número.</p>
+<pre data-language="cpp"><code>int leitura = analogRead(A0);</code></pre>
+<p>No Uno clássico, a leitura costuma variar de 0 a 1023. Em outras placas, a resolução e a tensão de referência podem ser diferentes. O ADC mede tensão, não resistência diretamente; potenciômetros e LDRs costumam aparecer em divisores de tensão.</p>
+<h3 id="pwm">PWM</h3>
+<p><strong>PWM</strong>, modulação por largura de pulso, alterna rapidamente a saída entre LOW e HIGH. O controle muda a proporção de tempo ativo, não a amplitude do nível HIGH.</p>
+<p>PWM permite controlar brilho aparente de LED, potência média em certas cargas e sinais para alguns dispositivos. Ele não é automaticamente uma tensão analógica contínua.</p>
+<pre data-language="cpp"><code>analogWrite(9, 128); // valor intermediário no Uno clássico</code></pre>
+<p>Em ESP32, funções e configuração de PWM podem diferir conforme a versão do suporte da placa.</p>
+<h3 id="duty-cycle">Duty cycle</h3>
+<p><strong>Duty cycle</strong>, ou ciclo de trabalho, é o percentual do período em que o PWM permanece ativo.</p>
+<ul>
+<li>0%: sempre inativo.</li>
+<li>50%: ativo durante metade do período.</li>
+<li>100%: sempre ativo.</li>
+</ul>
+<p>Em lógica invertida, como certos LEDs de ânodo comum, a resposta visual pode ser oposta ao aumento do valor.</p>
+<h3 id="frequencia">Frequência</h3>
+<p><strong>Frequência</strong> é o número de ciclos por segundo, medido em hertz. Ela influencia som, suavidade visual, aquecimento e compatibilidade com a carga. Frequência e duty cycle são características diferentes do mesmo sinal periódico.</p>
+<h3 id="i-c">I²C</h3>
+<p><strong>I²C</strong> é um barramento síncrono que costuma usar SDA para dados e SCL para clock. Vários dispositivos podem compartilhar os fios quando possuem endereços compatíveis.</p>
+<p>I²C exige alimentação, GND comum quando não há isolamento e resistores de pull-up adequados. Endereço, nível lógico e pinos dependem do dispositivo e da placa.</p>
+<h3 id="spi">SPI</h3>
+<p><strong>SPI</strong> é uma comunicação síncrona que normalmente usa clock, linha do controlador para o periférico, linha do periférico para o controlador e seleção de dispositivo.</p>
+<p>É comum encontrar nomes como SCK, MOSI, MISO e CS. SPI tende a usar mais fios que I²C, mas permite comunicação rápida e seleção direta de periféricos.</p>
+<h3 id="uart">UART</h3>
+<p><strong>UART</strong> é uma comunicação serial assíncrona. Normalmente, TX de um dispositivo liga ao RX do outro e os GNDs são compartilhados.</p>
+<p>Os dois lados devem concordar sobre velocidade e formato. UART não é sinônimo de USB, embora um conversor USB/serial permita ao computador conversar com a UART da placa.</p>
+<h3 id="comparacao">Comparação</h3>
+<div class="article-table-wrap"><table class="article-table"><thead><tr><th>Recurso</th><th>Finalidade</th><th>Conexões típicas</th></tr></thead><tbody>
+<tr><td>ADC</td><td>Medir tensão</td><td>entrada analógica e GND</td></tr>
+<tr><td>PWM</td><td>Controlar pulsos de saída</td><td>GPIO compatível e GND</td></tr>
+<tr><td>I²C</td><td>Comunicar com dispositivos endereçados</td><td>SDA e SCL</td></tr>
+<tr><td>SPI</td><td>Comunicação síncrona com seleção</td><td>SCK, MOSI, MISO e CS</td></tr>
+<tr><td>UART</td><td>Comunicação serial assíncrona</td><td>TX e RX</td></tr>
+</tbody></table></div>
+<h3 id="verifique-se-entendeu">Verifique se entendeu</h3>
+<ol>
+<li>Por que ADC e PWM não são operações inversas perfeitas?</li>
+<li>Qual é a diferença entre duty cycle e frequência?</li>
+<li>Como vários módulos podem compartilhar I²C?</li>
+<li>Por que TX normalmente se conecta a RX?</li>
+</ol>
+<p><a href="02c-gpio-digital.html">← Anterior: GPIO digital</a> · <a href="02-microcontroladores-gpio.html">Revisão do tópico 2 →</a></p>
+<p><a href="../index.html">← Voltar ao início</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="02c-gpio-digital.html">← Conteúdo anterior</a><a href="03-leds-resistores.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>

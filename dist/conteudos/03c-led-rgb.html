@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="LED RGB e mistura de cores — material de apoio de prototipagem e fabricação digital."><title>LED RGB e mistura de cores — Fundamentos de Prototipagem</title><link rel="stylesheet" href="../styles.css"></head>
+<body><header class="site-header"><div class="site-header__inner shell"><a class="brand" href="../index.html"><span class="brand__mark">FP</span><span>Fundamentos de Prototipagem</span></a><nav class="nav" aria-label="Navegação principal"><a href="../index.html#conteudos">Conteúdos</a><a href="../praticas.html">Apoios</a><a class="nav__report" href="../relatorio.html">Relatório</a></nav></div></header>
+<main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 14 de 30</p><h1>LED RGB e mistura de cores</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
+<ul>
+<li><a href="#led-rgb">LED RGB</a></li>
+<li><a href="#canal-de-cor">Canal de cor</a></li>
+<li><a href="#mistura-aditiva-de-cores">Mistura aditiva de cores</a></li>
+<li><a href="#cátodo-comum">Cátodo comum</a></li>
+<li><a href="#ânodo-comum">Ânodo comum</a></li>
+<li><a href="#resistor-por-canal">Resistor por canal</a></li>
+</ul>
+<h3 id="led-rgb">LED RGB</h3>
+<p>Um <strong>LED RGB</strong> reúne três LEDs no mesmo encapsulamento: vermelho, verde e azul. Cada cor possui um terminal de controle, enquanto o quarto terminal é compartilhado.</p>
+<p>Controlar as três intensidades permite produzir várias cores. O componente continua obedecendo aos limites de corrente, tensão e potência de cada canal.</p>
+<h3 id="canal-de-cor">Canal de cor</h3>
+<p>Um <strong>canal de cor</strong> é um dos LEDs internos. Vermelho, verde e azul podem ter tensões diretas diferentes, por isso devem ser analisados separadamente.</p>
+<p>Cada canal é ligado a uma saída, de preferência com PWM quando se deseja variar a intensidade.</p>
+<h3 id="mistura-aditiva-de-cores">Mistura aditiva de cores</h3>
+<p>A <strong>mistura aditiva</strong> combina luz emitida:</p>
+<div class="article-table-wrap"><table class="article-table"><thead><tr><th>Vermelho</th><th>Verde</th><th>Azul</th><th>Cor aproximada</th></tr></thead><tbody>
+<tr><td>ligado</td><td>desligado</td><td>desligado</td><td>vermelho</td></tr>
+<tr><td>desligado</td><td>ligado</td><td>desligado</td><td>verde</td></tr>
+<tr><td>desligado</td><td>desligado</td><td>ligado</td><td>azul</td></tr>
+<tr><td>ligado</td><td>ligado</td><td>desligado</td><td>amarelo</td></tr>
+<tr><td>ligado</td><td>desligado</td><td>ligado</td><td>magenta</td></tr>
+<tr><td>desligado</td><td>ligado</td><td>ligado</td><td>ciano</td></tr>
+<tr><td>ligado</td><td>ligado</td><td>ligado</td><td>branco aproximado</td></tr>
+</tbody></table></div>
+<p>O branco e as demais cores dependem do equilíbrio entre intensidades e das características do LED.</p>
+<h3 id="catodo-comum">Cátodo comum</h3>
+<p>No LED RGB de <strong>cátodo comum</strong>, os três cátodos compartilham um terminal ligado ao GND. Cada canal acende quando seu ânodo recebe nível positivo por meio de resistor.</p>
+<p>Em uma faixa PWM convencional, valor maior costuma produzir mais brilho.</p>
+<h3 id="anodo-comum">Ânodo comum</h3>
+<p>No LED RGB de <strong>ânodo comum</strong>, os três ânodos compartilham um terminal ligado ao VCC. Cada canal acende quando sua saída conduz em direção ao GND.</p>
+<p>A lógica fica invertida: LOW tende a acender e HIGH tende a apagar. No Uno clássico, uma conversão comum é escrever <code>255 − intensidade</code>.</p>
+<h3 id="resistor-por-canal">Resistor por canal</h3>
+<p>Cada canal precisa de <strong>resistor próprio</strong>. Um único resistor no terminal comum permite que as correntes interfiram e não controla corretamente cada cor.</p>
+<p>Calcule cada resistor com a tensão direta e a corrente desejada daquele canal:</p>
+<pre data-language="text"><code>Rcor = (Vsaída − Vf_cor) / I_cor</code></pre>
+<p>Os três resistores podem resultar em valores diferentes.</p>
+<h3 id="identificacao-do-tipo">Identificação do tipo</h3>
+<p>Não confie apenas no tamanho das pernas. Consulte datasheet, embalagem ou teste com multímetro e corrente limitada. Descobrir o terminal comum não informa automaticamente a ordem dos canais.</p>
+<h3 id="verifique-se-entendeu">Verifique se entendeu</h3>
+<ol>
+<li>Por que um RGB possui quatro terminais?</li>
+<li>Qual é a diferença de lógica entre ânodo comum e cátodo comum?</li>
+<li>Por que cada canal precisa de resistor próprio?</li>
+</ol>
+<p><a href="03b-resistor-led.html">← Anterior: resistor do LED</a> · <a href="03d-guia-pratico-led.html">Próximo: guia prático →</a></p>
+<p><a href="../index.html">← Voltar ao início</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="03b-resistor-led.html">← Conteúdo anterior</a><a href="03d-guia-pratico-led.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>

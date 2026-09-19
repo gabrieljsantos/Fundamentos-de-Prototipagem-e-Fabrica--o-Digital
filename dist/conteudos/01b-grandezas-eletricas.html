@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Tensão, corrente, resistência, potência e Lei de Ohm — material de apoio de prototipagem e fabricação digital."><title>Tensão, corrente, resistência, potência e Lei de Ohm — Fundamentos de Prototipagem</title><link rel="stylesheet" href="../styles.css"></head>
+<body><header class="site-header"><div class="site-header__inner shell"><a class="brand" href="../index.html"><span class="brand__mark">FP</span><span>Fundamentos de Prototipagem</span></a><nav class="nav" aria-label="Navegação principal"><a href="../index.html#conteudos">Conteúdos</a><a href="../praticas.html">Apoios</a><a class="nav__report" href="../relatorio.html">Relatório</a></nav></div></header>
+<main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 03 de 30</p><h1>Tensão, corrente, resistência, potência e Lei de Ohm</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
+<ul>
+<li><a href="#tensão">Tensão</a></li>
+<li><a href="#corrente">Corrente</a></li>
+<li><a href="#resistência">Resistência</a></li>
+<li><a href="#potência">Potência</a></li>
+<li><a href="#lei-de-ohm">Lei de Ohm</a></li>
+</ul>
+<h3 id="palavra-chave-e-conceito">Palavra-chave e conceito</h3>
+<h4 id="tensao">Tensão</h4>
+<p><strong>Tensão elétrica</strong> é a diferença de potencial entre dois pontos. Ela indica a capacidade de produzir movimento de cargas em um caminho elétrico. Sua unidade é o volt (V).</p>
+<p>Uma tensão sempre precisa de referência. Um pino em 5 V geralmente está 5 V acima do GND do circuito.</p>
+<h4 id="corrente">Corrente</h4>
+<p><strong>Corrente elétrica</strong> é o fluxo ordenado de cargas. Sua unidade é o ampere (A). Em eletrônica, usamos muito o miliampere: <code>1 mA = 0,001 A</code>.</p>
+<p>A corrente máxima escrita em uma fonte informa quanto ela consegue fornecer dentro de determinadas condições. Isso não significa que a fonte forçará toda essa corrente através de qualquer componente.</p>
+<h4 id="resistencia">Resistência</h4>
+<p><strong>Resistência elétrica</strong> é a oposição à corrente. Sua unidade é o ohm (Ω). Resistores limitam corrente, definem estados lógicos e formam divisores de tensão.</p>
+<p>Quando a tensão permanece igual, aumentar a resistência reduz a corrente. Por isso um resistor em série protege o LED e a GPIO.</p>
+<h4 id="potencia">Potência</h4>
+<p><strong>Potência elétrica</strong> indica a rapidez da transferência ou conversão de energia. Sua unidade é o watt (W).</p>
+<p>Um resistor pode ter o valor correto em ohms e queimar se dissipar mais potência que sua especificação permite.</p>
+<h4 id="lei-de-ohm">Lei de Ohm</h4>
+<p>A <strong>Lei de Ohm</strong> relaciona tensão, corrente e resistência:</p>
+<pre data-language="text"><code>V = R × I
+I = V / R
+R = V / I</code></pre>
+<p>Ela não diz que todo componente possui resistência constante. LEDs, motores e transistores têm comportamentos mais complexos, embora a lei continue útil para analisar os resistores do circuito.</p>
+<h4 id="relacoes-de-potencia">Relações de potência</h4>
+<pre data-language="text"><code>P = V × I
+P = I² × R
+P = V² / R</code></pre>
+<h3 id="exemplo-completo">Exemplo completo</h3>
+<p>Um resistor de 330 Ω recebe 3 V:</p>
+<pre data-language="text"><code>I = 3 / 330 = 0,00909 A ≈ 9,1 mA
+P = 3 × 0,00909 ≈ 0,027 W</code></pre>
+<p>Um resistor de 1/4 W, que corresponde a 0,25 W, atende com folga a esse exemplo.</p>
+<h3 id="verifique-se-entendeu">Verifique se entendeu</h3>
+<ol>
+<li>Por que a tensão não existe de forma isolada em um único ponto?</li>
+<li>Se a resistência dobrar e a tensão permanecer igual, o que ocorre com a corrente?</li>
+<li>Por que o valor em ohms não é a única especificação de um resistor?</li>
+</ol>
+<p><a href="01a-energia-conversao.html">← Anterior: energia</a> · <a href="01c-circuitos-alimentacao.html">Próximo: circuitos →</a></p>
+<p><a href="../index.html">← Voltar ao início</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="01a-energia-conversao.html">← Conteúdo anterior</a><a href="01c-circuitos-alimentacao.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>

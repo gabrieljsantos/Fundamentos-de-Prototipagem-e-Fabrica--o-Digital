@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Energia, conservação e conversão — material de apoio de prototipagem e fabricação digital."><title>Energia, conservação e conversão — Fundamentos de Prototipagem</title><link rel="stylesheet" href="../styles.css"></head>
+<body><header class="site-header"><div class="site-header__inner shell"><a class="brand" href="../index.html"><span class="brand__mark">FP</span><span>Fundamentos de Prototipagem</span></a><nav class="nav" aria-label="Navegação principal"><a href="../index.html#conteudos">Conteúdos</a><a href="../praticas.html">Apoios</a><a class="nav__report" href="../relatorio.html">Relatório</a></nav></div></header>
+<main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 02 de 30</p><h1>Energia, conservação e conversão</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
+<ul>
+<li><a href="#energia">Energia</a></li>
+<li><a href="#conservação-da-energia">Conservação da energia</a></li>
+<li><a href="#conversão-de-energia">Conversão de energia</a></li>
+<li><a href="#eficiência">Eficiência</a></li>
+</ul>
+<h3 id="palavra-chave-e-conceito">Palavra-chave e conceito</h3>
+<h4 id="energia">Energia</h4>
+<p><strong>Energia</strong> é a capacidade de produzir uma mudança, como movimento, aquecimento, luz, som ou transformação química. Em um circuito, a fonte fornece energia e os componentes a transformam.</p>
+<p>Energia não é sinônimo de tensão ou corrente. A tensão está relacionada à possibilidade de movimentar cargas; a corrente descreve o fluxo das cargas; a energia descreve o efeito acumulado ao longo do funcionamento. Suas unidades incluem joule (J) e watt-hora (Wh).</p>
+<h4 id="conservacao-da-energia">Conservação da energia</h4>
+<p>O <strong>princípio da conservação da energia</strong> afirma que a energia não pode ser criada nem destruída. Ela pode ser transferida ou convertida.</p>
+<p>Quando dizemos que um circuito “perde energia”, normalmente queremos dizer que parte dela se transformou em uma forma não desejada, principalmente calor. A energia não desapareceu.</p>
+<h4 id="conversao-de-energia">Conversão de energia</h4>
+<p><strong>Conversão de energia</strong> é a transformação de uma forma de energia em outra. Um dispositivo real geralmente produz mais de uma forma de saída.</p>
+<div class="article-table-wrap"><table class="article-table"><thead><tr><th>Dispositivo</th><th>Energia recebida</th><th>Conversão principal</th><th>Conversões secundárias</th></tr></thead><tbody>
+<tr><td>Pilha alimentando circuito</td><td>Química</td><td>Elétrica</td><td>Calor</td></tr>
+<tr><td>Motor</td><td>Elétrica</td><td>Mecânica</td><td>Calor e som</td></tr>
+<tr><td>LED</td><td>Elétrica</td><td>Luminosa</td><td>Calor</td></tr>
+<tr><td>Buzzer</td><td>Elétrica</td><td>Sonora</td><td>Calor e vibração</td></tr>
+<tr><td>Resistor</td><td>Elétrica</td><td>Térmica</td><td>—</td></tr>
+</tbody></table></div>
+<h4 id="eficiencia">Eficiência</h4>
+<p><strong>Eficiência</strong> é a fração da energia recebida que se transforma na forma útil desejada:</p>
+<pre data-language="text"><code>eficiência = energia útil / energia recebida</code></pre>
+<p>Nenhum dispositivo real converte toda a energia somente na forma desejada.</p>
+<h3 id="relacao-com-o-microcontrolador">Relação com o microcontrolador</h3>
+<p>O microcontrolador manipula sinais, mas a energia da carga precisa vir de uma fonte adequada. Uma GPIO pode controlar um LED pequeno com resistor, mas não deve fornecer diretamente a energia exigida por um motor. Nesse caso, ela comanda um transistor ou driver, enquanto outra fonte alimenta o motor.</p>
+<h3 id="exemplo-explicado">Exemplo explicado</h3>
+<p>Quando uma pilha alimenta um motor, a pilha converte energia química em elétrica. O motor converte parte dessa energia elétrica em movimento. A resistência dos enrolamentos produz calor e as vibrações produzem som.</p>
+<h3 id="verifique-se-entendeu">Verifique se entendeu</h3>
+<ol>
+<li>Um motor cria energia mecânica ou converte energia?</li>
+<li>Por que o aquecimento costuma ser tratado como perda?</li>
+<li>Quais conversões ocorrem quando uma pilha acende um LED?</li>
+</ol>
+<p><a href="01b-grandezas-eletricas.html">Próximo: grandezas elétricas →</a></p>
+<p><a href="../index.html">← Voltar ao início</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="01-fundamentos.html">← Conteúdo anterior</a><a href="01b-grandezas-eletricas.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>

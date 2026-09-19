@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Buzzer, frequência e produção de som — material de apoio de prototipagem e fabricação digital."><title>Buzzer, frequência e produção de som — Fundamentos de Prototipagem</title><link rel="stylesheet" href="../styles.css"></head>
+<body><header class="site-header"><div class="site-header__inner shell"><a class="brand" href="../index.html"><span class="brand__mark">FP</span><span>Fundamentos de Prototipagem</span></a><nav class="nav" aria-label="Navegação principal"><a href="../index.html#conteudos">Conteúdos</a><a href="../praticas.html">Apoios</a><a class="nav__report" href="../relatorio.html">Relatório</a></nav></div></header>
+<main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 19 de 30</p><h1>Buzzer, frequência e produção de som</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
+<ul>
+<li><a href="#buzzer-ativo">Buzzer ativo</a></li>
+<li><a href="#buzzer-passivo">Buzzer passivo</a></li>
+<li><a href="#frequência-e-período">Frequência e período</a></li>
+<li><a href="#tom-e-nota">Tom e nota</a></li>
+<li><a href="#ligação-e-proteção">Ligação e proteção</a></li>
+</ul>
+<h3 id="buzzer-ativo">Buzzer ativo</h3>
+<p>Um <strong>buzzer ativo</strong> possui oscilador interno. Quando recebe a alimentação correta, produz um tom predeterminado. O programa normalmente apenas liga e desliga.</p>
+<h3 id="buzzer-passivo">Buzzer passivo</h3>
+<p>Um <strong>buzzer passivo</strong> não possui oscilador completo e precisa receber pulsos. A frequência dos pulsos determina a altura do som, permitindo produzir notas diferentes.</p>
+<p>Um teste contínuo em DC pode produzir apenas um clique em um buzzer passivo.</p>
+<h3 id="frequencia-e-periodo">Frequência e período</h3>
+<p><strong>Frequência</strong> é a quantidade de ciclos por segundo, medida em hertz. <strong>Período</strong> é a duração de um ciclo:</p>
+<pre data-language="text"><code>T = 1 / f</code></pre>
+<p>Aumentar a frequência tende a produzir som mais agudo; diminuir, som mais grave.</p>
+<h3 id="tom-e-nota">Tom e nota</h3>
+<p>Um <strong>tom</strong> é um sinal sonoro associado a determinada frequência. Uma <strong>nota musical</strong> corresponde a uma frequência dentro de um sistema de afinação; por exemplo, Lá pode ser representado por 440 Hz.</p>
+<pre data-language="cpp"><code>tone(8, 440);
+delay(500);
+noTone(8);</code></pre>
+<p>Em blocos, use “tocar tom no pino com frequência”, “aguardar” e “parar tom”. Frequência e duração são controles diferentes.</p>
+<h3 id="ligacao-e-protecao">Ligação e proteção</h3>
+<p>Confira tipo, polaridade, tensão e corrente. Um buzzer pequeno pode ser acionado diretamente somente se ficar dentro dos limites da GPIO. Para corrente maior, use transistor, resistor de base ou gate e fonte apropriada.</p>
+<p>Se o dispositivo for eletromagnético e indutivo, verifique a necessidade de diodo de proteção. Buzzers piezoelétricos e magnéticos não devem ser tratados como componentes idênticos.</p>
+<h3 id="verifique-se-entendeu">Verifique se entendeu</h3>
+<ol>
+<li>Por que um buzzer ativo não precisa receber uma frequência musical?</li>
+<li>O que ocorre ao dobrar a frequência de um buzzer passivo?</li>
+<li>Quando é necessário usar transistor?</li>
+</ol>
+<p><a href="04b-divisor-potenciometro-ldr.html">← Anterior: divisor e sensores</a> · <a href="04d-blocos-codigo.html">Próximo: blocos e código →</a></p>
+<p><a href="../index.html">← Voltar ao início</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="04b-divisor-potenciometro-ldr.html">← Conteúdo anterior</a><a href="04d-blocos-codigo.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>

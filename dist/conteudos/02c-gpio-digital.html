@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="GPIO, entrada, saída e níveis digitais — material de apoio de prototipagem e fabricação digital."><title>GPIO, entrada, saída e níveis digitais — Fundamentos de Prototipagem</title><link rel="stylesheet" href="../styles.css"></head>
+<body><header class="site-header"><div class="site-header__inner shell"><a class="brand" href="../index.html"><span class="brand__mark">FP</span><span>Fundamentos de Prototipagem</span></a><nav class="nav" aria-label="Navegação principal"><a href="../index.html#conteudos">Conteúdos</a><a href="../praticas.html">Apoios</a><a class="nav__report" href="../relatorio.html">Relatório</a></nav></div></header>
+<main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 09 de 30</p><h1>GPIO, entrada, saída e níveis digitais</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--done">Com apoio visual</span></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
+<ul>
+<li><a href="#gpio">GPIO</a></li>
+<li><a href="#entrada-digital">Entrada digital</a></li>
+<li><a href="#saída-digital">Saída digital</a></li>
+<li><a href="#nível-lógico">Nível lógico</a></li>
+<li><a href="#high-e-low">HIGH e LOW</a></li>
+<li><a href="#pull-up-e-pull-down">Pull-up e pull-down</a></li>
+<li><a href="#corrente-e-proteção">Corrente e proteção</a></li>
+</ul>
+<h3 id="gpio">GPIO</h3>
+<p><strong>GPIO</strong> significa entrada e saída de propósito geral. É um pino que o programa pode configurar para funções permitidas pelo microcontrolador.</p>
+<p>Nem todo pino exposto na placa é GPIO. GND, 5 V, 3,3 V, reset e alguns pinos de USB ou alimentação possuem funções próprias. Também existem GPIOs com restrições na inicialização.</p>
+<h3 id="entrada-digital">Entrada digital</h3>
+<p>Uma <strong>entrada digital</strong> observa a tensão do pino e a classifica como LOW ou HIGH. Ela é usada para botões, interruptores e saídas digitais de sensores.</p>
+<pre data-language="cpp"><code>pinMode(2, INPUT);
+int estado = digitalRead(2);</code></pre>
+<p>No ambiente de blocos, corresponde a “definir pino como entrada” e “ler pino digital”. A entrada não deve receber tensão acima dos limites da placa.</p>
+<h3 id="saida-digital">Saída digital</h3>
+<p>Uma <strong>saída digital</strong> comanda o pino para um nível LOW ou HIGH. Ela serve para sinais de controle e cargas muito pequenas, como um LED com resistor.</p>
+<pre data-language="cpp"><code>pinMode(9, OUTPUT);
+digitalWrite(9, HIGH);</code></pre>
+<p>Em blocos: “definir pino como saída” e “definir pino como ALTO”. Uma saída não deve alimentar diretamente motor, servo ou carga de corrente elevada.</p>
+<h3 id="nivel-logico">Nível lógico</h3>
+<p><strong>Nível lógico</strong> é uma faixa de tensão interpretada como estado digital. Não existe uma única tensão universal para HIGH e LOW; os limites dependem do microcontrolador e da alimentação.</p>
+<p>Uma placa de 5 V pode produzir HIGH próximo de 5 V. Uma placa de 3,3 V produz HIGH próximo de 3,3 V. Alguns pinos de 3,3 V não toleram 5 V.</p>
+<h3 id="high-e-low">HIGH e LOW</h3>
+<p><strong>HIGH</strong> e <strong>LOW</strong> representam estados lógicos, não valores universais de tensão. LOW costuma estar próximo ao GND; HIGH, próximo à alimentação lógica da placa.</p>
+<p>O significado funcional depende do circuito. Com botão em <code>INPUT_PULLUP</code>, LOW pode significar “pressionado”. Em LED RGB de ânodo comum, LOW pode acender um canal.</p>
+<h3 id="pull-up-e-pull-down">Pull-up e pull-down</h3>
+<p><strong>Pull-up</strong> e <strong>pull-down</strong> são resistores que definem o estado de uma entrada quando nenhum dispositivo a está acionando. Sem eles, a entrada fica flutuante e pode captar ruído.</p>
+<ul>
+<li>Pull-up liga fracamente a entrada ao VCC e define HIGH como repouso.</li>
+<li>Pull-down liga fracamente a entrada ao GND e define LOW como repouso.</li>
+<li><code>INPUT_PULLUP</code> ativa um resistor interno disponível em muitas placas.</li>
+</ul>
+<h3 id="corrente-e-protecao">Corrente e proteção</h3>
+<p>A GPIO trabalha com corrente limitada. Confira os valores recomendados e máximos da placa. Um resistor limita corrente de LED; transistor ou driver controla carga maior; divisor ou conversor de nível protege uma entrada contra tensão incompatível.</p>
+<p>Configurar uma porta por código não aumenta sua capacidade elétrica.</p>
+<h3 id="blocos-e-codigo">Blocos e código</h3>
+<div class="article-table-wrap"><table class="article-table"><thead><tr><th>Ação</th><th>Bloco comum</th><th>Código</th></tr></thead><tbody>
+<tr><td>Configurar entrada</td><td>definir pino como entrada</td><td><code>pinMode(p, INPUT);</code></td></tr>
+<tr><td>Ativar pull-up</td><td>entrada com pull-up</td><td><code>pinMode(p, INPUT_PULLUP);</code></td></tr>
+<tr><td>Ler entrada</td><td>ler pino digital</td><td><code>digitalRead(p);</code></td></tr>
+<tr><td>Configurar saída</td><td>definir pino como saída</td><td><code>pinMode(p, OUTPUT);</code></td></tr>
+<tr><td>Escrever estado</td><td>definir ALTO/BAIXO</td><td><code>digitalWrite(p, HIGH);</code></td></tr>
+</tbody></table></div>
+<h3 id="verifique-se-entendeu">Verifique se entendeu</h3>
+<ol>
+<li>Por que GND e 5 V não são GPIOs?</li>
+<li>Por que HIGH não significa sempre 5 V?</li>
+<li>O que ocorre com uma entrada flutuante?</li>
+<li>Por que uma saída digital não deve alimentar um motor?</li>
+</ol>
+<p><a href="02b-ide-usb-drivers.html">← Anterior: IDE e USB</a> · <a href="02d-sinais-comunicacao.html">Próximo: sinais e comunicação →</a></p>
+<p><a href="../index.html">← Voltar ao início</a></p>
+<section class="didactic-support" aria-labelledby="apoio-gpio">
+  <div class="didactic-support__head"><p class="eyebrow">Apoio didático 01</p><h2 id="apoio-gpio">Saída digital: do bloco ao LED</h2><p>Variação pedagógica construída a partir da lógica de níveis digitais do material-base. O desenho mostra o caminho elétrico; os blocos apresentam a mesma sequência do código textual.</p></div>
+  <div class="didactic-grid">
+    <div class="didactic-panel"><h3>Diagrama de conexão</h3>
+      <svg class="lesson-diagram" viewBox="0 0 720 370" role="img" aria-labelledby="gpio-diagram-title gpio-diagram-desc">
+        <title id="gpio-diagram-title">Arduino conectado a um LED pelo pino 3</title><desc id="gpio-diagram-desc">O pino digital 3 passa por um resistor de 220 ohms e pelo LED antes de retornar ao GND.</desc>
+        <rect x="42" y="48" width="250" height="275" rx="22" fill="#147f9b" stroke="#11110f" stroke-width="5"/><text x="167" y="150" fill="white" font-size="31" font-weight="800" text-anchor="middle">ARDUINO</text><text x="167" y="188" fill="white" font-size="25" text-anchor="middle">UNO</text>
+        <text x="247" y="94" fill="white" font-size="16" font-weight="700">D3</text><text x="242" y="290" fill="white" font-size="16" font-weight="700">GND</text>
+        <path d="M278 90H365" stroke="#3657ff" stroke-width="8" fill="none"/><rect x="365" y="74" width="110" height="32" rx="8" fill="#f6d99d" stroke="#11110f" stroke-width="4"/><path d="M393 76v28m20-28v28m20-28v28" stroke="#7b3b19" stroke-width="5"/><text x="420" y="62" text-anchor="middle" font-size="15" font-weight="700">220 Ω</text>
+        <path d="M475 90h64" stroke="#3657ff" stroke-width="8"/><path d="M539 90v22m42-22v22" stroke="#11110f" stroke-width="4"/><path d="M529 92a31 31 0 0 1 62 0v38h-62z" fill="#ff5a36" stroke="#11110f" stroke-width="4"/><path d="M560 130v100H278v56" stroke="#11110f" stroke-width="8" fill="none"/>
+        <text x="612" y="104" font-size="18" font-weight="700">LED</text><text x="378" y="255" font-size="16">cátodo → GND</text>
+      </svg>
+      <p class="diagram-caption"><b>Caminho:</b> D3 → resistor de 220 Ω → ânodo do LED → cátodo → GND.</p>
+    </div>
+    <div class="didactic-panel"><h3>Programação em blocos</h3><div class="block-stack"><div class="block block--event">no início</div><div class="block">definir pino <em>3</em> como <em>SAÍDA</em></div><div class="block block--loop"><span>para sempre</span><div class="block__inside"><div class="block">definir pino <em>3</em> como <em>ALTO</em></div><div class="block block--wait">aguardar <em>1 s</em></div><div class="block">definir pino <em>3</em> como <em>BAIXO</em></div><div class="block block--wait">aguardar <em>1 s</em></div></div></div></div>
+      <p class="diagram-caption">ALTO acende; BAIXO apaga. Os dois tempos tornam a mudança visível.</p>
+    </div>
+  </div>
+</section></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="02b-ide-usb-drivers.html">← Conteúdo anterior</a><a href="02d-sinais-comunicacao.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>

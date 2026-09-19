@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Tensão, corrente e resistor do LED — material de apoio de prototipagem e fabricação digital."><title>Tensão, corrente e resistor do LED — Fundamentos de Prototipagem</title><link rel="stylesheet" href="../styles.css"></head>
+<body><header class="site-header"><div class="site-header__inner shell"><a class="brand" href="../index.html"><span class="brand__mark">FP</span><span>Fundamentos de Prototipagem</span></a><nav class="nav" aria-label="Navegação principal"><a href="../index.html#conteudos">Conteúdos</a><a href="../praticas.html">Apoios</a><a class="nav__report" href="../relatorio.html">Relatório</a></nav></div></header>
+<main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 13 de 30</p><h1>Tensão, corrente e resistor do LED</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
+<ul>
+<li><a href="#tensão-direta">Tensão direta</a></li>
+<li><a href="#corrente-do-led">Corrente do LED</a></li>
+<li><a href="#resistor-limitador">Resistor limitador</a></li>
+<li><a href="#cálculo-do-resistor">Cálculo do resistor</a></li>
+<li><a href="#valor-comercial">Valor comercial</a></li>
+<li><a href="#potência-do-resistor">Potência do resistor</a></li>
+<li><a href="#código-de-cores">Código de cores</a></li>
+<li><a href="#tolerância">Tolerância</a></li>
+</ul>
+<h3 id="tensao-direta">Tensão direta</h3>
+<p>A <strong>tensão direta</strong>, indicada frequentemente por <code>Vf</code>, é a queda de tensão aproximada no LED quando ele conduz determinada corrente. Ela varia com cor, modelo, corrente e temperatura.</p>
+<p>Não trate <code>Vf</code> como um valor universal. Use o datasheet; em atividade introdutória, use o valor fornecido no exercício.</p>
+<h3 id="corrente-do-led">Corrente do LED</h3>
+<p>A <strong>corrente do LED</strong> determina seu funcionamento e influencia o brilho. Ultrapassar o limite pode reduzir a vida útil ou causar dano. A corrente escolhida também deve respeitar o limite da GPIO.</p>
+<p>Mais corrente não deve ser usada automaticamente como sinônimo de “melhor brilho”. Muitos LEDs modernos já ficam visíveis com poucos miliamperes.</p>
+<h3 id="resistor-limitador">Resistor limitador</h3>
+<p>O <strong>resistor limitador</strong> fica em série com o LED e controla a corrente. Sem ele, uma pequena variação de tensão pode provocar grande aumento de corrente.</p>
+<p>O resistor recebe a diferença entre a tensão da fonte e a tensão direta do LED.</p>
+<h3 id="calculo-do-resistor">Cálculo do resistor</h3>
+<pre data-language="text"><code>R = (Vfonte − Vf_LED) / I_LED</code></pre>
+<p>Exemplo com 5 V, <code>Vf = 2 V</code> e corrente desejada de 10 mA:</p>
+<pre data-language="text"><code>10 mA = 0,010 A
+R = (5 − 2) / 0,010 = 300 Ω</code></pre>
+<p>Se <code>Vfonte</code> não for maior que <code>Vf</code>, esse cálculo simples não representa uma ligação funcional. Se o LED for controlado por GPIO, use a tensão real do nível HIGH e respeite os limites da porta.</p>
+<h3 id="valor-comercial">Valor comercial</h3>
+<p><strong>Valor comercial</strong> é um valor padronizado fabricado e vendido. Quando o cálculo resulta em 300 Ω e esse valor não está disponível, escolher 330 Ω reduz um pouco a corrente e oferece margem de segurança.</p>
+<p>Não substitua por um valor menor sem recalcular corrente, potência e limites.</p>
+<h3 id="potencia-do-resistor">Potência do resistor</h3>
+<p>A <strong>potência do resistor</strong> é a energia por segundo que ele dissipa como calor. Calcule:</p>
+<pre data-language="text"><code>P = I² × R</code></pre>
+<p>Para 10 mA e 330 Ω:</p>
+<pre data-language="text"><code>P = 0,010² × 330 = 0,033 W</code></pre>
+<p>Um resistor de 1/4 W suporta nominalmente 0,25 W e oferece folga nesse exemplo. Condições térmicas e especificações do fabricante continuam relevantes.</p>
+<h3 id="codigo-de-cores">Código de cores</h3>
+<p>No resistor de quatro faixas, as duas primeiras representam dígitos, a terceira é o multiplicador e a quarta é a tolerância.</p>
+<div class="article-table-wrap"><table class="article-table"><thead><tr><th>Cor</th><th>Dígito</th><th>Multiplicador</th><th>Tolerância comum</th></tr></thead><tbody>
+<tr><td>Preto</td><td>0</td><td>×1</td><td>—</td></tr>
+<tr><td>Marrom</td><td>1</td><td>×10</td><td>±1%</td></tr>
+<tr><td>Vermelho</td><td>2</td><td>×100</td><td>±2%</td></tr>
+<tr><td>Laranja</td><td>3</td><td>×1 k</td><td>—</td></tr>
+<tr><td>Amarelo</td><td>4</td><td>×10 k</td><td>—</td></tr>
+<tr><td>Verde</td><td>5</td><td>×100 k</td><td>±0,5%</td></tr>
+<tr><td>Azul</td><td>6</td><td>×1 M</td><td>±0,25%</td></tr>
+<tr><td>Violeta</td><td>7</td><td>×10 M</td><td>±0,1%</td></tr>
+<tr><td>Cinza</td><td>8</td><td>×100 M</td><td>±0,05%</td></tr>
+<tr><td>Branco</td><td>9</td><td>×1 G</td><td>—</td></tr>
+<tr><td>Dourado</td><td>—</td><td>×0,1</td><td>±5%</td></tr>
+<tr><td>Prateado</td><td>—</td><td>×0,01</td><td>±10%</td></tr>
+</tbody></table></div>
+<p>Laranja, laranja, marrom e dourado representam <code>33 × 10 = 330 Ω ±5%</code>.</p>
+<h3 id="tolerancia">Tolerância</h3>
+<p>A <strong>tolerância</strong> informa quanto o valor real pode variar ao redor do nominal. Um resistor de 330 Ω ±5% pode apresentar valor dentro da faixa definida por essa porcentagem.</p>
+<p>Use multímetro quando o valor real for importante ou quando houver dúvida na leitura das cores.</p>
+<h3 id="verifique-se-entendeu">Verifique se entendeu</h3>
+<ol>
+<li>Calcule o resistor para 3,3 V, LED de 2 V e 8 mA.</li>
+<li>Por que normalmente escolhemos um valor comercial acima?</li>
+<li>O que representa a última faixa de um resistor de quatro faixas?</li>
+</ol>
+<p><a href="03a-led-comum.html">← Anterior: LED comum</a> · <a href="03c-led-rgb.html">Próximo: LED RGB →</a></p>
+<p><a href="../index.html">← Voltar ao início</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="03a-led-comum.html">← Conteúdo anterior</a><a href="03c-led-rgb.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>

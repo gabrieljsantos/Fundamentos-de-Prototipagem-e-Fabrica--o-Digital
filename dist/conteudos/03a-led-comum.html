@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="LED comum, diodo, polaridade, ânodo e cátodo — material de apoio de prototipagem e fabricação digital."><title>LED comum, diodo, polaridade, ânodo e cátodo — Fundamentos de Prototipagem</title><link rel="stylesheet" href="../styles.css"></head>
+<body><header class="site-header"><div class="site-header__inner shell"><a class="brand" href="../index.html"><span class="brand__mark">FP</span><span>Fundamentos de Prototipagem</span></a><nav class="nav" aria-label="Navegação principal"><a href="../index.html#conteudos">Conteúdos</a><a href="../praticas.html">Apoios</a><a class="nav__report" href="../relatorio.html">Relatório</a></nav></div></header>
+<main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 12 de 30</p><h1>LED comum, diodo, polaridade, ânodo e cátodo</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
+<ul>
+<li><a href="#led">LED</a></li>
+<li><a href="#diodo">Diodo</a></li>
+<li><a href="#polaridade-do-led">Polaridade do LED</a></li>
+<li><a href="#ânodo">Ânodo</a></li>
+<li><a href="#cátodo">Cátodo</a></li>
+<li><a href="#identificação-dos-terminais">Identificação dos terminais</a></li>
+</ul>
+<h3 id="led">LED</h3>
+<p><strong>LED</strong> significa diodo emissor de luz. É um componente semicondutor que emite luz quando conduz corrente no sentido correto. Parte da energia elétrica também se transforma em calor.</p>
+<p>A cor depende do material semicondutor e influencia a tensão de funcionamento. Cor, brilho e corrente não devem ser determinados apenas pela aparência; consulte a documentação quando o modelo for conhecido.</p>
+<h3 id="diodo">Diodo</h3>
+<p>Um <strong>diodo</strong> é um componente que conduz corrente principalmente em um sentido. Um LED é um tipo de diodo desenvolvido para emitir luz.</p>
+<p>Essa característica torna a orientação importante. Em polarização direta, o LED pode conduzir e acender. Em polarização reversa, normalmente não acende e pode sofrer dano se a tensão reversa ultrapassar seu limite.</p>
+<h3 id="polaridade-do-led">Polaridade do LED</h3>
+<p>A <strong>polaridade do LED</strong> é a orientação correta entre seus terminais e a fonte. Em uma ligação convencional, o ânodo fica voltado para o potencial mais alto e o cátodo para o potencial mais baixo.</p>
+<pre data-language="text"><code>GPIO ou VCC ── resistor ── ânodo → LED → cátodo ── GND</code></pre>
+<p>O resistor pode ficar antes ou depois do LED, desde que permaneça em série.</p>
+<h3 id="anodo">Ânodo</h3>
+<p>O <strong>ânodo</strong> é o terminal por onde a corrente convencional entra no LED quando ele está conduzindo. Em muitos LEDs novos de dois terminais, a perna mais longa indica o ânodo.</p>
+<p>Essa regra visual ajuda, mas não substitui datasheet, símbolo, marcação da placa ou teste adequado.</p>
+<h3 id="catodo">Cátodo</h3>
+<p>O <strong>cátodo</strong> é o terminal por onde a corrente convencional sai do LED em condução. Em muitos encapsulamentos, a perna curta e a face achatada indicam o cátodo.</p>
+<p>No símbolo elétrico do diodo, a barra marca o lado do cátodo.</p>
+<h3 id="identificacao-dos-terminais">Identificação dos terminais</h3>
+<p>Use, nesta ordem, as informações mais confiáveis disponíveis:</p>
+<ol>
+<li>datasheet do modelo;</li>
+<li>marcações na placa ou no encapsulamento;</li>
+<li>símbolo do circuito;</li>
+<li>perna longa, perna curta e face achatada;</li>
+<li>modo de teste de diodo do multímetro, com corrente limitada.</li>
+</ol>
+<h3 id="verifique-se-entendeu">Verifique se entendeu</h3>
+<ol>
+<li>Por que um LED é chamado de diodo?</li>
+<li>O que pode acontecer com polaridade invertida?</li>
+<li>Qual terminal a barra do símbolo identifica?</li>
+</ol>
+<p><a href="03b-resistor-led.html">Próximo: resistor do LED →</a></p>
+<p><a href="../index.html">← Voltar ao início</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="03-leds-resistores.html">← Conteúdo anterior</a><a href="03b-resistor-led.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>

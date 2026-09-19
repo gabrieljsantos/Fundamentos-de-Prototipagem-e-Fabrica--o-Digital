@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Exercícios, respostas e diagnóstico — material de apoio de prototipagem e fabricação digital."><title>Exercícios, respostas e diagnóstico — Fundamentos de Prototipagem</title><link rel="stylesheet" href="../styles.css"></head>
+<body><header class="site-header"><div class="site-header__inner shell"><a class="brand" href="../index.html"><span class="brand__mark">FP</span><span>Fundamentos de Prototipagem</span></a><nav class="nav" aria-label="Navegação principal"><a href="../index.html#conteudos">Conteúdos</a><a href="../praticas.html">Apoios</a><a class="nav__report" href="../relatorio.html">Relatório</a></nav></div></header>
+<main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 28 de 30</p><h1>Exercícios, respostas e diagnóstico</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
+<ul>
+<li><a href="#exercícios-de-fundamentos">Exercícios de fundamentos</a></li>
+<li><a href="#exercícios-de-conexão">Exercícios de conexão</a></li>
+<li><a href="#gabarito-comentado">Gabarito comentado</a></li>
+<li><a href="#método-de-diagnóstico">Método de diagnóstico</a></li>
+</ul>
+<h3 id="exercicios-de-fundamentos">Exercícios de fundamentos</h3>
+<ol>
+<li>Diferencie energia, potência, tensão e corrente.</li>
+<li>Calcule a corrente em um resistor de 1 kΩ submetido a 5 V.</li>
+<li>Calcule o resistor de um LED com fonte de 5 V, <code>Vf = 2,1 V</code> e corrente desejada de 8 mA.</li>
+<li>Explique por que dois LEDs em paralelo devem ter resistores individuais.</li>
+<li>Explique a diferença entre PWM e uma tensão analógica contínua.</li>
+</ol>
+<h3 id="exercicios-de-conexao">Exercícios de conexão</h3>
+<ol>
+<li>Uma entrada limitada a 3,3 V pode receber diretamente um ECHO de 5 V?</li>
+<li>Em <code>INPUT_PULLUP</code>, qual estado representa botão pressionado?</li>
+<li>Por que um motor precisa de driver mesmo quando o código usa somente HIGH e LOW?</li>
+<li>Por que uma fonte externa e a placa costumam compartilhar GND?</li>
+<li>Um LCD acende o backlight, mas não mostra texto. Quais verificações devem ser feitas?</li>
+<li>Por que o LM2596 deve ser ajustado antes de conectar uma placa?</li>
+</ol>
+<h3 id="gabarito-comentado">Gabarito comentado</h3>
+<ol>
+<li>Fundamentos: energia é capacidade de produzir mudanças; potência é energia por tempo; tensão é diferença de potencial; corrente é fluxo de cargas.</li>
+<li><code>I = 5/1000 = 0,005 A = 5 mA</code>.</li>
+<li><code>R = (5 − 2,1)/0,008 = 362,5 Ω</code>. Use valor comercial acima, como 390 Ω, e confira potência.</li>
+<li>As tensões diretas variam. Sem resistores individuais, uma corrente maior pode se concentrar em um LED.</li>
+<li>PWM alterna níveis digitais e muda o tempo ativo; saída analógica contínua assume valores intermediários de tensão.</li>
+<li>Uma entrada de 3,3 V só pode receber 5 V se a documentação declarar tolerância. Caso contrário, use adaptação.</li>
+<li>Em <code>INPUT_PULLUP</code>, pressionado normalmente é LOW.</li>
+<li>A GPIO não suporta a corrente nem os picos indutivos do motor.</li>
+<li>O GND comum fornece referência compartilhada para os sinais.</li>
+<li>Confira contraste, endereço I²C, inicialização, fios, alimentação e pinos SDA/SCL.</li>
+<li>A saída pode estar acima do limite da carga e causar dano imediato.</li>
+</ol>
+<h3 id="metodo-de-diagnostico">Método de diagnóstico</h3>
+<h4 id="1-alimentacao">1. Alimentação</h4>
+<p>Meça tensão, confira polaridade, capacidade da fonte e GND. Observe aquecimento e queda de tensão quando a carga atua.</p>
+<h4 id="2-conexao">2. Conexão</h4>
+<p>Compare fio por fio com a pinagem. Confirme fileiras da protoboard, continuidade e ausência de curtos.</p>
+<h4 id="3-componente">3. Componente</h4>
+<p>Teste cada parte em um circuito mínimo conhecido. Confirme modelo, limites e funcionamento esperado.</p>
+<h4 id="4-programa">4. Programa</h4>
+<p>Confira placa, porta, pinos, modos INPUT/OUTPUT, faixas numéricas e lógica invertida. Use Monitor Serial para observar estados.</p>
+<h4 id="5-integracao">5. Integração</h4>
+<p>Adicione um componente por vez. Se o circuito para de funcionar, investigue a última alteração antes de modificar várias coisas ao mesmo tempo.</p>
+<p><a href="06a-respostas-slide.html">← Anterior: respostas do slide</a> · <a href="06c-aprofundamento.html">Próximo: aprofundamento →</a></p>
+<p><a href="../index.html">← Voltar ao início</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="06a-respostas-slide.html">← Conteúdo anterior</a><a href="06c-aprofundamento.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>

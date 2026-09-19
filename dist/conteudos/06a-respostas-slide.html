@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Respostas comentadas das perguntas do slide — material de apoio de prototipagem e fabricação digital."><title>Respostas comentadas das perguntas do slide — Fundamentos de Prototipagem</title><link rel="stylesheet" href="../styles.css"></head>
+<body><header class="site-header"><div class="site-header__inner shell"><a class="brand" href="../index.html"><span class="brand__mark">FP</span><span>Fundamentos de Prototipagem</span></a><nav class="nav" aria-label="Navegação principal"><a href="../index.html#conteudos">Conteúdos</a><a href="../praticas.html">Apoios</a><a class="nav__report" href="../relatorio.html">Relatório</a></nav></div></header>
+<main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 27 de 30</p><h1>Respostas comentadas das perguntas do slide</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
+<ul>
+<li><a href="#conversão-de-energia">Conversão de energia</a></li>
+<li><a href="#conexão-segura">Conexão segura</a></li>
+<li><a href="#sensores-e-módulos">Sensores e módulos</a></li>
+<li><a href="#microcontrolador-e-gpio">Microcontrolador e GPIO</a></li>
+<li><a href="#entrada-saída-e-pwm">Entrada, saída e PWM</a></li>
+</ul>
+<h3 id="conversao-de-energia">Conversão de energia</h3>
+<p><strong>Pergunta:</strong> quais são as principais conversões em um motor e em um LED?</p>
+<p><strong>Resposta: A.</strong> O motor converte energia elétrica principalmente em mecânica; o LED converte energia elétrica principalmente em luminosa. Ambos também dissipam calor.</p>
+<h3 id="conexao-segura">Conexão segura</h3>
+<p><strong>Pergunta:</strong> o que verificar antes de conectar componente, fonte ou saída?</p>
+<p><strong>Resposta: C.</strong> Verifique tensão fornecida, capacidade de corrente, tensão e corrente suportadas pelo componente e necessidade de resistor ou circuito de interface. Programação não altera limites elétricos.</p>
+<p><strong>Pergunta:</strong> qual combinação permite ajuste manual do brilho e liga/desliga?</p>
+<p><strong>Resposta: A.</strong> No modelo conceitual, o potenciômetro varia o ajuste e o interruptor abre ou fecha o circuito. Em projeto com microcontrolador, é mais eficiente ler o potenciômetro no ADC e controlar o LED por PWM.</p>
+<h3 id="sensores-e-modulos">Sensores e módulos</h3>
+<p><strong>Pergunta:</strong> o que perguntar antes de escolher um sensor?</p>
+<p><strong>Resposta: C.</strong> Defina grandeza, faixa, precisão e velocidade. Depois estude instalação, alimentação, programação e interpretação.</p>
+<p><strong>Pergunta:</strong> qual sequência usar antes de trabalhar com módulo?</p>
+<p><strong>Resposta: C.</strong> Identifique a função, conexões, configuração no programa, alimentação e proteção.</p>
+<p><strong>Pergunta:</strong> por que não basta conectar fios e iniciar o programa?</p>
+<p><strong>Resposta: B.</strong> É preciso conhecer função, pinagem, alimentação, níveis lógicos, configuração e proteção.</p>
+<h3 id="microcontrolador-e-gpio">Microcontrolador e GPIO</h3>
+<p><strong>Pergunta:</strong> o que diferencia um microcontrolador de um circuito fixo?</p>
+<p><strong>Resposta: C.</strong> Ele executa um programa e pode realizar sequências e decisões diferentes com o mesmo hardware.</p>
+<p><strong>Pergunta:</strong> o que diferencia uma GPIO?</p>
+<p><strong>Resposta: C.</strong> É uma porta de propósito geral configurável dentro das funções permitidas pelo hardware.</p>
+<h3 id="entrada-saida-e-pwm">Entrada, saída e PWM</h3>
+<p><strong>Pergunta:</strong> como configurar a GPIO que controla liga/desliga?</p>
+<p><strong>Resposta: C.</strong> Como saída digital.</p>
+<p><strong>Pergunta:</strong> como configurar a GPIO que lê um interruptor?</p>
+<p><strong>Resposta: B.</strong> Como entrada digital, com pull-up ou pull-down.</p>
+<p><strong>Pergunta:</strong> qual recurso permite variar brilho?</p>
+<p><strong>Resposta: D.</strong> PWM, alterando o ciclo de trabalho.</p>
+<p><strong>Pergunta:</strong> o que acontece ao aumentar o valor PWM?</p>
+<p><strong>Resposta: C.</strong> Em lógica não invertida, aumenta a proporção de tempo ativo e a resposta média da carga. O sinal continua digital.</p>
+<p><strong>Pergunta:</strong> como classificar distância, interruptor e LED?</p>
+<p><strong>Resposta: C, com uma ressalva.</strong> Interruptor é entrada e LED é saída. Um ultrassônico típico usa saída para TRIG e entrada para ECHO; o módulo não se resume a uma única entrada.</p>
+<p><a href="06b-exercicios-diagnostico.html">Próximo: exercícios e diagnóstico →</a></p>
+<p><a href="../index.html">← Voltar ao início</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="06-revisao.html">← Conteúdo anterior</a><a href="06b-exercicios-diagnostico.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Motor DC, ponte H e servomotor — material de apoio de prototipagem e fabricação digital."><title>Motor DC, ponte H e servomotor — Fundamentos de Prototipagem</title><link rel="stylesheet" href="../styles.css"></head>
+<body><header class="site-header"><div class="site-header__inner shell"><a class="brand" href="../index.html"><span class="brand__mark">FP</span><span>Fundamentos de Prototipagem</span></a><nav class="nav" aria-label="Navegação principal"><a href="../index.html#conteudos">Conteúdos</a><a href="../praticas.html">Apoios</a><a class="nav__report" href="../relatorio.html">Relatório</a></nav></div></header>
+<main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 24 de 30</p><h1>Motor DC, ponte H e servomotor</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
+<ul>
+<li><a href="#motor-dc">Motor DC</a></li>
+<li><a href="#corrente-de-partida-e-travamento">Corrente de partida e travamento</a></li>
+<li><a href="#ponte-h">Ponte H</a></li>
+<li><a href="#direção-e-velocidade">Direção e velocidade</a></li>
+<li><a href="#servomotor">Servomotor</a></li>
+<li><a href="#fonte-externa-e-gnd-comum">Fonte externa e GND comum</a></li>
+</ul>
+<h3 id="motor-dc">Motor DC</h3>
+<p>Um <strong>motor DC</strong> converte energia elétrica em movimento de rotação. Inverter a polaridade aplicada pode inverter o sentido. Como é uma carga indutiva e consome corrente elevada, não deve ser ligado diretamente à GPIO.</p>
+<h3 id="corrente-de-partida-e-travamento">Corrente de partida e travamento</h3>
+<p>A <strong>corrente de partida</strong> surge quando o motor começa a girar. A <strong>corrente de travamento</strong> ocorre quando o eixo não consegue girar e costuma ser muito maior que a corrente em movimento livre.</p>
+<p>Fonte, fios e driver devem suportar os picos previstos. Dimensionar apenas pela corrente sem carga pode causar queda de tensão, aquecimento e reinicialização.</p>
+<h3 id="ponte-h">Ponte H</h3>
+<p>Uma <strong>ponte H</strong> é um arranjo de chaves eletrônicas que permite aplicar tensão ao motor nos dois sentidos. Módulos podem usar L9110S, TB6612FNG, L298N ou outros drivers, com pinagens e limites distintos.</p>
+<p>Uma ponte H também pode frear ou deixar o motor livre, conforme as combinações aceitas. Nunca presuma a tabela lógica sem consultar o driver.</p>
+<h3 id="direcao-e-velocidade">Direção e velocidade</h3>
+<p>Entradas digitais definem a <strong>direção</strong>; PWM em uma entrada de habilitação ou controle ajusta a potência média e, aproximadamente, a velocidade.</p>
+<pre data-language="cpp"><code>digitalWrite(in1, HIGH);
+digitalWrite(in2, LOW);
+analogWrite(enable, velocidade);</code></pre>
+<p>PWM não garante controle preciso de rotação sob cargas variáveis. Controle fechado exige medição de velocidade e realimentação.</p>
+<h3 id="servomotor">Servomotor</h3>
+<p>Um <strong>servomotor</strong> de posição reúne motor, engrenagens, sensor e controlador. Ele recebe pulsos periódicos cuja largura representa uma posição desejada.</p>
+<pre data-language="cpp"><code>#include &lt;Servo.h&gt;
+Servo servo;
+void setup() { servo.attach(9); }
+void loop() { servo.write(90); }</code></pre>
+<p>O bloco correspondente costuma ser “definir servo no pino para ângulo”. Nem todo servo cobre exatamente 0° a 180°; respeite limites mecânicos.</p>
+<h3 id="fonte-externa-e-gnd-comum">Fonte externa e GND comum</h3>
+<p>Uma <strong>fonte externa</strong> fornece a corrente que a USB ou o regulador da placa talvez não suporte. Quando placa e driver trocam sinais sem isolamento, normalmente compartilham GND.</p>
+<p>Unir GND não significa unir saídas positivas. Confira tensão do motor ou servo, capacidade de corrente, polaridade e forma segura de alimentar a placa simultaneamente.</p>
+<h3 id="verifique-se-entendeu">Verifique se entendeu</h3>
+<ol>
+<li>Por que a corrente de travamento importa?</li>
+<li>Qual é a função da ponte H?</li>
+<li>Por que PWM não garante velocidade constante?</li>
+<li>Por que fonte externa e placa normalmente compartilham GND?</li>
+</ol>
+<p><a href="05b-sensores.html">← Anterior: sensores</a> · <a href="05d-lcd-lm2596.html">Próximo: LCD e LM2596 →</a></p>
+<p><a href="../index.html">← Voltar ao início</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="05b-sensores.html">← Conteúdo anterior</a><a href="05d-lcd-lm2596.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>

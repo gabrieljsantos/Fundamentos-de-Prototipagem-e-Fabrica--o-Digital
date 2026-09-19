@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Circuitos em série e paralelo, GND, VCC e polaridade — material de apoio de prototipagem e fabricação digital."><title>Circuitos em série e paralelo, GND, VCC e polaridade — Fundamentos de Prototipagem</title><link rel="stylesheet" href="../styles.css"></head>
+<body><header class="site-header"><div class="site-header__inner shell"><a class="brand" href="../index.html"><span class="brand__mark">FP</span><span>Fundamentos de Prototipagem</span></a><nav class="nav" aria-label="Navegação principal"><a href="../index.html#conteudos">Conteúdos</a><a href="../praticas.html">Apoios</a><a class="nav__report" href="../relatorio.html">Relatório</a></nav></div></header>
+<main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 04 de 30</p><h1>Circuitos em série e paralelo, GND, VCC e polaridade</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
+<ul>
+<li><a href="#circuito-elétrico">Circuito elétrico</a></li>
+<li><a href="#ligação-em-série">Ligação em série</a></li>
+<li><a href="#ligação-em-paralelo">Ligação em paralelo</a></li>
+<li><a href="#gnd">GND</a></li>
+<li><a href="#vcc-5-v-e-33-v">VCC, 5 V e 3,3 V</a></li>
+<li><a href="#polaridade">Polaridade</a></li>
+</ul>
+<h3 id="circuito-eletrico">Circuito elétrico</h3>
+<p>Um <strong>circuito elétrico</strong> é um conjunto de componentes conectados para formar caminhos de corrente e de sinais. Para existir corrente contínua, normalmente deve haver um caminho fechado entre os terminais da fonte.</p>
+<p>Um interruptor aberto interrompe o caminho. Fechado, ele permite continuidade. Isso não significa que qualquer caminho fechado seja seguro: o circuito precisa conter uma carga adequada.</p>
+<h3 id="ligacao-em-serie">Ligação em série</h3>
+<p>Componentes estão <strong>em série</strong> quando a mesma corrente percorre todos eles. As quedas de tensão se distribuem entre os componentes.</p>
+<p>Um LED e seu resistor limitador ficam em série. O resistor pode estar antes ou depois do LED, pois a mesma corrente atravessa ambos.</p>
+<h3 id="ligacao-em-paralelo">Ligação em paralelo</h3>
+<p>Componentes estão <strong>em paralelo</strong> quando seus terminais se conectam aos mesmos dois nós. Eles recebem a mesma tensão, enquanto a corrente total se divide entre os ramos.</p>
+<p>Dois LEDs em paralelo devem ter resistores individuais. Pequenas diferenças entre os LEDs podem fazer um deles conduzir corrente excessiva quando ambos compartilham apenas um resistor.</p>
+<h3 id="gnd">GND</h3>
+<p><strong>GND</strong> é o ponto escolhido como referência de 0 V. As demais tensões são medidas em relação a ele. GND não significa obrigatoriamente terra físico nem é um lugar onde a energia “desaparece”.</p>
+<p>Quando dois dispositivos trocam sinais elétricos, geralmente compartilham GND para concordarem sobre HIGH, LOW e valores analógicos. Sistemas com isolamento elétrico são uma exceção.</p>
+<h3 id="vcc-5-v-e-3-3-v">VCC, 5 V e 3,3 V</h3>
+<p><strong>VCC</strong> designa frequentemente uma linha positiva de alimentação. Pinos marcados 5 V e 3,3 V fornecem ou recebem tensões específicas, conforme a placa. Eles não são GPIOs e não devem ser unidos diretamente.</p>
+<p>Alimentação fornece energia. GPIO transporta sinais e suporta apenas correntes pequenas. Essa diferença explica por que uma GPIO não deve alimentar um motor.</p>
+<h3 id="polaridade">Polaridade</h3>
+<p><strong>Polaridade</strong> indica que os terminais têm orientação elétrica definida. Pilhas, LEDs, diodos, capacitores eletrolíticos e muitos módulos precisam ser conectados no sentido correto.</p>
+<ul>
+<li>LED: ânodo e cátodo não são equivalentes.</li>
+<li>Fonte DC: positivo e negativo não devem ser trocados.</li>
+<li>Módulo: inverter VCC e GND pode causar dano imediato.</li>
+<li>Resistor comum: não possui polaridade e pode ser instalado nos dois sentidos.</li>
+</ul>
+<h3 id="exemplo-do-caminho-eletrico">Exemplo do caminho elétrico</h3>
+<pre data-language="text"><code>VCC → resistor → LED → GND</code></pre>
+<p>A fonte estabelece tensão entre VCC e GND. O resistor limita a corrente, o LED converte energia em luz e o caminho se fecha pelo GND.</p>
+<h3 id="verifique-se-entendeu">Verifique se entendeu</h3>
+<ol>
+<li>O que permanece igual em componentes ligados em série?</li>
+<li>O que permanece igual nos ramos em paralelo?</li>
+<li>Por que GND comum ajuda dois dispositivos a interpretar um sinal?</li>
+<li>Quais componentes comuns possuem polaridade?</li>
+</ol>
+<p><a href="01b-grandezas-eletricas.html">← Anterior: grandezas</a> · <a href="01d-montagem-seguranca.html">Próximo: montagem segura →</a></p>
+<p><a href="../index.html">← Voltar ao início</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="01b-grandezas-eletricas.html">← Conteúdo anterior</a><a href="01d-montagem-seguranca.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>

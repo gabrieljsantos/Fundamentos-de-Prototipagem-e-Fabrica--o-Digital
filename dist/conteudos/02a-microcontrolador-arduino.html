@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Microcontrolador, Arduino e seus elementos — material de apoio de prototipagem e fabricação digital."><title>Microcontrolador, Arduino e seus elementos — Fundamentos de Prototipagem</title><link rel="stylesheet" href="../styles.css"></head>
+<body><header class="site-header"><div class="site-header__inner shell"><a class="brand" href="../index.html"><span class="brand__mark">FP</span><span>Fundamentos de Prototipagem</span></a><nav class="nav" aria-label="Navegação principal"><a href="../index.html#conteudos">Conteúdos</a><a href="../praticas.html">Apoios</a><a class="nav__report" href="../relatorio.html">Relatório</a></nav></div></header>
+<main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 07 de 30</p><h1>Microcontrolador, Arduino e seus elementos</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
+<ul>
+<li><a href="#microcontrolador">Microcontrolador</a></li>
+<li><a href="#cpu">CPU</a></li>
+<li><a href="#memória">Memória</a></li>
+<li><a href="#periféricos">Periféricos</a></li>
+<li><a href="#firmware">Firmware</a></li>
+<li><a href="#arduino">Arduino</a></li>
+<li><a href="#placa-de-desenvolvimento">Placa de desenvolvimento</a></li>
+</ul>
+<h3 id="microcontrolador">Microcontrolador</h3>
+<p>Um <strong>microcontrolador</strong> é um circuito integrado programável que reúne processamento, memória e periféricos. Ele lê entradas, executa instruções e altera saídas.</p>
+<p>Um circuito eletrônico fixo realiza a função definida por suas conexões. Um microcontrolador pode mudar de comportamento quando recebe outro programa, sem que todo o circuito precise ser reconstruído.</p>
+<h3 id="cpu">CPU</h3>
+<p>A <strong>CPU</strong>, ou unidade central de processamento, busca, interpreta e executa as instruções do programa. Ela realiza cálculos, comparações e decisões e coordena os periféricos.</p>
+<p>A frequência da CPU ajuda a determinar quantas operações podem ocorrer por segundo, mas não representa sozinha o desempenho total.</p>
+<h3 id="memoria">Memória</h3>
+<p><strong>Memória</strong> é o local onde programa e dados são armazenados. Em termos introdutórios:</p>
+<ul>
+<li>memória de programa conserva o firmware mesmo sem energia;</li>
+<li>RAM armazena variáveis temporárias durante a execução;</li>
+<li>alguns microcontroladores possuem memória não volátil adicional para dados.</li>
+</ul>
+<p>RAM limitada pode causar falhas mesmo quando ainda existe espaço para o programa.</p>
+<h3 id="perifericos">Periféricos</h3>
+<p><strong>Periféricos</strong> são blocos internos que ligam a CPU ao mundo externo. Exemplos incluem GPIO, temporizadores, ADC, PWM e controladores de I²C, SPI ou UART.</p>
+<p>O software configura esses blocos, mas suas capacidades e limites pertencem ao hardware.</p>
+<h3 id="firmware">Firmware</h3>
+<p><strong>Firmware</strong> é o programa gravado no dispositivo para controlar seu funcionamento. Ele permanece armazenado quando a alimentação é removida e volta a executar após ligar ou reiniciar.</p>
+<p>No contexto da aula, o sketch compilado e gravado na placa passa a fazer parte do firmware executado pelo microcontrolador.</p>
+<h3 id="arduino">Arduino</h3>
+<p><strong>Arduino</strong> é um ecossistema que reúne placas, ferramentas de programação, bibliotecas e uma comunidade educacional. Arduino não é apenas uma placa nem somente uma linguagem.</p>
+<p>Placas Arduino podem usar microcontroladores diferentes. Por isso, pinagem, tensão, memória, resolução e recursos variam entre modelos.</p>
+<h3 id="placa-de-desenvolvimento">Placa de desenvolvimento</h3>
+<p>Uma <strong>placa de desenvolvimento</strong> monta o microcontrolador junto de circuitos que facilitam seu uso, como regulador, interface USB, botão de reset, oscilador e conectores.</p>
+<p>O microcontrolador é o circuito integrado principal. A placa é o conjunto completo. Essa distinção explica por que duas placas com aparência semelhante podem possuir capacidades diferentes.</p>
+<h3 id="exemplo-de-funcionamento">Exemplo de funcionamento</h3>
+<ol>
+<li>O sensor envia um sinal a uma entrada.</li>
+<li>Um periférico transforma ou registra esse sinal.</li>
+<li>A CPU executa o firmware e toma uma decisão.</li>
+<li>Uma saída comanda LED, buzzer ou circuito de potência.</li>
+</ol>
+<h3 id="verifique-se-entendeu">Verifique se entendeu</h3>
+<ol>
+<li>Por que um microcontrolador pode executar funções diferentes com o mesmo hardware?</li>
+<li>Qual é a diferença entre memória de programa e RAM?</li>
+<li>Cite três periféricos internos.</li>
+<li>Qual é a diferença entre microcontrolador e placa de desenvolvimento?</li>
+</ol>
+<p><a href="02b-ide-usb-drivers.html">Próximo: IDE, USB e drivers →</a></p>
+<p><a href="../index.html">← Voltar ao início</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="02-microcontroladores-gpio.html">← Conteúdo anterior</a><a href="02b-ide-usb-drivers.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Display LCD e conversor LM2596 — material de apoio de prototipagem e fabricação digital."><title>Display LCD e conversor LM2596 — Fundamentos de Prototipagem</title><link rel="stylesheet" href="../styles.css"></head>
+<body><header class="site-header"><div class="site-header__inner shell"><a class="brand" href="../index.html"><span class="brand__mark">FP</span><span>Fundamentos de Prototipagem</span></a><nav class="nav" aria-label="Navegação principal"><a href="../index.html#conteudos">Conteúdos</a><a href="../praticas.html">Apoios</a><a class="nav__report" href="../relatorio.html">Relatório</a></nav></div></header>
+<main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · 25 de 30</p><h1>Display LCD e conversor LM2596</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p><span class="pill pill--partial">Texto convertido</span></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
+<ul>
+<li><a href="#display-lcd">Display LCD</a></li>
+<li><a href="#interface-i²c">Interface I²C</a></li>
+<li><a href="#endereço-i²c">Endereço I²C</a></li>
+<li><a href="#contraste-e-backlight">Contraste e backlight</a></li>
+<li><a href="#lm2596">LM2596</a></li>
+<li><a href="#step-down">Step-down</a></li>
+<li><a href="#trimpot">Trimpot</a></li>
+<li><a href="#ajuste-com-multímetro">Ajuste com multímetro</a></li>
+</ul>
+<h3 id="display-lcd">Display LCD</h3>
+<p>Um <strong>display LCD</strong> de caracteres mostra letras, números e símbolos em uma matriz. Modelos baseados no controlador HD44780 podem usar interface paralela ou um adaptador I²C.</p>
+<p>O display precisa de alimentação, inicialização por código e configuração compatível com suas dimensões.</p>
+<h3 id="interface-i-c">Interface I²C</h3>
+<p>A <strong>interface I²C</strong> reduz a quantidade de fios de sinal, normalmente para SDA e SCL. Além deles, o módulo usa VCC e GND.</p>
+<p>Os pinos I²C mudam conforme a placa. Verifique também níveis lógicos e resistores de pull-up já presentes no adaptador.</p>
+<h3 id="endereco-i-c">Endereço I²C</h3>
+<p>O <strong>endereço I²C</strong> identifica o dispositivo no barramento. Adaptadores visualmente semelhantes podem usar endereços diferentes. Um scanner I²C ajuda a descobrir o endereço de um módulo corretamente conectado.</p>
+<p>Dois dispositivos com o mesmo endereço não podem compartilhar diretamente o barramento sem alguma estratégia adicional.</p>
+<h3 id="contraste-e-backlight">Contraste e backlight</h3>
+<p><strong>Contraste</strong> controla a diferença visual entre caracteres e fundo; o trimpot do adaptador costuma ajustá-lo. <strong>Backlight</strong> é a iluminação de fundo.</p>
+<p>Backlight aceso não prova que o LCD recebeu dados. Se não houver texto, confira contraste, endereço, inicialização, fiação e alimentação.</p>
+<h3 id="lm2596">LM2596</h3>
+<p>O <strong>LM2596</strong> é um regulador chaveado frequentemente usado em módulos DC-DC ajustáveis. O nome do circuito integrado não garante sozinho os limites reais do módulo; componentes, refrigeração e montagem influenciam corrente e potência.</p>
+<p>Terminais típicos são <code>IN+</code>, <code>IN−</code>, <code>OUT+</code> e <code>OUT−</code>.</p>
+<h3 id="step-down">Step-down</h3>
+<p><strong>Step-down</strong>, ou buck, significa que o conversor reduz tensão contínua. Ele não eleva uma entrada baixa para uma saída maior. A entrada precisa permanecer acima da saída por uma margem necessária ao funcionamento.</p>
+<p>O módulo regula alimentação; não converte automaticamente níveis lógicos de sinais.</p>
+<h3 id="trimpot">Trimpot</h3>
+<p>Um <strong>trimpot</strong> é um potenciômetro pequeno para ajuste ocasional. No LM2596, ele altera a tensão de saída. Alguns modelos exigem muitas voltas e podem não mostrar mudança imediata.</p>
+<p>No adaptador LCD, o trimpot ajusta contraste. As duas peças parecem semelhantes, mas atuam em funções diferentes.</p>
+<h3 id="ajuste-com-multimetro">Ajuste com multímetro</h3>
+<ol>
+<li>Identifique entrada e saída no módulo.</li>
+<li>Conecte somente a fonte à entrada, com polaridade correta.</li>
+<li>Meça a tensão entre <code>OUT+</code> e <code>OUT−</code>.</li>
+<li>Gire o trimpot lentamente até o valor desejado.</li>
+<li>Desligue a fonte.</li>
+<li>Conecte a carga e revise o circuito.</li>
+<li>Ligue e acompanhe tensão e aquecimento.</li>
+</ol>
+<p>Nunca ajuste às cegas com a placa sensível conectada.</p>
+<h3 id="verifique-se-entendeu">Verifique se entendeu</h3>
+<ol>
+<li>Por que backlight aceso não garante comunicação?</li>
+<li>Qual é a função do endereço I²C?</li>
+<li>Por que o LM2596 deve ser ajustado antes de ligar a carga?</li>
+<li>Qual é a diferença entre step-down e conversor de nível lógico?</li>
+</ol>
+<p><a href="05c-motores-servo.html">← Anterior: motores</a> · <a href="05-modulos.html">Revisão do tópico 5 →</a></p>
+<p><a href="../index.html">← Voltar ao início</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="05c-motores-servo.html">← Conteúdo anterior</a><a href="06-revisao.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>
