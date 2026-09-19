@@ -2,7 +2,7 @@
 
 [← Voltar ao início](../README.md)
 
-## Conceitos deste arquivo
+## Conceitos
 
 - [Arduino IDE](#arduino-ide)
 - [Sketch](#sketch)
