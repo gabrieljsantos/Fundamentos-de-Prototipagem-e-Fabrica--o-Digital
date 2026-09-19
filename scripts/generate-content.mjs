@@ -169,10 +169,10 @@ for (let index = 0; index < files.length; index++) {
   const article = integrateSupport(base, rawArticle);
   const hasSupport = base === "02c-gpio-digital" || base === "03d-guia-pratico-led";
   const html = `<!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="${escapeHtml(title)} — material de apoio de prototipagem e fabricação digital."><title>${escapeHtml(title)} — Fundamentos de Prototipagem</title><link rel="stylesheet" href="../styles.css?v=5"></head>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="${escapeHtml(title)} — material de apoio de Fundamentos-de-Prototipagem-e-Fabrica--o-Digital."><title>${escapeHtml(title)} — Fundamentos-de-Prototipagem-e-Fabrica--o-Digital</title><link rel="stylesheet" href="../styles.css?v=5"></head>
 <body><main><header class="article-hero"><div class="shell"><p class="eyebrow">Material de apoio · ${String(index + 1).padStart(2, "0")} de ${files.length}</p><h1>${escapeHtml(title)}</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a><p>Conteúdo convertido do material pedagógico original.</p>${hasSupport ? '<span class="pill pill--done">Com diagrama e blocos</span>' : '<span class="pill pill--partial">Texto convertido</span>'}</aside><article class="article-content">${article}</article></div>
 <nav class="article-pagination shell" aria-label="Navegação entre conteúdos">${previous ? `<a href="${previous}">← Conteúdo anterior</a>` : "<span></span>"}${next ? `<a href="${next}">Próximo conteúdo →</a>` : "<span></span>"}</nav></main>
-<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>`;
+<footer class="footer"><div class="shell"><b>Fundamentos-de-Prototipagem-e-Fabrica--o-Digital</b><p>Material pedagógico convertido para a web</p></div></footer></body></html>`;
   await writeFile(path.join(outDir, `${base}.html`), html);
 }
 

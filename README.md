@@ -1,4 +1,4 @@
-# Eletrônica, Arduino e microcontroladores
+# Fundamentos-de-Prototipagem-e-Fabrica--o-Digital
 
 Material de apoio para revisar os conceitos e as práticas introdutórias da formação. O conteúdo segue uma ordem progressiva: fundamentos físicos, microcontroladores, componentes, conexões e projetos.
 
