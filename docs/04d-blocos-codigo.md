@@ -5,6 +5,7 @@
 ## Conceitos deste arquivo
 
 - [Sequência](#sequência)
+- [Estados e sequenciamento](#estados-e-sequenciamento)
 - [Variável](#variável)
 - [Condição](#condição)
 - [Repetição](#repetição)
@@ -14,6 +15,14 @@
 ## Sequência
 
 Uma **sequência** é a ordem em que as instruções executam. Ler o sensor antes de testar seu valor é diferente de testar uma variável antiga e só depois atualizar a leitura.
+
+## Estados e sequenciamento
+
+Um **estado** reúne as saídas que devem permanecer ativas durante uma etapa do funcionamento. Um semáforo simples pode ser descrito por três estados ordenados: vermelho, verde e amarelo. Em cada estado, o programa define explicitamente os três LEDs e mantém essa combinação durante um intervalo.
+
+O **sequenciamento** determina qual estado vem depois do outro. Quando a última etapa termina, o `loop()` reinicia o ciclo. Projetos maiores podem guardar o estado atual em uma variável e usar `millis()` para trocar de fase sem bloquear outras tarefas.
+
+O projeto [Semáforo](03e-semaforo.md) aplica estados, sequência e temporização primeiro com `delay()` e depois apresenta controle de brilho por PWM.
 
 ## Variável
 

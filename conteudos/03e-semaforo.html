@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Semáforo — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>Semáforo — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=6"></head>
+<body><main><header class="article-hero"><div class="shell"><h1>Semáforo</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<p>Este projeto controla três LEDs como um semáforo simples. Cada fase define quais saídas ficam acesas e por quanto tempo permanecem nesse estado.</p>
+<h3 id="conceitos">Conceitos</h3>
+<ul>
+<li><a href="03a-led-comum.html">LED, ânodo, cátodo e polaridade</a></li>
+<li><a href="03b-resistor-led.html">Resistor limitador</a></li>
+<li><a href="02c-gpio-digital.html">GPIO e saída digital</a></li>
+<li><a href="04d-blocos-codigo.html#estados-e-sequenciamento">Estados, sequência e temporização</a></li>
+<li><a href="02d-sinais-comunicacao.html#pwm">PWM</a></li>
+</ul>
+<h3 id="montagem">Montagem</h3>
+<p>O exemplo usa os pinos PWM 9, 10 e 11. O funcionamento básico precisa apenas de saída digital, mas essa escolha permite realizar depois o bônus de controle de brilho sem trocar os fios.</p>
+<div class="didactic-panel"><h3>Arduino e três LEDs</h3>
+  <svg class="lesson-diagram" viewBox="0 0 720 370" role="img" aria-labelledby="traffic-title traffic-desc">
+    <title id="traffic-title">Arduino ligado aos LEDs vermelho, amarelo e verde</title><desc id="traffic-desc">Os pinos 9, 10 e 11 passam por resistores individuais e chegam aos ânodos dos três LEDs. Os cátodos compartilham o GND.</desc>
+    <rect x="25" y="38" width="225" height="295" rx="32" fill="#a9d8e6" stroke="#52656d" stroke-width="4"/><text x="137" y="175" fill="#263b43" font-size="29" font-weight="800" text-anchor="middle">ARDUINO</text><text x="137" y="210" fill="#263b43" font-size="23" text-anchor="middle">UNO</text>
+    <text x="205" y="75" font-size="15" font-weight="700">D9</text><text x="198" y="135" font-size="15" font-weight="700">D10</text><text x="198" y="195" font-size="15" font-weight="700">D11</text><text x="197" y="302" font-size="15" font-weight="700">GND</text>
+    <path d="M235 70H292" stroke="#d94b45" stroke-width="7" fill="none"/><path d="M235 130H292" stroke="#e3a81a" stroke-width="7" fill="none"/><path d="M235 190H292" stroke="#43a75b" stroke-width="7" fill="none"/>
+    <rect x="292" y="56" width="82" height="28" rx="14" fill="#f2d9a6" stroke="#6f6552" stroke-width="3"/><rect x="292" y="116" width="82" height="28" rx="14" fill="#f2d9a6" stroke="#6f6552" stroke-width="3"/><rect x="292" y="176" width="82" height="28" rx="14" fill="#f2d9a6" stroke="#6f6552" stroke-width="3"/><text x="333" y="48" text-anchor="middle" font-size="13" font-weight="700">220 Ω</text><text x="333" y="108" text-anchor="middle" font-size="13" font-weight="700">220 Ω</text><text x="333" y="168" text-anchor="middle" font-size="13" font-weight="700">220 Ω</text>
+    <path d="M374 70H394V260H430V250" stroke="#d94b45" stroke-width="7" fill="none"/><path d="M374 130H404V275H510V250" stroke="#e3a81a" stroke-width="7" fill="none"/><path d="M374 190H414V290H590V250" stroke="#43a75b" stroke-width="7" fill="none"/>
+    <path d="M412 185v-35c0-20 13-36 30-36s30 16 30 36v35z" fill="#e75e57" stroke="#7c5c58" stroke-width="3"/><path d="M430 185v65m24-65v125" stroke="#59656a" stroke-width="4"/><path d="M492 185v-35c0-20 13-36 30-36s30 16 30 36v35z" fill="#e7b83f" stroke="#806e38" stroke-width="3"/><path d="M510 185v65m24-65v125" stroke="#59656a" stroke-width="4"/><path d="M572 185v-35c0-20 13-36 30-36s30 16 30 36v35z" fill="#55ba69" stroke="#52705b" stroke-width="3"/><path d="M590 185v65m24-65v125" stroke="#59656a" stroke-width="4"/>
+    <path d="M250 310H614" stroke="#222" stroke-width="7" fill="none"/><text x="442" y="104" text-anchor="middle" font-size="14" font-weight="700">vermelho</text><text x="522" y="104" text-anchor="middle" font-size="14" font-weight="700">amarelo</text><text x="602" y="104" text-anchor="middle" font-size="14" font-weight="700">verde</text>
+  </svg>
+  <p class="diagram-caption"><b>Caminho:</b> D9 → resistor → vermelho; D10 → resistor → amarelo; D11 → resistor → verde; três cátodos → GND.</p>
+</div>
+<p>Cada LED precisa de um resistor próprio. Os três cátodos podem compartilhar o GND.</p><h3 id="sequencia-do-semaforo">Sequência do semáforo</h3>
+<p>O ciclo possui três estados: vermelho por 5 segundos, verde por 4 segundos e amarelo por 1 segundo. Ao terminar o amarelo, o bloco <code>para sempre</code> reinicia a sequência no vermelho.</p>
+<h4>Blocos</h4><div class="block-workspace"><div class="block-stack" data-block-framework="tinkercad-circuits"><div class="block block--loop block--event"><span>no início</span><div class="block__inside"><div class="block block--io">configurar pino <em>9</em> como <em>OUTPUT</em></div><div class="block block--io">configurar pino <em>10</em> como <em>OUTPUT</em></div><div class="block block--io">configurar pino <em>11</em> como <em>OUTPUT</em></div></div></div><div class="block block--loop"><span>para sempre</span><div class="block__inside"><div class="block block--io">definir pino <em>9</em> como <em>ALTO</em></div><div class="block block--io">definir pino <em>10</em> como <em>BAIXO</em></div><div class="block block--io">definir pino <em>11</em> como <em>BAIXO</em></div><div class="block block--wait">aguardar <em>5</em> s</div><div class="block block--io">definir pino <em>9</em> como <em>BAIXO</em></div><div class="block block--io">definir pino <em>10</em> como <em>BAIXO</em></div><div class="block block--io">definir pino <em>11</em> como <em>ALTO</em></div><div class="block block--wait">aguardar <em>4</em> s</div><div class="block block--io">definir pino <em>9</em> como <em>BAIXO</em></div><div class="block block--io">definir pino <em>10</em> como <em>ALTO</em></div><div class="block block--io">definir pino <em>11</em> como <em>BAIXO</em></div><div class="block block--wait">aguardar <em>1</em> s</div></div></div></div><aside class="block-instructions" aria-label="Localização dos blocos"><strong>Onde encontrar</strong><ul><li><b>no início</b> — categoria <b>Controle</b>.</li><li><b>para sempre</b> — categoria <b>Controle</b>.</li><li><b>configurar pino</b> — categoria <b>Saída</b>.</li><li><b>definir pino digital</b> — categoria <b>Saída</b>.</li><li><b>aguardar</b> — categoria <b>Controle</b>.</li></ul><p>Arraste cada peça da categoria indicada e encaixe-a na posição mostrada.</p></aside></div>
+<h4 id="codigo">Código</h4>
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>const int vermelho = 9;
+const int amarelo = 10;
+const int verde = 11;
+
+void setup() {
+  pinMode(vermelho, OUTPUT);
+  pinMode(amarelo, OUTPUT);
+  pinMode(verde, OUTPUT);
+}
+
+void loop() {
+  // Estado 1: passagem proibida.
+  digitalWrite(vermelho, HIGH);
+  digitalWrite(amarelo, LOW);
+  digitalWrite(verde, LOW);
+  delay(5000);
+
+  // Estado 2: passagem permitida.
+  digitalWrite(vermelho, LOW);
+  digitalWrite(amarelo, LOW);
+  digitalWrite(verde, HIGH);
+  delay(4000);
+
+  // Estado 3: atenção antes de voltar ao vermelho.
+  digitalWrite(vermelho, LOW);
+  digitalWrite(amarelo, HIGH);
+  digitalWrite(verde, LOW);
+  delay(1000);
+}</code></pre>
+<h3 id="bonus-controle-de-brilho">Bônus: controle de brilho</h3>
+<p>Como os três LEDs estão nos pinos PWM 9, 10 e 11, valores entre 0 e 255 podem reduzir ou aumentar o brilho aparente. O exemplo mantém a mesma sequência, mas usa intensidade 180 em vez do máximo 255.</p>
+<h4>Blocos</h4><div class="block-workspace"><div class="block-stack" data-block-framework="tinkercad-circuits"><div class="block block--loop block--event"><span>no início</span><div class="block__inside"><div class="block block--io">configurar pino <em>9</em> como <em>OUTPUT</em></div><div class="block block--io">configurar pino <em>10</em> como <em>OUTPUT</em></div><div class="block block--io">configurar pino <em>11</em> como <em>OUTPUT</em></div></div></div><div class="block block--loop"><span>para sempre</span><div class="block__inside"><div class="block block--io">definir pino <em>9</em> como <em>180</em></div><div class="block block--io">definir pino <em>10</em> como <em>0</em></div><div class="block block--io">definir pino <em>11</em> como <em>0</em></div><div class="block block--wait">aguardar <em>5</em> s</div><div class="block block--io">definir pino <em>9</em> como <em>0</em></div><div class="block block--io">definir pino <em>10</em> como <em>0</em></div><div class="block block--io">definir pino <em>11</em> como <em>180</em></div><div class="block block--wait">aguardar <em>4</em> s</div><div class="block block--io">definir pino <em>9</em> como <em>0</em></div><div class="block block--io">definir pino <em>10</em> como <em>180</em></div><div class="block block--io">definir pino <em>11</em> como <em>0</em></div><div class="block block--wait">aguardar <em>1</em> s</div></div></div></div><aside class="block-instructions" aria-label="Localização dos blocos"><strong>Onde encontrar</strong><ul><li><b>no início</b> — categoria <b>Controle</b>.</li><li><b>para sempre</b> — categoria <b>Controle</b>.</li><li><b>configurar pino</b> — categoria <b>Saída</b>.</li><li><b>definir pino PWM</b> — categoria <b>Saída</b>.</li><li><b>aguardar</b> — categoria <b>Controle</b>.</li></ul><p>Arraste cada peça da categoria indicada e encaixe-a na posição mostrada.</p></aside></div>
+<h4 id="codigo">Código</h4>
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>void loop() {
+  analogWrite(vermelho, 180);
+  analogWrite(amarelo, 0);
+  analogWrite(verde, 0);
+  delay(5000);
+
+  analogWrite(vermelho, 0);
+  analogWrite(amarelo, 0);
+  analogWrite(verde, 180);
+  delay(4000);
+
+  analogWrite(vermelho, 0);
+  analogWrite(amarelo, 180);
+  analogWrite(verde, 0);
+  delay(1000);
+}</code></pre>
+<h3 id="erros-comuns">Erros comuns</h3>
+<ul>
+<li>Usar um único resistor para os três LEDs.</li>
+<li>Inverter ânodo e cátodo.</li>
+<li>Ligar um LED em pino diferente do declarado no código.</li>
+<li>Acender duas fases por não desligar explicitamente o estado anterior.</li>
+<li>Trocar os pinos por GPIOs sem PWM e esperar que <code>analogWrite()</code> controle o brilho.</li>
+</ul>
+<h3 id="diagnostico-rapido">Diagnóstico rápido</h3>
+<p>Teste um LED por vez. Confirme o GND compartilhado, a polaridade, o resistor, o número do pino e o estado enviado pelo programa. Depois execute a sequência completa.</p>
+<p><a href="03d-guia-pratico-led.html">← Anterior: LED comum</a> · <a href="03g-cores-definidas.html">Próximo: LED RGB →</a></p>
+<p><a href="../index.html">← Voltar ao início</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="03d-guia-pratico-led.html">← Conteúdo anterior</a><a href="03g-cores-definidas.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b></div></footer>
+<script>
+document.addEventListener('click', async (event) => {
+  const button = event.target.closest('.copy-code');
+  if (!button) return;
+  const code = button.parentElement.querySelector('code');
+  if (!code) return;
+  try {
+    await navigator.clipboard.writeText(code.textContent);
+    button.textContent = 'Copiado';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1400);
+  } catch {
+    button.textContent = 'Selecione o código';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1600);
+  }
+});
+
+const resistorCalculator = document.querySelector('#resistor-calculator');
+if (resistorCalculator) {
+  const color = resistorCalculator.elements.ledColor;
+  const sourcePreset = resistorCalculator.elements.sourcePreset;
+  const sourceVoltage = resistorCalculator.elements.sourceVoltage;
+  const forwardVoltage = resistorCalculator.elements.forwardVoltage;
+  const result = resistorCalculator.querySelector('.calculator-result');
+  const nextE12 = (required) => {
+    const values = [10, 12, 15, 18, 22, 27, 33, 39, 47, 56, 68, 82];
+    for (let exponent = -1; exponent <= 7; exponent += 1) {
+      const scale = 10 ** exponent;
+      for (const base of values) {
+        const candidate = base * scale;
+        if (candidate >= required) return candidate;
+      }
+    }
+    return required;
+  };
+  const formatOhms = (ohms) => ohms >= 1000
+    ? (ohms / 1000).toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + ' kΩ'
+    : ohms.toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + ' Ω';
+
+  color.addEventListener('change', () => {
+    const custom = color.value === 'custom';
+    forwardVoltage.disabled = !custom;
+    if (!custom) forwardVoltage.value = color.value;
+    forwardVoltage.title = custom
+      ? 'Digite a tensão direta Vf do LED'
+      : 'Escolha Outro valor na cor do LED para editar este campo';
+    if (custom) {
+      forwardVoltage.value = '';
+      forwardVoltage.focus();
+    }
+  });
+
+  sourcePreset.addEventListener('change', () => {
+    const custom = sourcePreset.value === 'custom';
+    sourceVoltage.disabled = !custom;
+    if (!custom) sourceVoltage.value = sourcePreset.value;
+    if (custom) {
+      sourceVoltage.value = '';
+      sourceVoltage.focus();
+    }
+  });
+
+  resistorCalculator.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const source = Number(resistorCalculator.elements.sourceVoltage.value);
+    const vf = Number(forwardVoltage.value);
+    const currentMa = Number(resistorCalculator.elements.currentMa.value);
+    if (!(source > 0) || !(vf > 0) || !(currentMa > 0)) {
+      result.textContent = 'Preencha tensão da fonte, tensão direta e corrente com valores maiores que zero.';
+      return;
+    }
+    if (source <= vf) {
+      result.textContent = 'Tensão insuficiente: a fonte precisa ser maior que a tensão direta do LED para este cálculo.';
+      return;
+    }
+    const currentA = currentMa / 1000;
+    const required = (source - vf) / currentA;
+    const commercial = nextE12(required);
+    const actualMa = ((source - vf) / commercial) * 1000;
+    const power = ((source - vf) ** 2) / commercial;
+    result.textContent = 'Cálculo: ' + formatOhms(required) + '. Próximo valor E12 acima: ' + formatOhms(commercial) + '. Corrente estimada: ' + actualMa.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + ' mA. Potência no resistor: ' + power.toLocaleString('pt-BR', { maximumFractionDigits: 3 }) + ' W.';
+  });
+}
+</script></body></html>

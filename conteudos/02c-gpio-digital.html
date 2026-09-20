@@ -1,6 +1,6 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="GPIO, entrada, saída e níveis digitais — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>GPIO, entrada, saída e níveis digitais — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=5"></head>
-<body><main><header class="article-hero"><div class="shell"><p class="eyebrow">Conteúdo 09 de 33</p><h1>GPIO, entrada, saída e níveis digitais</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a></aside><article class="article-content">
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="GPIO, entrada, saída e níveis digitais — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>GPIO, entrada, saída e níveis digitais — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=6"></head>
+<body><main><header class="article-hero"><div class="shell"><h1>GPIO, entrada, saída e níveis digitais</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a></aside><article class="article-content">
 <p><a href="../index.html">← Voltar ao início</a></p>
 <h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
 <ul>
@@ -25,22 +25,23 @@ int estado = digitalRead(2);</code></pre>
 <pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>pinMode(9, OUTPUT);
 digitalWrite(9, HIGH);</code></pre>
 <p>Em blocos: “definir pino como saída” e “definir pino como ALTO”. Uma saída não deve alimentar diretamente motor, servo ou carga de corrente elevada.</p>
+<p>Os projetos <a href="03d-guia-pratico-led.html">LED comum</a> e <a href="03e-semaforo.html">Semáforo</a> aplicam essa saída digital em ligações com resistor, controle por tempo, sequência de estados, PWM, gradiente e pulsação.</p>
 
 <section class="didactic-support" aria-labelledby="apoio-gpio">
-  <div class="didactic-support__head"><p class="eyebrow">Apoio didático 01</p><h2 id="apoio-gpio">Saída digital: do bloco ao LED</h2><p>Variação pedagógica construída a partir da lógica de níveis digitais do material-base. O desenho mostra o caminho elétrico; os blocos apresentam a mesma sequência do código textual.</p></div>
+  <div class="didactic-support__head"><h2 id="apoio-gpio">Saída digital</h2><p>O desenho mostra o caminho elétrico; os blocos apresentam a mesma sequência do código.</p></div>
   <div class="didactic-grid">
     <div class="didactic-panel"><h3>Diagrama de conexão</h3>
       <svg class="lesson-diagram" viewBox="0 0 720 370" role="img" aria-labelledby="gpio-diagram-title gpio-diagram-desc">
         <title id="gpio-diagram-title">Arduino conectado a um LED pelo pino 9</title><desc id="gpio-diagram-desc">O pino digital 9 passa por um resistor de 220 ohms e pelo LED antes de retornar ao GND.</desc>
         <rect x="42" y="48" width="250" height="275" rx="34" fill="#a9d8e6" stroke="#52656d" stroke-width="4"/><text x="167" y="150" fill="#263b43" font-size="31" font-weight="800" text-anchor="middle">ARDUINO</text><text x="167" y="188" fill="#263b43" font-size="25" text-anchor="middle">UNO</text>
-        <text x="247" y="94" fill="#263b43" font-size="16" font-weight="700">D9</text><text x="242" y="290" fill="#263b43" font-size="16" font-weight="700">GND</text>
+        <text x="247" y="94" fill="#263b43" font-size="16" font-weight="700">D9</text><text x="242" y="258" fill="#263b43" font-size="16" font-weight="700">GND</text>
         <path d="M278 90H365" stroke="#8aa9d6" stroke-width="8" fill="none"/><rect x="365" y="74" width="110" height="32" rx="16" fill="#f2d9a6" stroke="#6f6552" stroke-width="3"/><path d="M393 78v24m20-24v24m20-24v24" stroke="#b98b75" stroke-width="5"/><text x="420" y="62" text-anchor="middle" font-size="15" font-weight="700">220 Ω</text>
-        <path d="M475 90h64" stroke="#8aa9d6" stroke-width="8"/><path d="M539 90v22m42-22v22" stroke="#59656a" stroke-width="4"/><path d="M526 95c0-24 15-43 34-43s34 19 34 43v37c0 9-7 16-16 16h-36c-9 0-16-7-16-16z" fill="#f3a99f" stroke="#7c5c58" stroke-width="3"/><path d="M560 148v82Q560 246 544 246H294Q278 246 278 262v24" stroke="#69767b" stroke-width="8" fill="none"/>
-        <text x="612" y="104" font-size="18" font-weight="700">LED</text><text x="378" y="255" font-size="16">cátodo → GND</text>
+        <path d="M475 90h30v140h39" stroke="#8aa9d6" stroke-width="8" fill="none"/><path d="M526 170v-55c0-24 15-43 34-43s34 19 34 43v55z" fill="#f3a99f" stroke="#7c5c58" stroke-width="3"/><path d="M544 170v60m32-60v60" stroke="#59656a" stroke-width="4"/><path d="M278 270H576V230" stroke="#69767b" stroke-width="8" fill="none"/>
+        <text x="618" y="122" font-size="18" font-weight="700">LED</text><text x="518" y="252" font-size="14" font-weight="700">A</text><text x="584" y="252" font-size="14" font-weight="700">K</text>
       </svg>
       <p class="diagram-caption"><b>Caminho:</b> D9 → resistor de 220 Ω → ânodo do LED → cátodo → GND.</p>
     </div>
-    <div class="didactic-panel"><h3>Programação em blocos</h3><div class="block-stack"><div class="block block--event">no início</div><div class="block">definir pino <em>9</em> como <em>SAÍDA</em></div><div class="block block--loop"><span>para sempre</span><div class="block__inside"><div class="block block--high">definir pino <em>9</em> como <em>HIGH</em></div><div class="block block--wait">aguardar <em>500 ms</em></div><div class="block block--low">definir pino <em>9</em> como <em>LOW</em></div><div class="block block--wait">aguardar <em>500 ms</em></div></div></div></div>
+    <div class="didactic-panel"><h3>Programação em blocos</h3><div class="block-workspace"><div class="block-stack" data-block-framework="tinkercad-circuits"><div class="block block--loop block--event"><span>no início</span><div class="block__inside"><div class="block block--io">configurar pino <em>9</em> como <em>OUTPUT</em></div></div></div><div class="block block--loop"><span>para sempre</span><div class="block__inside"><div class="block block--io">definir pino <em>9</em> como <em>ALTO</em></div><div class="block block--wait">aguardar <em>500</em> ms</div><div class="block block--io">definir pino <em>9</em> como <em>BAIXO</em></div><div class="block block--wait">aguardar <em>500</em> ms</div></div></div></div><aside class="block-instructions" aria-label="Localização dos blocos"><strong>Onde encontrar</strong><ul><li><b>no início</b> — categoria <b>Controle</b>.</li><li><b>para sempre</b> — categoria <b>Controle</b>.</li><li><b>configurar pino</b> — categoria <b>Saída</b>.</li><li><b>definir pino digital</b> — categoria <b>Saída</b>.</li><li><b>aguardar</b> — categoria <b>Controle</b>.</li></ul><p>Arraste cada peça da categoria indicada e encaixe-a na posição mostrada.</p></aside></div>
       <p class="diagram-caption">HIGH acende; LOW apaga. Os dois tempos tornam a mudança visível.</p>
     </div>
   </div>
@@ -94,4 +95,71 @@ document.addEventListener('click', async (event) => {
     setTimeout(() => { button.textContent = 'Copiar'; }, 1600);
   }
 });
+
+const resistorCalculator = document.querySelector('#resistor-calculator');
+if (resistorCalculator) {
+  const color = resistorCalculator.elements.ledColor;
+  const sourcePreset = resistorCalculator.elements.sourcePreset;
+  const sourceVoltage = resistorCalculator.elements.sourceVoltage;
+  const forwardVoltage = resistorCalculator.elements.forwardVoltage;
+  const result = resistorCalculator.querySelector('.calculator-result');
+  const nextE12 = (required) => {
+    const values = [10, 12, 15, 18, 22, 27, 33, 39, 47, 56, 68, 82];
+    for (let exponent = -1; exponent <= 7; exponent += 1) {
+      const scale = 10 ** exponent;
+      for (const base of values) {
+        const candidate = base * scale;
+        if (candidate >= required) return candidate;
+      }
+    }
+    return required;
+  };
+  const formatOhms = (ohms) => ohms >= 1000
+    ? (ohms / 1000).toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + ' kΩ'
+    : ohms.toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + ' Ω';
+
+  color.addEventListener('change', () => {
+    const custom = color.value === 'custom';
+    forwardVoltage.disabled = !custom;
+    if (!custom) forwardVoltage.value = color.value;
+    forwardVoltage.title = custom
+      ? 'Digite a tensão direta Vf do LED'
+      : 'Escolha Outro valor na cor do LED para editar este campo';
+    if (custom) {
+      forwardVoltage.value = '';
+      forwardVoltage.focus();
+    }
+  });
+
+  sourcePreset.addEventListener('change', () => {
+    const custom = sourcePreset.value === 'custom';
+    sourceVoltage.disabled = !custom;
+    if (!custom) sourceVoltage.value = sourcePreset.value;
+    if (custom) {
+      sourceVoltage.value = '';
+      sourceVoltage.focus();
+    }
+  });
+
+  resistorCalculator.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const source = Number(resistorCalculator.elements.sourceVoltage.value);
+    const vf = Number(forwardVoltage.value);
+    const currentMa = Number(resistorCalculator.elements.currentMa.value);
+    if (!(source > 0) || !(vf > 0) || !(currentMa > 0)) {
+      result.textContent = 'Preencha tensão da fonte, tensão direta e corrente com valores maiores que zero.';
+      return;
+    }
+    if (source <= vf) {
+      result.textContent = 'Tensão insuficiente: a fonte precisa ser maior que a tensão direta do LED para este cálculo.';
+      return;
+    }
+    const currentA = currentMa / 1000;
+    const required = (source - vf) / currentA;
+    const commercial = nextE12(required);
+    const actualMa = ((source - vf) / commercial) * 1000;
+    const power = ((source - vf) ** 2) / commercial;
+    result.textContent = 'Cálculo: ' + formatOhms(required) + '. Próximo valor E12 acima: ' + formatOhms(commercial) + '. Corrente estimada: ' + actualMa.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + ' mA. Potência no resistor: ' + power.toLocaleString('pt-BR', { maximumFractionDigits: 3 }) + ' W.';
+  });
+}
 </script></body></html>

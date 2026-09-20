@@ -55,6 +55,8 @@ Use, nesta ordem, as informações mais confiáveis disponíveis:
 4. perna longa, perna curta e face achatada;
 5. modo de teste de diodo do multímetro, com corrente limitada.
 
+Os projetos [LED comum](03d-guia-pratico-led.md) e [Semáforo](03e-semaforo.md) aplicam essas identificações em ligações diretas e programadas, começando por ligado/desligado e avançando para sequência, brilho, gradiente e pulsação com PWM.
+
 ## Verifique se entendeu
 
 1. Por que um LED é chamado de diodo?

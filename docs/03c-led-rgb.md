@@ -67,6 +67,8 @@ Os três resistores podem resultar em valores diferentes.
 
 Não confie apenas no tamanho das pernas. Consulte datasheet, embalagem ou teste com multímetro e corrente limitada. Descobrir o terminal comum não informa automaticamente a ordem dos canais.
 
+O projeto [LED RGB](03g-cores-definidas.md) aplica os três canais em cores definidas, transições suaves e sequências com tempo.
+
 ## Verifique se entendeu
 
 1. Por que um RGB possui quatro terminais?

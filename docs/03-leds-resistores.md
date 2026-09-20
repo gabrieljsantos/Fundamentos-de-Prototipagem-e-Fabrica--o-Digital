@@ -9,11 +9,15 @@ Este arquivo reúne a sequência de estudo do tópico 3. Use o índice do README
 1. [LED comum, diodo, ânodo, cátodo e polaridade](03a-led-comum.md)
 2. [Tensão direta, corrente e dimensionamento do resistor](03b-resistor-led.md)
 3. [LED RGB e mistura de cores](03c-led-rgb.md)
-4. [Guia prático de ligação e programação](03d-guia-pratico-led.md)
+4. [LED comum](03d-guia-pratico-led.md)
+5. [Semáforo](03e-semaforo.md)
+6. [LED RGB](03g-cores-definidas.md)
 
 ## Como os conceitos se relacionam
 
 O LED conduz corrente em uma direção e converte parte da energia elétrica em luz. A fonte aplica tensão ao conjunto formado pelo LED e pelo resistor. O resistor recebe a tensão restante e limita a corrente. No LED RGB, três canais compartilham um terminal, mas cada canal precisa de seu próprio resistor e controle.
+
+O projeto [Semáforo](03e-semaforo.md) usa três LEDs separados para aplicar saída digital, estados ordenados e temporização. O bônus mantém a montagem nos pinos PWM e permite comparar liga/desliga com intensidade intermediária.
 
 ## Questões de revisão
 

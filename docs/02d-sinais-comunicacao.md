@@ -34,6 +34,8 @@ analogWrite(9, 128); // valor intermediário no Uno clássico
 
 Em ESP32, funções e configuração de PWM podem diferir conforme a versão do suporte da placa.
 
+Os projetos [LED comum](03d-guia-pratico-led.md), [Semáforo](03e-semaforo.md) e [LED RGB](03g-cores-definidas.md) apresentam estados definidos e aplicações de PWM em brilho, sinalização e transições de cor.
+
 ## Duty cycle
 
 **Duty cycle**, ou ciclo de trabalho, é o percentual do período em que o PWM permanece ativo.

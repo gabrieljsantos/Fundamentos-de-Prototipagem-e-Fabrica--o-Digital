@@ -1,5 +1,7 @@
 # Fundamentos de Prototipagem e Fabricação Digital
 
+[Manifesto editorial e pedagógico](MANIFESTO.md)
+
 Material de apoio para revisar os conceitos e as práticas introdutórias da formação. O conteúdo segue uma ordem progressiva: fundamentos físicos, microcontroladores, componentes, conexões e projetos.
 
 > **Segurança:** confira sempre tensão, corrente, polaridade e pinagem. Nunca ligue motores ou outras cargas de corrente elevada diretamente a uma GPIO. Não aplique 5 V em uma entrada limitada a 3,3 V.
@@ -96,12 +98,18 @@ Cada **tópico principal** abre a visão geral do grupo, mostrando a relação e
   - [Cátodo comum](docs/03c-led-rgb.md#cátodo-comum)
   - [Ânodo comum](docs/03c-led-rgb.md#ânodo-comum)
   - [Resistor por canal](docs/03c-led-rgb.md#resistor-por-canal)
-- [Guia prático de ligação e programação](docs/03d-guia-pratico-led.md)
-  - [Ligar LED comum](docs/03d-guia-pratico-led.md#ligação-do-led-comum)
-  - [Piscar LED](docs/03d-guia-pratico-led.md#piscar-led)
-  - [Controlar brilho com PWM](docs/03d-guia-pratico-led.md#controle-de-brilho-com-pwm)
-  - [Ligar LED RGB](docs/03d-guia-pratico-led.md#ligação-do-led-rgb)
-  - [Controlar cores](docs/03d-guia-pratico-led.md#controle-de-cor)
+- [LED comum](docs/03d-guia-pratico-led.md)
+  - [Controle de brilho](docs/03d-guia-pratico-led.md#controle-de-brilho)
+  - [Brilho e tempo](docs/03d-guia-pratico-led.md#brilho-e-tempo)
+  - [Pulsação](docs/03d-guia-pratico-led.md#pulsação)
+- [Semáforo](docs/03e-semaforo.md)
+  - [Montagem](docs/03e-semaforo.md#montagem)
+  - [Sequência do semáforo](docs/03e-semaforo.md#sequência-do-semáforo)
+  - [Bônus: controle de brilho](docs/03e-semaforo.md#bônus-controle-de-brilho)
+- [LED RGB](docs/03g-cores-definidas.md)
+  - [Cores definidas](docs/03g-cores-definidas.md#cores-definidas)
+  - [Cores e tempo](docs/03g-cores-definidas.md#cores-e-tempo)
+  - [Transição de cores](docs/03g-cores-definidas.md#transição-de-cores)
 
 ### 4. [Entradas, buzzer e programação em blocos](docs/04-entradas-buzzer-blocos.md)
 
@@ -199,9 +207,9 @@ Cada **tópico principal** abre a visão geral do grupo, mostrando a relação e
 
 | Projeto | O que será praticado | Material de apoio |
 |---|---|---|
-| Pisca-LED | Saída digital, polaridade e temporização | [Abrir projeto](docs/03d-guia-pratico-led.md#piscar-led) |
-| Controle de brilho | LED, resistor e PWM | [Abrir projeto](docs/03d-guia-pratico-led.md#controle-de-brilho-com-pwm) |
-| Misturador de cores RGB | Três canais PWM e mistura aditiva | [Abrir projeto](docs/03c-led-rgb.md) |
+| LED comum | Saída digital, polaridade, tempo e PWM | [Abrir projeto](docs/03d-guia-pratico-led.md) |
+| Semáforo | Três LEDs, estados, sequência, temporização e brilho | [Abrir projeto](docs/03e-semaforo.md) |
+| LED RGB | Três canais PWM, mistura aditiva e gradientes | [Abrir projeto](docs/03g-cores-definidas.md) |
 | Botão para controlar LED | Entrada digital, pull-up e condição | [Material necessário](docs/04a-botoes-entradas.md) |
 | Controle com potenciômetro | Divisor de tensão, ADC e mapeamento | [Material necessário](docs/04b-divisor-potenciometro-ldr.md) |
 | Luz automática com LDR | Leitura analógica e decisão | [Material necessário](docs/04b-divisor-potenciometro-ldr.md#ldr) |

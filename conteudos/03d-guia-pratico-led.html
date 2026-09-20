@@ -1,77 +1,108 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Guia prático: ligar e programar LEDs — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>Guia prático: ligar e programar LEDs — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=5"></head>
-<body><main><header class="article-hero"><div class="shell"><p class="eyebrow">Conteúdo 15 de 33</p><h1>Guia prático: ligar e programar LEDs</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a></aside><article class="article-content">
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="LED comum — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>LED comum — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=6"></head>
+<body><main><header class="article-hero"><div class="shell"><h1>LED comum</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a></aside><article class="article-content">
 <p><a href="../index.html">← Voltar ao início</a></p>
-<h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
+<p>Este projeto começa com uma ligação direta em 5 V e avança até o controle de brilho e tempo pela programação.</p>
+<h3 id="conceitos">Conceitos</h3>
 <ul>
-<li><a href="#ligacao-do-led-comum">Ligação do LED comum</a></li>
-<li><a href="#piscar-led">Piscar LED</a></li>
-<li><a href="#controle-de-brilho-com-pwm">Controle de brilho com PWM</a></li>
-<li><a href="#ligacao-do-led-rgb">Ligação do LED RGB</a></li>
-<li><a href="#controle-de-cor">Controle de cor</a></li>
-<li><a href="#erros-comuns">Erros comuns</a></li>
+<li><a href="03a-led-comum.html">LED, ânodo e cátodo</a></li>
+<li><a href="03b-resistor-led.html">Resistor limitador</a></li>
+<li><a href="03b-resistor-led.html#medir-a-tensao-da-fonte">Medição da fonte e calculadora de resistor</a></li>
+<li><a href="02c-gpio-digital.html">GPIO e saída digital</a></li>
+<li><a href="02d-sinais-comunicacao.html#pwm">PWM</a></li>
 </ul>
-<h3 id="ligacao-do-led-comum">Ligação do LED comum</h3>
-<ol>
-<li>Confirme a tensão da placa e a corrente segura da GPIO.</li>
-<li>Identifique ânodo, cátodo e tensão direta.</li>
-<li>Escolha a corrente desejada dentro dos limites.</li>
-<li>Calcule o resistor e selecione um valor comercial seguro.</li>
-<li>Com a placa desligada, monte GPIO, resistor, LED e GND em série.</li>
-<li>Revise as fileiras da protoboard e a polaridade.</li>
-<li>Alimente e teste.</li>
-</ol>
-<pre data-language="text"><button class="copy-code" type="button">Copiar</button><code>GPIO ── resistor ── ânodo → LED → cátodo ── GND</code></pre>
-<h3 id="piscar-led">Piscar LED</h3>
-<div class="article-table-wrap"><table class="article-table"><thead><tr><th>Bloco</th><th>Código</th></tr></thead><tbody>
-<tr><td>definir pino 9 como saída</td><td><code>pinMode(9, OUTPUT);</code></td></tr>
-<tr><td>definir pino 9 como ALTO</td><td><code>digitalWrite(9, HIGH);</code></td></tr>
-<tr><td>aguardar 500 ms</td><td><code>delay(500);</code></td></tr>
-<tr><td>definir pino 9 como BAIXO</td><td><code>digitalWrite(9, LOW);</code></td></tr>
-</tbody></table></div>
-<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>const int led = 9;
 
-void setup() {
-  pinMode(led, OUTPUT);
-}
-
-void loop() {
-  digitalWrite(led, HIGH);
-  delay(500);
-  digitalWrite(led, LOW);
-  delay(500);
-}</code></pre>
-
-<section class="didactic-support" aria-labelledby="apoio-led">
-  <div class="didactic-support__head"><p class="eyebrow">Apoio didático 02</p><h2 id="apoio-led">Pisca-LED: conexão, blocos e código</h2><p>As três representações descrevem o mesmo projeto. Use o diagrama para montar, os blocos para enxergar a sequência e o código para conferir a tradução textual.</p></div>
-  <div class="representation-flow">
-    <div><span>01</span><b>Conectar</b><small>D9, resistor, LED e GND</small></div><i>→</i><div><span>02</span><b>Organizar</b><small>HIGH, espera, LOW, espera</small></div><i>→</i><div><span>03</span><b>Programar</b><small>digitalWrite e delay</small></div>
+<section class="didactic-support" aria-label="LED comum">
+  <div class="didactic-panel"><h3>LED</h3><p>A perna longa geralmente é o ânodo. A perna curta e a face achatada geralmente indicam o cátodo. Se as pernas já tiverem sido cortadas, confira o datasheet ou use o teste de diodo do multímetro.</p></div>
+  
+<section class="direct-power" aria-labelledby="direct-power-title">
+  <h3 id="direct-power-title">Ligação direta com pilhas e bateria</h3>
+  <p>Nesta ligação não há Arduino nem programação. A fonte, o resistor e o LED formam um único caminho. O resistor aparece sem valor fixo porque ele depende da tensão medida, da tensão direta do LED e da corrente escolhida.</p>
+  <div class="source-option-grid">
+    <div class="didactic-panel"><h4>Bateria de 9 V</h4><svg class="lesson-diagram source-diagram" viewBox="0 0 300 190" role="img" aria-labelledby="source-9v-title source-9v-desc">
+    <title id="source-9v-title">LED alimentado por bateria de 9 volts</title><desc id="source-9v-desc">Uma fonte alimenta um resistor em série com um LED e retorna ao terminal negativo.</desc>
+    <rect x="18" y="42" width="52" height="88" rx="8" fill="#30343a"/><rect x="29" y="34" width="10" height="8" fill="#777"/><rect x="51" y="34" width="10" height="8" fill="#777"/><text x="44" y="83" fill="white" font-size="20" font-weight="800" text-anchor="middle">9 V</text><text x="32" y="30" font-size="15" font-weight="800">+</text><text x="54" y="30" font-size="15" font-weight="800">−</text>
+    <path d="M70 55H105" stroke="#d85845" stroke-width="6" fill="none"/><rect x="105" y="43" width="70" height="24" rx="12" fill="#f2d9a6" stroke="#6f6552" stroke-width="2"/><text x="140" y="34" text-anchor="middle" font-size="12" font-weight="700">resistor</text>
+    <path d="M175 55H188V91H205" stroke="#d85845" stroke-width="6" fill="none"/><path d="M205 77h28c18 0 32 12 32 27s-14 27-32 27h-28z" fill="#f3a99f" stroke="#7c5c58" stroke-width="2"/><path d="M185 91h20m-20 26h20" stroke="#59656a" stroke-width="3"/><path d="M185 117H70V125" stroke="#222" stroke-width="6" fill="none"/><text x="270" y="109" font-size="13" font-weight="700">LED</text>
+  </svg><p>Exemplo para LED vermelho com <code>Vf = 2,0 V</code> e 10 mA: cálculo de 700 Ω; próximo valor E12 acima: <b>820 Ω</b>.</p></div>
+    <div class="didactic-panel"><h4>Uma pilha de 1,5 V</h4><svg class="lesson-diagram source-diagram" viewBox="0 0 300 190" role="img" aria-labelledby="source-1v5-title source-1v5-desc">
+    <title id="source-1v5-title">LED alimentado por uma pilha de 1,5 volt</title><desc id="source-1v5-desc">Uma fonte alimenta um resistor em série com um LED e retorna ao terminal negativo.</desc>
+    <line x1="30" y1="42" x2="30" y2="130" stroke="#555" stroke-width="5"/><line x1="52" y1="58" x2="52" y2="114" stroke="#555" stroke-width="10"/><text x="41" y="153" font-size="14" font-weight="700" text-anchor="middle">1,5 V</text><text x="25" y="32" font-size="15" font-weight="800">+</text><text x="49" y="32" font-size="15" font-weight="800">−</text>
+    <path d="M70 55H105" stroke="#d85845" stroke-width="6" fill="none"/><rect x="105" y="43" width="70" height="24" rx="12" fill="#f2d9a6" stroke="#6f6552" stroke-width="2"/><text x="140" y="34" text-anchor="middle" font-size="12" font-weight="700">resistor</text>
+    <path d="M175 55H188V91H205" stroke="#d85845" stroke-width="6" fill="none"/><path d="M205 77h28c18 0 32 12 32 27s-14 27-32 27h-28z" fill="#f3a99f" stroke="#7c5c58" stroke-width="2"/><path d="M185 91h20m-20 26h20" stroke="#59656a" stroke-width="3"/><path d="M185 117H70V125" stroke="#222" stroke-width="6" fill="none"/><text x="270" y="109" font-size="13" font-weight="700">LED</text>
+  </svg><p>Uma pilha alcalina comum geralmente não fornece tensão suficiente para acender diretamente um LED visível típico. O cálculo deve acusar <b>tensão insuficiente</b>.</p></div>
+    <div class="didactic-panel"><h4>Duas pilhas em série</h4><svg class="lesson-diagram source-diagram" viewBox="0 0 300 190" role="img" aria-labelledby="source-3v-title source-3v-desc">
+    <title id="source-3v-title">LED alimentado por duas pilhas de 1,5 volt em série</title><desc id="source-3v-desc">Uma fonte alimenta um resistor em série com um LED e retorna ao terminal negativo.</desc>
+    <line x1="20" y1="42" x2="20" y2="130" stroke="#555" stroke-width="5"/><line x1="34" y1="58" x2="34" y2="114" stroke="#555" stroke-width="9"/><line x1="50" y1="42" x2="50" y2="130" stroke="#555" stroke-width="5"/><line x1="64" y1="58" x2="64" y2="114" stroke="#555" stroke-width="9"/><text x="42" y="153" font-size="14" font-weight="700" text-anchor="middle">3 V</text><text x="16" y="32" font-size="15" font-weight="800">+</text><text x="61" y="32" font-size="15" font-weight="800">−</text>
+    <path d="M70 55H105" stroke="#d85845" stroke-width="6" fill="none"/><rect x="105" y="43" width="70" height="24" rx="12" fill="#f2d9a6" stroke="#6f6552" stroke-width="2"/><text x="140" y="34" text-anchor="middle" font-size="12" font-weight="700">resistor</text>
+    <path d="M175 55H188V91H205" stroke="#d85845" stroke-width="6" fill="none"/><path d="M205 77h28c18 0 32 12 32 27s-14 27-32 27h-28z" fill="#f3a99f" stroke="#7c5c58" stroke-width="2"/><path d="M185 91h20m-20 26h20" stroke="#59656a" stroke-width="3"/><path d="M185 117H70V125" stroke="#222" stroke-width="6" fill="none"/><text x="270" y="109" font-size="13" font-weight="700">LED</text>
+  </svg><p>Com duas pilhas em série e LED vermelho de 2,0 V a 10 mA: <b>100 Ω</b>. Em paralelo, as pilhas continuam em 1,5 V; aumenta a capacidade, não a tensão.</p></div>
   </div>
-  <svg class="lesson-diagram" viewBox="0 0 720 370" role="img" aria-labelledby="gpio-diagram-title gpio-diagram-desc">
+  <div class="article-table-wrap"><table class="article-table"><thead><tr><th>Fonte</th><th>Tensão nominal</th><th>Exemplo para LED vermelho, Vf 2,0 V, 10 mA</th></tr></thead><tbody><tr><td>Bateria de 9 V</td><td>9 V</td><td>700 Ω calculado; 820 Ω como E12 acima</td></tr><tr><td>Uma pilha</td><td>1,5 V</td><td>Tensão insuficiente</td></tr><tr><td>Duas pilhas em série</td><td>3 V</td><td>100 Ω</td></tr><tr><td>Duas pilhas em paralelo</td><td>1,5 V</td><td>Tensão insuficiente; maior capacidade</td></tr></tbody></table></div>
+  <p>Para outra fonte ou outra cor de LED, primeiro <a href="03b-resistor-led.html#medir-a-tensao-da-fonte">meça a tensão da fonte</a> e depois use a <a href="03b-resistor-led.html#calculadora-de-resistor">calculadora de resistor</a>.</p>
+</section>
+  <div class="didactic-panel"><h3>Alimentação de 5 V do Arduino</h3>
+    <svg class="lesson-diagram" viewBox="0 0 720 370" role="img" aria-labelledby="direct-diagram-title direct-diagram-desc">
+      <title id="direct-diagram-title">LED ligado diretamente ao pino de 5 V</title><desc id="direct-diagram-desc">O pino de alimentação de 5 V passa por um resistor de 220 ohms e pelo LED antes de retornar ao GND.</desc>
+      <rect x="42" y="48" width="250" height="275" rx="34" fill="#a9d8e6" stroke="#52656d" stroke-width="4"/><text x="167" y="150" fill="#263b43" font-size="31" font-weight="800" text-anchor="middle">ARDUINO</text><text x="167" y="188" fill="#263b43" font-size="25" text-anchor="middle">UNO</text>
+      <text x="242" y="94" fill="#263b43" font-size="16" font-weight="700">5 V</text><text x="242" y="258" fill="#263b43" font-size="16" font-weight="700">GND</text>
+      <path d="M278 90H365" stroke="#d85845" stroke-width="8" fill="none"/><rect x="365" y="74" width="110" height="32" rx="16" fill="#f2d9a6" stroke="#6f6552" stroke-width="3"/><path d="M393 78v24m20-24v24m20-24v24" stroke="#b98b75" stroke-width="5"/><text x="420" y="62" text-anchor="middle" font-size="15" font-weight="700">220 Ω</text>
+      <path d="M475 90h30v140h39" stroke="#d85845" stroke-width="8" fill="none"/><path d="M526 170v-55c0-24 15-43 34-43s34 19 34 43v55z" fill="#f3a99f" stroke="#7c5c58" stroke-width="3"/><path d="M544 170v60m32-60v60" stroke="#59656a" stroke-width="4"/><path d="M278 270H576V230" stroke="#222" stroke-width="8" fill="none"/>
+      <text x="618" y="122" font-size="18" font-weight="700">LED</text><text x="518" y="252" font-size="14" font-weight="700">A</text><text x="584" y="252" font-size="14" font-weight="700">K</text>
+    </svg>
+    <p class="diagram-caption"><b>Caminho:</b> 5 V → resistor de 220 Ω → ânodo → LED → cátodo → GND.</p>
+    <p>Com a placa desligada, ligue o pino de alimentação de 5 V ao resistor, o resistor ao ânodo e o cátodo ao GND. Esta ligação não usa uma GPIO e não pode ser comandada pelo programa: o LED permanece aceso enquanto houver alimentação.</p>
+  </div>
+  <div class="didactic-panel"><h3>Controle pelo Arduino</h3>
+    <svg class="lesson-diagram" viewBox="0 0 720 370" role="img" aria-labelledby="gpio-diagram-title gpio-diagram-desc">
         <title id="gpio-diagram-title">Arduino conectado a um LED pelo pino 9</title><desc id="gpio-diagram-desc">O pino digital 9 passa por um resistor de 220 ohms e pelo LED antes de retornar ao GND.</desc>
         <rect x="42" y="48" width="250" height="275" rx="34" fill="#a9d8e6" stroke="#52656d" stroke-width="4"/><text x="167" y="150" fill="#263b43" font-size="31" font-weight="800" text-anchor="middle">ARDUINO</text><text x="167" y="188" fill="#263b43" font-size="25" text-anchor="middle">UNO</text>
-        <text x="247" y="94" fill="#263b43" font-size="16" font-weight="700">D9</text><text x="242" y="290" fill="#263b43" font-size="16" font-weight="700">GND</text>
+        <text x="247" y="94" fill="#263b43" font-size="16" font-weight="700">D9</text><text x="242" y="258" fill="#263b43" font-size="16" font-weight="700">GND</text>
         <path d="M278 90H365" stroke="#8aa9d6" stroke-width="8" fill="none"/><rect x="365" y="74" width="110" height="32" rx="16" fill="#f2d9a6" stroke="#6f6552" stroke-width="3"/><path d="M393 78v24m20-24v24m20-24v24" stroke="#b98b75" stroke-width="5"/><text x="420" y="62" text-anchor="middle" font-size="15" font-weight="700">220 Ω</text>
-        <path d="M475 90h64" stroke="#8aa9d6" stroke-width="8"/><path d="M539 90v22m42-22v22" stroke="#59656a" stroke-width="4"/><path d="M526 95c0-24 15-43 34-43s34 19 34 43v37c0 9-7 16-16 16h-36c-9 0-16-7-16-16z" fill="#f3a99f" stroke="#7c5c58" stroke-width="3"/><path d="M560 148v82Q560 246 544 246H294Q278 246 278 262v24" stroke="#69767b" stroke-width="8" fill="none"/>
-        <text x="612" y="104" font-size="18" font-weight="700">LED</text><text x="378" y="255" font-size="16">cátodo → GND</text>
+        <path d="M475 90h30v140h39" stroke="#8aa9d6" stroke-width="8" fill="none"/><path d="M526 170v-55c0-24 15-43 34-43s34 19 34 43v55z" fill="#f3a99f" stroke="#7c5c58" stroke-width="3"/><path d="M544 170v60m32-60v60" stroke="#59656a" stroke-width="4"/><path d="M278 270H576V230" stroke="#69767b" stroke-width="8" fill="none"/>
+        <text x="618" y="122" font-size="18" font-weight="700">LED</text><text x="518" y="252" font-size="14" font-weight="700">A</text><text x="584" y="252" font-size="14" font-weight="700">K</text>
       </svg>
-  <div class="didactic-grid didactic-grid--code">
-    <div class="didactic-panel"><h3>Blocos equivalentes</h3><div class="block-stack"><div class="block block--event">no início</div><div class="block">configurar pino <em>9</em> como <em>SAÍDA</em></div><div class="block block--loop"><span>para sempre</span><div class="block__inside"><div class="block block--high">pino <em>9</em> → <em>HIGH</em></div><div class="block block--wait">aguardar <em>500 ms</em></div><div class="block block--low">pino <em>9</em> → <em>LOW</em></div><div class="block block--wait">aguardar <em>500 ms</em></div></div></div></div></div>
-    <div class="didactic-panel"><h3>Código comentado</h3><pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>const int led = 9;       // LED ligado ao pino digital 9
+    <p class="diagram-caption"><b>Caminho:</b> pino 9 → resistor de 220 Ω → ânodo → LED → cátodo → GND.</p>
+    <p>Aqui o fio sai de uma GPIO, não do pino de 5 V. No Arduino Uno, os pinos digitais 2 a 13 podem controlar o LED com <code>HIGH</code> e <code>LOW</code>; evite 0 e 1 enquanto usa a comunicação serial. Para variar o brilho com <code>analogWrite()</code>, use uma porta PWM marcada com <code>~</code>: 3, 5, 6, 9, 10 ou 11. Consulte <a href="02c-gpio-digital.html">GPIO e saída digital</a> e <a href="02d-sinais-comunicacao.html#pwm">PWM</a> antes de trocar o pino.</p>
+  </div>
+  <div class="didactic-panel"><h3>Blocos</h3><div class="block-workspace"><div class="block-stack" data-block-framework="tinkercad-circuits"><div class="block block--loop block--event"><span>no início</span><div class="block__inside"><div class="block block--io">configurar pino <em>9</em> como <em>OUTPUT</em></div></div></div><div class="block block--loop"><span>para sempre</span><div class="block__inside"><div class="block block--io">definir pino <em>9</em> como <em>ALTO</em></div><div class="block block--wait">aguardar <em>500</em> ms</div><div class="block block--io">definir pino <em>9</em> como <em>BAIXO</em></div><div class="block block--wait">aguardar <em>500</em> ms</div></div></div></div><aside class="block-instructions" aria-label="Localização dos blocos"><strong>Onde encontrar</strong><ul><li><b>no início</b> — categoria <b>Controle</b>.</li><li><b>para sempre</b> — categoria <b>Controle</b>.</li><li><b>configurar pino</b> — categoria <b>Saída</b>.</li><li><b>definir pino digital</b> — categoria <b>Saída</b>.</li><li><b>aguardar</b> — categoria <b>Controle</b>.</li></ul><p>Arraste cada peça da categoria indicada e encaixe-a na posição mostrada.</p></aside></div></div>
+  <div class="didactic-panel"><h3>Código</h3><pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>const int led = 9;       // LED ligado ao pino digital 9
 
 void setup() {
-  pinMode(led, OUTPUT);  // define o pino como saída
+  pinMode(led, OUTPUT);    // configura o pino para controlar o LED
 }
 
 void loop() {
-  digitalWrite(led, HIGH); // acende o LED
-  delay(500);              // espera meio segundo
-  digitalWrite(led, LOW);  // apaga o LED
-  delay(500);              // espera meio segundo
+  digitalWrite(led, HIGH);  // coloca 5 V no pino e acende o LED
+  delay(500);               // mantém o LED aceso por meio segundo
+  digitalWrite(led, LOW);   // coloca 0 V no pino e apaga o LED
+  delay(500);               // mantém o LED apagado por meio segundo
 }</code></pre></div>
-  </div>
-</section><h3 id="controle-de-brilho-com-pwm">Controle de brilho com PWM</h3>
-<p>O <strong>PWM</strong> altera o ciclo de trabalho dos pulsos e, com isso, o brilho percebido. Use uma GPIO compatível.</p>
+</section><h3 id="controle-de-brilho">Controle de brilho</h3>
+<p>Depois de ligar e desligar o LED com <code>HIGH</code> e <code>LOW</code>, use uma porta PWM para variar o brilho. No Arduino Uno, os pinos PWM são identificados pelo símbolo <code>~</code>; o pino 9 é usado neste projeto.</p>
+<h4>Blocos</h4><div class="block-workspace"><div class="block-stack" data-block-framework="tinkercad-circuits"><div class="block block--loop block--event"><span>no início</span><div class="block__inside"><div class="block block--io">configurar pino <em>9</em> como <em>OUTPUT</em></div></div></div><div class="block block--loop"><span>para sempre</span><div class="block__inside"><div class="block block--loop block--repeat"><span>contagem para <em>cima</em> por <em>1</em> para <em>i</em> de <em>0</em> a <em>255</em> fazer</span><div class="block__inside"><div class="block block--io">definir pino <em>9</em> como <em class="block-token--variable">i</em></div><div class="block block--wait">aguardar <em>8</em> ms</div></div></div><div class="block block--loop block--repeat"><span>contagem para <em>baixo</em> por <em>1</em> para <em>j</em> de <em>255</em> a <em>0</em> fazer</span><div class="block__inside"><div class="block block--io">definir pino <em>9</em> como <em class="block-token--variable">j</em></div><div class="block block--wait">aguardar <em>8</em> ms</div></div></div></div></div></div><aside class="block-instructions" aria-label="Localização dos blocos"><strong>Onde encontrar</strong><ul><li><b>no início</b> — categoria <b>Controle</b>.</li><li><b>para sempre</b> — categoria <b>Controle</b>.</li><li><b>configurar pino</b> — categoria <b>Saída</b>.</li><li><b>contagem para cima/baixo</b> — categoria <b>Controle</b>.</li><li><b>definir pino PWM</b> — categoria <b>Saída</b>.</li><li><b>aguardar</b> — categoria <b>Controle</b>.</li><li><b>contador do laço</b> — categoria <b>Variáveis</b>.</li></ul><strong>Como encaixar</strong><ol><li>Depois de inserir a primeira <b>contagem</b>, abra <b>Variáveis</b> e arraste <em>i</em> para o campo de valor do bloco <b>definir pino</b>.</li><li>Para usar <em>j</em> em outra contagem, crie essa variável em <b>Variáveis</b>, selecione-a no bloco de contagem e arraste-a para o campo de valor correspondente.</li></ol><p>Arraste cada peça da categoria indicada e encaixe-a na posição mostrada.</p></aside></div>
+<h4 id="codigo">Código</h4>
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>const int led = 9;  // porta PWM identificada por ~ no Arduino Uno
+
+void setup() {
+  pinMode(led, OUTPUT);  // permite controlar o LED
+}
+
+void loop() {
+  for (int i = 0; i &lt;= 255; i++) {
+    analogWrite(led, i);       // usa diretamente o contador do laço
+    delay(8);                  // controla a velocidade do gradiente
+  }
+
+  for (int j = 255; j &gt;= 0; j--) {
+    analogWrite(led, j);       // usa o contador do segundo laço
+    delay(8);
+  }
+}</code></pre>
+<h3 id="brilho-e-tempo">Brilho e tempo</h3>
+<p>O LED alterna entre brilho baixo, brilho alto e apagado. Assim, tempo e PWM são usados no mesmo programa.</p>
+<h4>Blocos</h4><div class="block-workspace"><div class="block-stack" data-block-framework="tinkercad-circuits"><div class="block block--loop block--event"><span>no início</span><div class="block__inside"><div class="block block--io">configurar pino <em>9</em> como <em>OUTPUT</em></div></div></div><div class="block block--loop"><span>para sempre</span><div class="block__inside"><div class="block block--io">definir pino <em>9</em> como <em>70</em></div><div class="block block--wait">aguardar <em>500</em> ms</div><div class="block block--io">definir pino <em>9</em> como <em>220</em></div><div class="block block--wait">aguardar <em>500</em> ms</div><div class="block block--io">definir pino <em>9</em> como <em>0</em></div><div class="block block--wait">aguardar <em>500</em> ms</div></div></div></div><aside class="block-instructions" aria-label="Localização dos blocos"><strong>Onde encontrar</strong><ul><li><b>no início</b> — categoria <b>Controle</b>.</li><li><b>para sempre</b> — categoria <b>Controle</b>.</li><li><b>configurar pino</b> — categoria <b>Saída</b>.</li><li><b>definir pino PWM</b> — categoria <b>Saída</b>.</li><li><b>aguardar</b> — categoria <b>Controle</b>.</li></ul><p>Arraste cada peça da categoria indicada e encaixe-a na posição mostrada.</p></aside></div>
+<h4 id="codigo">Código</h4>
 <pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>const int led = 9;
 
 void setup() {
@@ -79,57 +110,49 @@ void setup() {
 }
 
 void loop() {
-  analogWrite(led, 64);
-  delay(1000);
-  analogWrite(led, 192);
-  delay(1000);
+  analogWrite(led, 70);   // brilho baixo
+  delay(500);
+  analogWrite(led, 220);  // brilho alto
+  delay(500);
+  analogWrite(led, 0);    // apaga o LED
+  delay(500);
 }</code></pre>
-<p>Os valores 0 a 255 correspondem ao Uno clássico. Em outra placa, confira funções e resolução. Em blocos, procure “definir PWM do pino para valor”.</p>
-<h3 id="ligacao-do-led-rgb">Ligação do LED RGB</h3>
-<ol>
-<li>Identifique se é ânodo comum ou cátodo comum.</li>
-<li>Identifique os terminais R, G e B.</li>
-<li>Calcule e instale um resistor em cada canal.</li>
-<li>Escolha três GPIOs PWM se desejar intensidades variáveis.</li>
-<li>Conecte o terminal comum ao GND ou VCC conforme o tipo.</li>
-</ol>
-<h3 id="controle-de-cor">Controle de cor</h3>
-<p>Exemplo para RGB de cátodo comum no Uno clássico:</p>
-<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>const int vermelho = 9;
-const int verde = 10;
-const int azul = 11;
+<h3 id="gradiente">Gradiente</h3>
+<p>O brilho sobe de zero ao máximo e retorna ao zero sem saltos visíveis. O código é o mesmo princípio apresentado no controle de brilho, mas pode usar atrasos maiores ou menores para alterar a velocidade.</p>
+<h3 id="pulsacao">Pulsação</h3>
+<p>Neste modelo, o LED acende gradualmente, permanece aceso por um instante, apaga gradualmente e permanece apagado antes de repetir.</p>
+<h4>Blocos</h4><div class="block-workspace"><div class="block-stack" data-block-framework="tinkercad-circuits"><div class="block block--loop block--event"><span>no início</span><div class="block__inside"><div class="block block--io">configurar pino <em>9</em> como <em>OUTPUT</em></div></div></div><div class="block block--loop"><span>para sempre</span><div class="block__inside"><div class="block block--loop block--repeat"><span>contagem para <em>cima</em> por <em>5</em> para <em>i</em> de <em>0</em> a <em>255</em> fazer</span><div class="block__inside"><div class="block block--io">definir pino <em>9</em> como <em class="block-token--variable">i</em></div><div class="block block--wait">aguardar <em>20</em> ms</div></div></div><div class="block block--wait">aguardar <em>300</em> ms</div><div class="block block--loop block--repeat"><span>contagem para <em>baixo</em> por <em>5</em> para <em>j</em> de <em>255</em> a <em>0</em> fazer</span><div class="block__inside"><div class="block block--io">definir pino <em>9</em> como <em class="block-token--variable">j</em></div><div class="block block--wait">aguardar <em>20</em> ms</div></div></div><div class="block block--wait">aguardar <em>300</em> ms</div></div></div></div><aside class="block-instructions" aria-label="Localização dos blocos"><strong>Onde encontrar</strong><ul><li><b>no início</b> — categoria <b>Controle</b>.</li><li><b>para sempre</b> — categoria <b>Controle</b>.</li><li><b>configurar pino</b> — categoria <b>Saída</b>.</li><li><b>contagem para cima/baixo</b> — categoria <b>Controle</b>.</li><li><b>definir pino PWM</b> — categoria <b>Saída</b>.</li><li><b>aguardar</b> — categoria <b>Controle</b>.</li><li><b>contador do laço</b> — categoria <b>Variáveis</b>.</li></ul><strong>Como encaixar</strong><ol><li>Depois de inserir a primeira <b>contagem</b>, abra <b>Variáveis</b> e arraste <em>i</em> para o campo de valor do bloco <b>definir pino</b>.</li><li>Para usar <em>j</em> em outra contagem, crie essa variável em <b>Variáveis</b>, selecione-a no bloco de contagem e arraste-a para o campo de valor correspondente.</li></ol><p>Arraste cada peça da categoria indicada e encaixe-a na posição mostrada.</p></aside></div>
+<h4 id="codigo">Código</h4>
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>const int led = 9;
 
 void setup() {
-  pinMode(vermelho, OUTPUT);
-  pinMode(verde, OUTPUT);
-  pinMode(azul, OUTPUT);
-}
-
-void definirCor(int r, int g, int b) {
-  analogWrite(vermelho, r);
-  analogWrite(verde, g);
-  analogWrite(azul, b);
+  pinMode(led, OUTPUT);
 }
 
 void loop() {
-  definirCor(255, 255, 0); // amarelo
+  for (int i = 0; i &lt;= 255; i += 5) {
+    analogWrite(led, i);       // acende usando o contador do laço
+    delay(20);
+  }
+  delay(300);                  // mantém o brilho máximo
+
+  for (int j = 255; j &gt;= 0; j -= 5) {
+    analogWrite(led, j);       // apaga usando o segundo contador
+    delay(20);
+  }
+  delay(300);                  // mantém o LED apagado
 }</code></pre>
-<p>Para ânodo comum, a lógica geralmente deve ser invertida.</p>
 <h3 id="erros-comuns">Erros comuns</h3>
 <ul>
 <li>LED invertido.</li>
 <li>Ausência de resistor ou resistor muito baixo.</li>
-<li>GPIO escolhida sem suporte ao recurso necessário.</li>
-<li>Confusão entre ânodo comum e cátodo comum.</li>
-<li>Um único resistor para os três canais RGB.</li>
-<li>Limites do Uno usados em outra placa sem verificação.</li>
 <li>Perna longa usada como única forma de identificar terminal.</li>
 </ul>
 <h3 id="diagnostico-rapido">Diagnóstico rápido</h3>
-<p>Se não acender, desligue e confira polaridade, fileiras da protoboard, GND, número da porta e configuração <code>OUTPUT</code>. Depois teste o LED com fonte e resistor conhecidos. Se a cor estiver errada, revise a ordem dos canais. Se o brilho estiver invertido, confira o tipo de terminal comum.</p>
-<p><a href="03c-led-rgb.html">← Anterior: LED RGB</a> · <a href="03-leds-resistores.html">Revisão do tópico 3 →</a></p>
+<p>Se não acender, desligue e confira polaridade, fileiras da protoboard, GND, número do pino e configuração <code>OUTPUT</code>. Depois teste o LED com uma fonte e um resistor conhecidos.</p>
+<p><a href="03c-led-rgb.html">← Anterior: LED RGB</a> · <a href="03e-semaforo.html">Próximo: Semáforo →</a></p>
 <p><a href="../index.html">← Voltar ao início</a></p></article></div>
-<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="03c-led-rgb.html">← Conteúdo anterior</a><a href="04-entradas-buzzer-blocos.html">Próximo conteúdo →</a></nav></main>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="03c-led-rgb.html">← Conteúdo anterior</a><a href="03e-semaforo.html">Próximo conteúdo →</a></nav></main>
 <footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b></div></footer>
 <script>
 document.addEventListener('click', async (event) => {
@@ -146,4 +169,71 @@ document.addEventListener('click', async (event) => {
     setTimeout(() => { button.textContent = 'Copiar'; }, 1600);
   }
 });
+
+const resistorCalculator = document.querySelector('#resistor-calculator');
+if (resistorCalculator) {
+  const color = resistorCalculator.elements.ledColor;
+  const sourcePreset = resistorCalculator.elements.sourcePreset;
+  const sourceVoltage = resistorCalculator.elements.sourceVoltage;
+  const forwardVoltage = resistorCalculator.elements.forwardVoltage;
+  const result = resistorCalculator.querySelector('.calculator-result');
+  const nextE12 = (required) => {
+    const values = [10, 12, 15, 18, 22, 27, 33, 39, 47, 56, 68, 82];
+    for (let exponent = -1; exponent <= 7; exponent += 1) {
+      const scale = 10 ** exponent;
+      for (const base of values) {
+        const candidate = base * scale;
+        if (candidate >= required) return candidate;
+      }
+    }
+    return required;
+  };
+  const formatOhms = (ohms) => ohms >= 1000
+    ? (ohms / 1000).toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + ' kΩ'
+    : ohms.toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + ' Ω';
+
+  color.addEventListener('change', () => {
+    const custom = color.value === 'custom';
+    forwardVoltage.disabled = !custom;
+    if (!custom) forwardVoltage.value = color.value;
+    forwardVoltage.title = custom
+      ? 'Digite a tensão direta Vf do LED'
+      : 'Escolha Outro valor na cor do LED para editar este campo';
+    if (custom) {
+      forwardVoltage.value = '';
+      forwardVoltage.focus();
+    }
+  });
+
+  sourcePreset.addEventListener('change', () => {
+    const custom = sourcePreset.value === 'custom';
+    sourceVoltage.disabled = !custom;
+    if (!custom) sourceVoltage.value = sourcePreset.value;
+    if (custom) {
+      sourceVoltage.value = '';
+      sourceVoltage.focus();
+    }
+  });
+
+  resistorCalculator.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const source = Number(resistorCalculator.elements.sourceVoltage.value);
+    const vf = Number(forwardVoltage.value);
+    const currentMa = Number(resistorCalculator.elements.currentMa.value);
+    if (!(source > 0) || !(vf > 0) || !(currentMa > 0)) {
+      result.textContent = 'Preencha tensão da fonte, tensão direta e corrente com valores maiores que zero.';
+      return;
+    }
+    if (source <= vf) {
+      result.textContent = 'Tensão insuficiente: a fonte precisa ser maior que a tensão direta do LED para este cálculo.';
+      return;
+    }
+    const currentA = currentMa / 1000;
+    const required = (source - vf) / currentA;
+    const commercial = nextE12(required);
+    const actualMa = ((source - vf) / commercial) * 1000;
+    const power = ((source - vf) ** 2) / commercial;
+    result.textContent = 'Cálculo: ' + formatOhms(required) + '. Próximo valor E12 acima: ' + formatOhms(commercial) + '. Corrente estimada: ' + actualMa.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + ' mA. Potência no resistor: ' + power.toLocaleString('pt-BR', { maximumFractionDigits: 3 }) + ' W.';
+  });
+}
 </script></body></html>

@@ -40,6 +40,8 @@ digitalWrite(9, HIGH);
 
 Em blocos: “definir pino como saída” e “definir pino como ALTO”. Uma saída não deve alimentar diretamente motor, servo ou carga de corrente elevada.
 
+Os projetos [LED comum](03d-guia-pratico-led.md) e [Semáforo](03e-semaforo.md) aplicam essa saída digital em ligações com resistor, controle por tempo, sequência de estados, PWM, gradiente e pulsação.
+
 ## Nível lógico
 
 **Nível lógico** é uma faixa de tensão interpretada como estado digital. Não existe uma única tensão universal para HIGH e LOW; os limites dependem do microcontrolador e da alimentação.
