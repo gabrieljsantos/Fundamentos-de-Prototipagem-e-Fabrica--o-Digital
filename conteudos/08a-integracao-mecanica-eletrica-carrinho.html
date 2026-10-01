@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Integração mecânica e elétrica do carrinho — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>Integração mecânica e elétrica do carrinho — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=7"></head>
+<body><main><header class="article-hero"><div class="shell"><h1>Integração mecânica e elétrica do carrinho</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a></aside><article class="article-content">
+<p><a href="08-carrinho-wifi-esp32-pet-v1.html">← Voltar ao projeto</a></p>
+<h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
+<ul>
+<li><a href="#sistema-e-subsistemas">Sistema e subsistemas</a></li>
+<li><a href="#prototipo-modular">Protótipo modular</a></li>
+<li><a href="#vertices-arestas-e-faces">Vértices, arestas e faces</a></li>
+<li><a href="#rigidez-estrutural">Rigidez estrutural</a></li>
+<li><a href="#alinhamento">Alinhamento</a></li>
+<li><a href="#centro-de-massa">Centro de massa</a></li>
+<li><a href="#tracao-diferencial">Tração diferencial</a></li>
+<li><a href="#roda-boba">Roda boba</a></li>
+<li><a href="#fixacao-e-cola-quente">Fixação e cola quente</a></li>
+<li><a href="#alivio-de-tensao">Alívio de tensão</a></li>
+<li><a href="#manutenibilidade">Manutenibilidade</a></li>
+<li><a href="#dominios-de-alimentacao">Domínios de alimentação</a></li>
+<li><a href="#distribuicao-de-energia">Distribuição de energia</a></li>
+<li><a href="#pico-de-corrente">Pico de corrente</a></li>
+<li><a href="#corrente-de-travamento">Corrente de travamento</a></li>
+<li><a href="#queda-de-tensao">Queda de tensão</a></li>
+<li><a href="#continuidade-eletrica">Continuidade elétrica</a></li>
+<li><a href="#comissionamento">Comissionamento</a></li>
+<li><a href="#calibracao-de-movimento">Calibração de movimento</a></li>
+<li><a href="#teste-por-etapas">Teste por etapas</a></li>
+<li><a href="#isolamento-de-falhas">Isolamento de falhas</a></li>
+</ul>
+<h3 id="sistema-e-subsistemas">Sistema e subsistemas</h3>
+<p>Um <strong>sistema</strong> reúne partes que cooperam para cumprir uma função. O carrinho pode ser dividido em subsistema estrutural, alimentação do ESP32, alimentação dos motores, controle lógico, comunicação Wi‑Fi, acionamento de potência e transmissão de movimento.</p>
+<p>Dividir o projeto em subsistemas ajuda a montar e testar uma parte por vez. Uma falha de movimento pode estar no código, nos sinais, na ponte H, nos motores, na alimentação ou na mecânica.</p>
+<h3 id="prototipo-modular">Protótipo modular</h3>
+<p>Um <strong>protótipo modular</strong> é formado por partes que podem ser combinadas, substituídas ou reorganizadas. O ModuBot permite variar a estrutura sem fabricar um chassi inteiramente novo.</p>
+<p>Modularidade facilita experimentos, mas cada união precisa permanecer firme. Folgas acumuladas podem alterar alinhamento, estabilidade e posição dos componentes.</p>
+<h3 id="vertices-arestas-e-faces">Vértices, arestas e faces</h3>
+<p>No chassi deste projeto, os <strong>vértices</strong> são as peças impressas em 3D; as <strong>arestas</strong> são os palitinhos que conectam os vértices; e as <strong>faces</strong> são superfícies de papel-cartão ou papelão.</p>
+<p>Os vértices definem pontos de união e podem possuir funções específicas. As arestas determinam distâncias e contornos. As faces fecham, apoiam ou protegem regiões, mas não devem bloquear manutenção, ventilação, conectores ou movimento.</p>
+<h3 id="rigidez-estrutural">Rigidez estrutural</h3>
+<p><strong>Rigidez estrutural</strong> é a resistência da estrutura a deformações. Um retângulo pode mudar de forma quando recebe força lateral; travamentos, faces bem fixadas ou triangulação ajudam a conservar a geometria.</p>
+<p>Rigidez insuficiente pode fazer as rodas perderem alinhamento, soltar encaixes e forçar fios. Rigidez não significa excesso de cola: a estrutura deve permanecer reparável.</p>
+<h3 id="alinhamento">Alinhamento</h3>
+<p><strong>Alinhamento</strong> indica se motores, eixos e rodas estão posicionados nas direções planejadas. Motores desalinhados fazem o carrinho desviar mesmo quando recebem comandos iguais.</p>
+<p>Antes de corrigir tudo por software, confira paralelismo dos eixos, posição das rodas, atrito e simetria da estrutura.</p>
+<h3 id="centro-de-massa">Centro de massa</h3>
+<p>O <strong>centro de massa</strong> representa a posição média da massa do carrinho. Baterias e motores costumam ser os itens mais pesados.</p>
+<p>Distribua os componentes para evitar excesso de peso sobre uma única roda, instabilidade em curvas ou perda de contato da roda boba. Fixações baixas e próximas do centro geralmente reduzem tombamento.</p>
+<h3 id="tracao-diferencial">Tração diferencial</h3>
+<p>Na <strong>tração diferencial</strong>, uma roda motriz fica de cada lado. O carrinho avança quando ambas giram para frente, recua quando ambas giram para trás e gira quando os lados recebem sentidos ou velocidades diferentes.</p>
+<p>O sentido real depende da orientação mecânica e dos fios de cada motor. Por isso, a correspondência entre Motor A, Motor B, esquerda e direita precisa ser calibrada.</p>
+<h3 id="roda-boba">Roda boba</h3>
+<p>A <strong>roda boba</strong> sustenta um ponto do chassi e acompanha mudanças de direção sem receber torque do motor. Ela reduz o arrasto que existiria se um apoio fixo raspasse no chão.</p>
+<p>Sua altura influencia a distribuição de peso. Se estiver alta ou baixa demais, uma roda motriz pode perder contato ou receber peso excessivo.</p>
+<h3 id="fixacao-e-cola-quente">Fixação e cola quente</h3>
+<p>Uma fixação deve impedir deslocamento durante aceleração, vibração e transporte. A cola quente é útil em protótipos, mas amolece com calor e pode dificultar reparos.</p>
+<p>Não cubra bornes, conectores, botões, antena, trimpot, dissipação ou inscrições necessárias. Aplique cola com a alimentação desligada, aguarde o resfriamento e evite pressão direta sobre componentes eletrônicos pequenos.</p>
+<h3 id="alivio-de-tensao">Alívio de tensão</h3>
+<p><strong>Alívio de tensão</strong> impede que puxões e vibrações sejam transmitidos diretamente às soldas. Prenda os cabos pelo isolamento, deixando uma pequena folga antes do terminal.</p>
+<p>Um fio bem soldado ainda pode romper quando atua como elemento estrutural. A fixação mecânica e a conexão elétrica possuem funções diferentes.</p>
+<h3 id="manutenibilidade">Manutenibilidade</h3>
+<p><strong>Manutenibilidade</strong> é a facilidade de inspecionar, testar, remover e substituir partes. Deixe acessíveis as chaves, baterias, parafusos, porta USB, trimpot do LM2596 e bornes.</p>
+<p>Identificação de fios, módulos removíveis e rotas organizadas reduzem erros em reparos e modificações.</p>
+<h3 id="dominios-de-alimentacao">Domínios de alimentação</h3>
+<p>Um <strong>domínio de alimentação</strong> é uma parte do circuito alimentada por uma fonte definida. O carrinho possui um domínio para ESP32/LM2596 e outro para ponte H/motores.</p>
+<p>Separar as fontes reduz a propagação das quedas causadas pelos motores. Os domínios continuam relacionados pelo GND comum usado como referência dos sinais.</p>
+<h3 id="distribuicao-de-energia">Distribuição de energia</h3>
+<p><strong>Distribuição de energia</strong> descreve como tensão e corrente chegam às cargas. Fios, chaves, conectores, soldas e trilhas fazem parte do caminho e podem introduzir resistência.</p>
+<p>Um diagrama deve mostrar origem, proteção, chaveamento, conversão e destino da energia. Organizar esse caminho facilita medir a tensão em cada etapa.</p>
+<h3 id="pico-de-corrente">Pico de corrente</h3>
+<p>Um <strong>pico de corrente</strong> é um aumento breve de consumo. Wi‑Fi durante transmissão e motores na partida podem exigir mais corrente do que em repouso.</p>
+<p>Uma fonte pode apresentar tensão correta sem carga e cair durante um pico. Por isso, medições durante o funcionamento complementam a regulagem inicial.</p>
+<h3 id="corrente-de-travamento">Corrente de travamento</h3>
+<p><strong>Corrente de travamento</strong> é a corrente elevada consumida quando o motor recebe tensão, mas o eixo não consegue girar. Ela pode aquecer o motor, sobrecarregar a ponte H e causar queda de tensão.</p>
+<p>Rodas presas, chassi raspando ou esforço mecânico excessivo aproximam o motor dessa condição. Desligue o sistema quando houver travamento.</p>
+<h3 id="queda-de-tensao">Queda de tensão</h3>
+<p><strong>Queda de tensão</strong> ocorre quando a tensão medida na carga fica menor devido à resistência interna da fonte e do caminho elétrico. Bateria fraca, fio fino, contato ruim e solda defeituosa aumentam o problema.</p>
+<p>No ESP32, uma queda pode causar brownout e reinicialização. Nos motores, reduz torque e velocidade.</p>
+<h3 id="continuidade-eletrica">Continuidade elétrica</h3>
+<p>Um teste de <strong>continuidade</strong> verifica se existe caminho condutor entre dois pontos. Ele deve ser feito com o circuito desligado.</p>
+<p>Continuidade confirma conexão, mas não confirma polaridade, tensão correta ou capacidade de corrente. Esses critérios exigem inspeção e medições adicionais.</p>
+<h3 id="comissionamento">Comissionamento</h3>
+<p><strong>Comissionamento</strong> é a sequência controlada de verificações antes de colocar todo o sistema em operação. Inclui inspeção, continuidade, ajuste do LM2596, confirmação de 5 V, teste dos LEDs, upload, acionamento suspenso e teste no chão.</p>
+<p>Registrar cada resultado evita energizar o conjunto completo com uma falha ainda desconhecida.</p>
+<h3 id="calibracao-de-movimento">Calibração de movimento</h3>
+<p><strong>Calibração</strong> ajusta a correspondência entre comandos e comportamento real. No carrinho, inclui confirmar frente, ré, esquerda, direita, alinhamento e resposta dos dois motores.</p>
+<p>Diferenças entre motores e rodas podem exigir ajustes futuros de velocidade por PWM. Primeiro corrija montagem, atrito e polaridade; depois compense diferenças restantes no programa.</p>
+<h3 id="teste-por-etapas">Teste por etapas</h3>
+<p>No <strong>teste por etapas</strong>, cada subsistema é validado antes de integrar o próximo: estrutura, fontes, LM2596, ESP32, Wi‑Fi, ponte H, motores e movimento.</p>
+<p>Essa ordem reduz o número de causas possíveis quando algo falha e evita expor todos os componentes a um erro inicial.</p>
+<h3 id="isolamento-de-falhas">Isolamento de falhas</h3>
+<p><strong>Isolar uma falha</strong> significa dividir o sistema até encontrar a etapa que deixou de funcionar. Meça entrada e saída do LM2596, observe o ESP32 sozinho, teste a ponte H sem carga mecânica e examine cada motor separadamente.</p>
+<p>Trocar várias ligações ao mesmo tempo dificulta descobrir a causa. Faça uma alteração por vez e repita o teste correspondente.</p>
+<p><a href="07a-esp32.html">← ESP32, Wi‑Fi e controle</a> · <a href="08-carrinho-wifi-esp32-pet-v1.html">Voltar ao projeto</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="08-carrinho-wifi-esp32-pet-v1.html">← Conteúdo anterior</a><span></span></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b></div></footer>
+<script>
+document.addEventListener('click', async (event) => {
+  const button = event.target.closest('.copy-code');
+  if (!button) return;
+  const code = button.parentElement.querySelector('code');
+  if (!code) return;
+  try {
+    await navigator.clipboard.writeText(code.textContent);
+    button.textContent = 'Copiado';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1400);
+  } catch {
+    button.textContent = 'Selecione o código';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1600);
+  }
+});
+
+const resistorCalculator = document.querySelector('#resistor-calculator');
+if (resistorCalculator) {
+  const color = resistorCalculator.elements.ledColor;
+  const sourcePreset = resistorCalculator.elements.sourcePreset;
+  const sourceVoltage = resistorCalculator.elements.sourceVoltage;
+  const forwardVoltage = resistorCalculator.elements.forwardVoltage;
+  const result = resistorCalculator.querySelector('.calculator-result');
+  const nextE12 = (required) => {
+    const values = [10, 12, 15, 18, 22, 27, 33, 39, 47, 56, 68, 82];
+    for (let exponent = -1; exponent <= 7; exponent += 1) {
+      const scale = 10 ** exponent;
+      for (const base of values) {
+        const candidate = base * scale;
+        if (candidate >= required) return candidate;
+      }
+    }
+    return required;
+  };
+  const formatOhms = (ohms) => ohms >= 1000
+    ? (ohms / 1000).toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + ' kΩ'
+    : ohms.toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + ' Ω';
+
+  color.addEventListener('change', () => {
+    const custom = color.value === 'custom';
+    forwardVoltage.disabled = !custom;
+    if (!custom) forwardVoltage.value = color.value;
+    forwardVoltage.title = custom
+      ? 'Digite a tensão direta Vf do LED'
+      : 'Escolha Outro valor na cor do LED para editar este campo';
+    if (custom) {
+      forwardVoltage.value = '';
+      forwardVoltage.focus();
+    }
+  });
+
+  sourcePreset.addEventListener('change', () => {
+    const custom = sourcePreset.value === 'custom';
+    sourceVoltage.disabled = !custom;
+    if (!custom) sourceVoltage.value = sourcePreset.value;
+    if (custom) {
+      sourceVoltage.value = '';
+      sourceVoltage.focus();
+    }
+  });
+
+  resistorCalculator.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const source = Number(resistorCalculator.elements.sourceVoltage.value);
+    const vf = Number(forwardVoltage.value);
+    const currentMa = Number(resistorCalculator.elements.currentMa.value);
+    if (!(source > 0) || !(vf > 0) || !(currentMa > 0)) {
+      result.textContent = 'Preencha tensão da fonte, tensão direta e corrente com valores maiores que zero.';
+      return;
+    }
+    if (source <= vf) {
+      result.textContent = 'Tensão insuficiente: a fonte precisa ser maior que a tensão direta do LED para este cálculo.';
+      return;
+    }
+    const currentA = currentMa / 1000;
+    const required = (source - vf) / currentA;
+    const commercial = nextE12(required);
+    const actualMa = ((source - vf) / commercial) * 1000;
+    const power = ((source - vf) ** 2) / commercial;
+    result.textContent = 'Cálculo: ' + formatOhms(required) + '. Próximo valor E12 acima: ' + formatOhms(commercial) + '. Corrente estimada: ' + actualMa.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + ' mA. Potência no resistor: ' + power.toLocaleString('pt-BR', { maximumFractionDigits: 3 }) + ' W.';
+  });
+}
+</script></body></html>

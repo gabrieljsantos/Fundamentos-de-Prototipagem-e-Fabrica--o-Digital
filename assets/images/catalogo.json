@@ -1,0 +1,24 @@
+{
+  "versao": 1,
+  "base": "assets/images",
+  "convencao": "nomes descritivos em portugues, minusculas e kebab-case",
+  "imagens": [
+    { "id": "jumpers-dupont-macho-macho", "arquivo": "componentes/jumpers-dupont-macho-macho.jpg", "alt": "Conjunto de cabos jumper Dupont macho-macho coloridos", "categoria": "conexoes" },
+    { "id": "interruptor-gangorra-kcd11-101", "arquivo": "componentes/interruptor-gangorra-kcd11-101.jpg", "alt": "Mini interruptor de gangorra KCD11-101", "categoria": "interruptores" },
+    { "id": "motor-dc-tt", "arquivo": "componentes/motor-dc-tt.jpg", "alt": "Motor DC com caixa de reducao modelo TT", "categoria": "motores" },
+    { "id": "roda-boba-giratoria", "arquivo": "componentes/roda-boba-giratoria.jpg", "alt": "Roda boba giratoria com suporte metalico", "categoria": "mecanica" },
+    { "id": "suporte-2-pilhas-aa-1x2", "arquivo": "componentes/suporte-2-pilhas-aa-1x2.webp", "alt": "Suporte linear 1 por 2 para duas pilhas AA com fios", "categoria": "alimentacao" },
+    { "id": "suporte-4-pilhas-aa-1x4", "arquivo": "componentes/suporte-4-pilhas-aa-1x4.jpg", "alt": "Suporte linear 1 por 4 para quatro pilhas AA com fios", "categoria": "alimentacao" },
+    { "id": "suporte-4-pilhas-aa-2x2", "arquivo": "componentes/suporte-4-pilhas-aa-2x2.webp", "alt": "Suporte 2 por 2 para quatro pilhas AA com fios", "categoria": "alimentacao" },
+    { "id": "placa-esp32-devkit", "arquivo": "componentes/placa-esp32-devkit.webp", "alt": "Placa de desenvolvimento ESP32 DevKit", "categoria": "microcontroladores" },
+    { "id": "fios-protoboard", "arquivo": "componentes/fios-protoboard.jpg", "alt": "Conjunto de fios rigidos coloridos para protoboard", "categoria": "conexoes" },
+    { "id": "bateria-9v", "arquivo": "componentes/bateria-9v.jpg", "alt": "Bateria alcalina de 9 volts", "categoria": "alimentacao" },
+    { "id": "driver-motor-mx1508", "arquivo": "componentes/driver-motor-mx1508.jpg", "alt": "Modulo driver de motor MX1508", "categoria": "modulos" },
+    { "id": "conversor-step-down-lm2596", "arquivo": "componentes/conversor-step-down-lm2596.webp", "alt": "Modulo conversor DC-DC step-down LM2596", "categoria": "modulos" },
+    { "id": "conector-bateria-9v", "arquivo": "componentes/conector-bateria-9v.webp", "alt": "Conector para bateria de 9 volts com fios", "categoria": "alimentacao" },
+    { "id": "multimetro-digital-dt830d", "arquivo": "componentes/multimetro-digital-dt830d.png", "alt": "Multimetro digital DT830D com pontas de prova", "categoria": "instrumentos" },
+    { "id": "carrinho-wifi-esp32-pet-v1", "arquivo": "circuitos/carrinho-wifi-esp32-pet-v1.png", "alt": "Circuito do carrinho Wi-Fi com ESP32, driver MX1508 e dois motores", "categoria": "circuitos" },
+    { "id": "pilhas-aa", "arquivo": "componentes/pilhas-aa.jpg", "alt": "Conjunto de quatro pilhas alcalinas AA", "categoria": "alimentacao" },
+    { "id": "chassi-modubot-kit", "arquivo": "componentes/chassi-modubot-kit.webp", "alt": "Conjunto de pecas impressas do chassi modular ModuBot", "categoria": "mecanica" }
+  ]
+}

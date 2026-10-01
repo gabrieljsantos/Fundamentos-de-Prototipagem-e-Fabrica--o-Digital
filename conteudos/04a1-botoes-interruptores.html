@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Botões e interruptores — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>Botões e interruptores — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=7"></head>
+<body><main><header class="article-hero"><div class="shell"><h1>Botões e interruptores</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<h3 id="push-button">Push button</h3>
+<p>Um <strong>push button</strong> é um contato momentâneo: muda de estado enquanto está pressionado e retorna ao ser solto. Ele é indicado quando a ação deve durar apenas durante o toque ou quando o programa deve registrar um acionamento.</p>
+<h3 id="interruptor-de-gangorra">Interruptor de gangorra</h3>
+<p>Um <strong>interruptor de gangorra</strong> mantém a posição escolhida. No modelo SPDT de três terminais, o terminal central é o comum e se conecta a um dos dois terminais laterais, conforme a posição da chave.</p>
+<p>Por isso, uma gangorra SPDT pode selecionar entre dois caminhos, como 5 V e GND. O terminal central nunca deve ser confundido com uma entrada fixa de alimentação: ele é o contato comum que muda de conexão.</p>
+<h3 id="diferenca-pratica">Diferença prática</h3>
+<div class="article-table-wrap"><table class="article-table"><thead><tr><th>Componente</th><th>Comportamento mecânico</th><th>Uso típico</th></tr></thead><tbody>
+<tr><td>Push button</td><td>retorna ao ser solto</td><td>toque, comando momentâneo e contagem</td></tr>
+<tr><td>Gangorra</td><td>mantém a posição</td><td>seleção estável entre ligado/desligado ou dois caminhos</td></tr>
+</tbody></table></div>
+<p>O projeto <a href="04a-botoes-entradas.html">Botão controla LED</a> aplica os dois componentes em controles diretos e em entradas do Arduino.</p>
+<h3 id="verifique-se-entendeu">Verifique se entendeu</h3>
+<ol>
+<li>Por que o push button é chamado de momentâneo?</li>
+<li>Qual terminal de uma chave SPDT alterna entre os dois contatos laterais?</li>
+<li>Em que situação uma gangorra é mais adequada que um push button?</li>
+</ol>
+<p><a href="04a2-entrada-digital-flutuante.html">Próximo: entrada digital e entrada flutuante →</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="04a-botoes-entradas.html">← Conteúdo anterior</a><a href="04a2-entrada-digital-flutuante.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b></div></footer>
+<script>
+document.addEventListener('click', async (event) => {
+  const button = event.target.closest('.copy-code');
+  if (!button) return;
+  const code = button.parentElement.querySelector('code');
+  if (!code) return;
+  try {
+    await navigator.clipboard.writeText(code.textContent);
+    button.textContent = 'Copiado';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1400);
+  } catch {
+    button.textContent = 'Selecione o código';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1600);
+  }
+});
+
+const resistorCalculator = document.querySelector('#resistor-calculator');
+if (resistorCalculator) {
+  const color = resistorCalculator.elements.ledColor;
+  const sourcePreset = resistorCalculator.elements.sourcePreset;
+  const sourceVoltage = resistorCalculator.elements.sourceVoltage;
+  const forwardVoltage = resistorCalculator.elements.forwardVoltage;
+  const result = resistorCalculator.querySelector('.calculator-result');
+  const nextE12 = (required) => {
+    const values = [10, 12, 15, 18, 22, 27, 33, 39, 47, 56, 68, 82];
+    for (let exponent = -1; exponent <= 7; exponent += 1) {
+      const scale = 10 ** exponent;
+      for (const base of values) {
+        const candidate = base * scale;
+        if (candidate >= required) return candidate;
+      }
+    }
+    return required;
+  };
+  const formatOhms = (ohms) => ohms >= 1000
+    ? (ohms / 1000).toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + ' kΩ'
+    : ohms.toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + ' Ω';
+
+  color.addEventListener('change', () => {
+    const custom = color.value === 'custom';
+    forwardVoltage.disabled = !custom;
+    if (!custom) forwardVoltage.value = color.value;
+    forwardVoltage.title = custom
+      ? 'Digite a tensão direta Vf do LED'
+      : 'Escolha Outro valor na cor do LED para editar este campo';
+    if (custom) {
+      forwardVoltage.value = '';
+      forwardVoltage.focus();
+    }
+  });
+
+  sourcePreset.addEventListener('change', () => {
+    const custom = sourcePreset.value === 'custom';
+    sourceVoltage.disabled = !custom;
+    if (!custom) sourceVoltage.value = sourcePreset.value;
+    if (custom) {
+      sourceVoltage.value = '';
+      sourceVoltage.focus();
+    }
+  });
+
+  resistorCalculator.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const source = Number(resistorCalculator.elements.sourceVoltage.value);
+    const vf = Number(forwardVoltage.value);
+    const currentMa = Number(resistorCalculator.elements.currentMa.value);
+    if (!(source > 0) || !(vf > 0) || !(currentMa > 0)) {
+      result.textContent = 'Preencha tensão da fonte, tensão direta e corrente com valores maiores que zero.';
+      return;
+    }
+    if (source <= vf) {
+      result.textContent = 'Tensão insuficiente: a fonte precisa ser maior que a tensão direta do LED para este cálculo.';
+      return;
+    }
+    const currentA = currentMa / 1000;
+    const required = (source - vf) / currentA;
+    const commercial = nextE12(required);
+    const actualMa = ((source - vf) / commercial) * 1000;
+    const power = ((source - vf) ** 2) / commercial;
+    result.textContent = 'Cálculo: ' + formatOhms(required) + '. Próximo valor E12 acima: ' + formatOhms(commercial) + '. Corrente estimada: ' + actualMa.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + ' mA. Potência no resistor: ' + power.toLocaleString('pt-BR', { maximumFractionDigits: 3 }) + ' W.';
+  });
+}
+</script></body></html>

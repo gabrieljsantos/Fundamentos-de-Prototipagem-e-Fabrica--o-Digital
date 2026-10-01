@@ -1,12 +1,49 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="ESP32: 3,3 V, Wi‑Fi e Bluetooth — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>ESP32: 3,3 V, Wi‑Fi e Bluetooth — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=6"></head>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="ESP32: 3,3 V, Wi‑Fi e Bluetooth — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>ESP32: 3,3 V, Wi‑Fi e Bluetooth — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=7"></head>
 <body><main><header class="article-hero"><div class="shell"><h1>ESP32: 3,3 V, Wi‑Fi e Bluetooth</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a></aside><article class="article-content">
+<h3 id="conceitos">Conceitos</h3>
+<ul>
+<li><a href="#esp32">ESP32</a></li>
+<li><a href="#alimentacao-de-33-v">Alimentação de 3,3 V</a></li>
+<li><a href="#wi-fi">Wi‑Fi</a></li>
+<li><a href="#rede-wi-fi-local">Rede Wi‑Fi local</a></li>
+<li><a href="#softap-e-ponto-de-acesso">SoftAP e ponto de acesso</a></li>
+<li><a href="#ssid-e-senha">SSID e senha</a></li>
+<li><a href="#endereco-ip-local">Endereço IP local</a></li>
+<li><a href="#cliente-e-servidor">Cliente e servidor</a></li>
+<li><a href="#servidor-web">Servidor web</a></li>
+<li><a href="#rotas-http">Rotas HTTP</a></li>
+<li><a href="#interface-html-css-e-javascript">Interface HTML, CSS e JavaScript</a></li>
+<li><a href="#estado-seguro">Estado seguro</a></li>
+<li><a href="#brownout">Brownout</a></li>
+<li><a href="#bluetooth">Bluetooth</a></li>
+</ul>
 <h3 id="esp32">ESP32</h3>
 <p>O ESP32 é uma família de microcontroladores com GPIO, ADC, PWM, comunicação serial e conectividade sem fio integrada. Há placas de desenvolvimento com diferentes antenas, conectores, quantidade de pinos e conversores USB; confira o modelo e o datasheet antes de usar uma pinagem.</p>
 <h3 id="alimentacao-de-3-3-v">Alimentação de 3,3 V</h3>
 <p>As GPIO do ESP32 trabalham em nível lógico de 3,3 V e não são tolerantes a 5 V. A alimentação da placa costuma ser feita pela entrada USB ou pelo pino VIN/5 V, quando a própria placa possui regulador; o chip opera internamente em 3,3 V. Sensores e módulos de 5 V precisam de divisor de tensão, conversor de nível ou alimentação compatível. Compartilhe o GND entre os circuitos e nunca alimente uma GPIO para tentar fornecer corrente a um motor ou relé.</p>
 <h3 id="wi-fi">Wi‑Fi</h3>
 <p>O Wi‑Fi permite conectar o protótipo a uma rede local ou à internet. Os usos mais comuns são servidor web, envio de leituras, MQTT e atualização de estados. Planeje credenciais, sinal da rede, consumo de corrente e o comportamento quando a conexão cair. Não deixe senhas escritas no código publicado.</p>
+<h3 id="rede-wi-fi-local">Rede Wi‑Fi local</h3>
+<p>Uma <strong>rede Wi‑Fi local</strong> permite a comunicação entre dispositivos próximos sem depender da internet. No carrinho, o celular envia comandos diretamente ao ESP32. Alguns celulares abandonam redes sem internet; nesse caso, mantenha a conexão com o ESP32 e desative temporariamente dados móveis ou troca automática de rede.</p>
+<h3 id="softap-e-ponto-de-acesso">SoftAP e ponto de acesso</h3>
+<p>Um <strong>ponto de acesso</strong> cria uma rede. No modo <strong>SoftAP</strong>, o ESP32 assume esse papel por software usando <code>WiFi.mode(WIFI_AP)</code> e <code>WiFi.softAP(nome, senha)</code>. Isso difere do modo estação, no qual o ESP32 entra em uma rede existente.</p>
+<h3 id="ssid-e-senha">SSID e senha</h3>
+<p><strong>SSID</strong> é o nome apresentado na lista de redes Wi‑Fi. Nome e senha podem ser definidos no código e alterados antes do upload. Uma senha de SoftAP protegido precisa ter pelo menos oito caracteres.</p>
+<h3 id="endereco-ip-local">Endereço IP local</h3>
+<p>O <strong>endereço IP local</strong> identifica o ESP32 dentro da rede criada por ele. No modo SoftAP padrão, costuma ser <code>192.168.4.1</code>. Esse endereço funciona apenas para dispositivos conectados à rede local do ESP32 e não é um endereço público da internet.</p>
+<h3 id="cliente-e-servidor">Cliente e servidor</h3>
+<p>O <strong>cliente</strong> inicia uma solicitação e o <strong>servidor</strong> envia uma resposta. No carrinho, o navegador do celular é o cliente e o ESP32 é o servidor.</p>
+<h3 id="servidor-web">Servidor web</h3>
+<p>Um <strong>servidor web</strong> responde a solicitações HTTP. <code>WebServer servidor(80)</code> prepara o serviço e <code>servidor.handleClient()</code> atende solicitações repetidamente no <code>loop()</code>. Bloqueios longos no programa podem tornar o controle lento.</p>
+<h3 id="rotas-http">Rotas HTTP</h3>
+<p>Uma <strong>rota HTTP</strong> associa um endereço a uma ação. A rota <code>/</code> entrega a página; <code>/frente</code>, <code>/tras</code>, <code>/esquerda</code>, <code>/direita</code> e <code>/parar</code> podem executar funções de movimento. Interface e código precisam usar os mesmos nomes de rota.</p>
+<h3 id="interface-html-css-e-javascript">Interface HTML, CSS e JavaScript</h3>
+<p>Na página de controle, <strong>HTML</strong> organiza botões, <strong>CSS</strong> define a aparência e <strong>JavaScript</strong> envia solicitações ao ESP32. A interface fica armazenada no firmware e é entregue localmente ao navegador.</p>
+<h3 id="estado-seguro">Estado seguro</h3>
+<p>Um <strong>estado seguro</strong> é a condição assumida ao iniciar ou interromper o sistema. Chamar <code>parar()</code> antes de iniciar o Wi‑Fi reduz movimentos inesperados, mas não substitui as chaves físicas durante manutenção.</p>
+<h3 id="brownout">Brownout</h3>
+<p><strong>Brownout</strong> é uma queda temporária da alimentação abaixo do necessário. O ESP32 pode reiniciar quando a bateria, o conversor, os fios ou as soldas não sustentam os picos de corrente do Wi‑Fi. Meça a alimentação sob carga e confira fonte, contatos e conexões.</p>
 <h3 id="bluetooth">Bluetooth</h3>
 <p>As placas podem oferecer Bluetooth Classic, BLE ou os dois, conforme o chip e a biblioteca usada. O BLE é adequado para sensores e comandos de baixo consumo; o Bluetooth Classic é útil quando o aplicativo espera uma porta serial. Verifique o perfil suportado pela biblioteca e pelo dispositivo móvel.</p>
 <h3 id="cuidados-e-tipos-de-conexao">Cuidados e tipos de conexão</h3>

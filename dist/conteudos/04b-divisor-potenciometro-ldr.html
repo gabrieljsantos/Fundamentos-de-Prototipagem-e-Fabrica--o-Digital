@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Divisor de tensão, potenciômetro e LDR — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>Divisor de tensão, potenciômetro e LDR — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=6"></head>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Divisor de tensão, potenciômetro e LDR — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>Divisor de tensão, potenciômetro e LDR — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=7"></head>
 <body><main><header class="article-hero"><div class="shell"><h1>Divisor de tensão, potenciômetro e LDR</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a></aside><article class="article-content">
 <p><a href="../index.html">← Voltar ao início</a></p>
 <h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
@@ -20,9 +20,19 @@
 
 Vout = Vin × R2 / (R1 + R2)</code></pre>
 <p>Com 5 V, R1 de 10 kΩ e R2 de 20 kΩ, a saída ideal é aproximadamente 3,33 V. Um divisor é apropriado para sinais de pequena corrente. A carga conectada à saída altera o resultado, por isso ele não substitui regulador para alimentar motores ou módulos.</p>
+<h4 id="casos-limite">Casos-limite</h4>
+<p>Os extremos ajudam a entender o circuito:</p>
+<ul>
+<li>se R1 se aproxima de 0 Ω, Vout se aproxima de Vin;</li>
+<li>se R2 se aproxima de 0 Ω, Vout se aproxima de 0 V;</li>
+<li>se R1 e R2 são iguais, Vout fica próximo de metade de Vin;</li>
+<li>se um caminho fica aberto, a tensão pode perder a referência, como acontece com uma entrada digital flutuante.</li>
+</ul>
+<p>O botão com pull-up ou pull-down é um caso especial: o contato alterna entre resistência muito baixa e circuito aberto, enquanto o resistor fixo mantém o ponto de leitura em um estado conhecido.</p>
 <h3 id="potenciometro">Potenciômetro</h3>
 <p>Um <strong>potenciômetro</strong> contém uma pista resistiva e três terminais. A resistência total entre as extremidades costuma ser fixa; a posição mecânica altera a divisão produzida pelo terminal central.</p>
 <p>Para leitura, ligue as extremidades a VCC e GND e o terminal central ao ADC, respeitando a tensão máxima da entrada.</p>
+<p>Em um potenciômetro de 10 kΩ, a resistência total entre as extremidades continua próxima de 10 kΩ. O cursor apenas divide essa pista em duas parcelas. No centro, elas ficam aproximadamente em 5 kΩ e 5 kΩ, produzindo perto de 2,5 V quando as extremidades estão em 5 V e GND.</p>
 <h3 id="cursor">Cursor</h3>
 <p>O <strong>cursor</strong> é o contato móvel ligado ao terminal central do potenciômetro. Ele percorre a pista resistiva e fornece uma fração variável da tensão.</p>
 <p>Se VCC e GND forem trocados nas extremidades, o potenciômetro continua funcionando, mas o sentido de aumento da leitura se inverte.</p>
@@ -47,7 +57,7 @@ analogWrite(9, brilho);</code></pre>
 </ol>
 <p><a href="04a-botoes-entradas.html">← Anterior: botões</a> · <a href="04c-buzzer-som.html">Próximo: buzzer →</a></p>
 <p><a href="../index.html">← Voltar ao início</a></p></article></div>
-<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="04a-botoes-entradas.html">← Conteúdo anterior</a><a href="04c-buzzer-som.html">Próximo conteúdo →</a></nav></main>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="04a4-ruido-bounce-debounce.html">← Conteúdo anterior</a><a href="04c-buzzer-som.html">Próximo conteúdo →</a></nav></main>
 <footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b></div></footer>
 <script>
 document.addEventListener('click', async (event) => {

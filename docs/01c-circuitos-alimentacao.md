@@ -6,8 +6,11 @@
 
 - [Circuito elétrico](#circuito-elétrico)
 - [Ligação em série](#ligação-em-série)
+- [Pilhas em série](#pilhas-em-série)
 - [Ligação em paralelo](#ligação-em-paralelo)
+- [Pilhas em paralelo](#pilhas-em-paralelo)
 - [GND](#gnd)
+- [GND comum entre ESP32 e ponte H](#gnd-comum-entre-esp32-e-ponte-h)
 - [VCC, 5 V e 3,3 V](#vcc-5-v-e-33-v)
 - [Polaridade](#polaridade)
 
@@ -23,17 +26,35 @@ Componentes estão **em série** quando a mesma corrente percorre todos eles. As
 
 Um LED e seu resistor limitador ficam em série. O resistor pode estar antes ou depois do LED, pois a mesma corrente atravessa ambos.
 
+## Pilhas em série
+
+Em uma associação de pilhas em série, liga-se o positivo de uma ao negativo da seguinte. As tensões se somam, mas a capacidade em ampère-hora não se soma da mesma forma. Seis pilhas alcalinas de `1,5 V` em série fornecem aproximadamente `9 V`; seis pilhas NiMH de `1,2 V`, aproximadamente `7,2 V`.
+
+Todas as pilhas do conjunto devem possuir a mesma química, capacidade e estado de carga. Uma unidade invertida, descarregada ou diferente limita o conjunto e pode aquecer ou vazar.
+
 ## Ligação em paralelo
 
 Componentes estão **em paralelo** quando seus terminais se conectam aos mesmos dois nós. Eles recebem a mesma tensão, enquanto a corrente total se divide entre os ramos.
 
 Dois LEDs em paralelo devem ter resistores individuais. Pequenas diferenças entre os LEDs podem fazer um deles conduzir corrente excessiva quando ambos compartilham apenas um resistor.
 
+## Pilhas em paralelo
+
+Em paralelo, os polos positivos são ligados entre si e os negativos também. A tensão permanece igual à de uma pilha ou bateria, enquanto a capacidade e a corrente disponível podem aumentar. Duas baterias de `9 V` em paralelo continuam fornecendo aproximadamente `9 V`; elas não formam `18 V`.
+
+Fontes conectadas diretamente em paralelo podem trocar corrente entre si quando suas tensões são diferentes. Por isso, não improvise o paralelo com baterias de marcas, químicas, capacidades, idades ou cargas diferentes. Para alimentar um ESP32 com maior corrente, prefira uma fonte dimensionada corretamente ou um suporte projetado para células iguais em paralelo e com a proteção apropriada. Uma bateria retangular de 9 V descarregada ou inadequada não se torna uma boa fonte apenas pela adição improvisada de outra bateria.
+
 ## GND
 
 **GND** é o ponto escolhido como referência de 0 V. As demais tensões são medidas em relação a ele. GND não significa obrigatoriamente terra físico nem é um lugar onde a energia “desaparece”.
 
 Quando dois dispositivos trocam sinais elétricos, geralmente compartilham GND para concordarem sobre HIGH, LOW e valores analógicos. Sistemas com isolamento elétrico são uma exceção.
+
+## GND comum entre ESP32 e ponte H
+
+O ESP32 envia níveis HIGH e LOW para as entradas da ponte H. Para interpretar esses níveis, os dois módulos precisam usar a mesma referência de `0 V`; por isso, um `GND` do ESP32 deve ser ligado ao `GND` da ponte H, mesmo quando motores e ESP32 usam fontes positivas diferentes.
+
+Sem esse GND comum, as entradas da ponte H ficam sem uma referência confiável para os sinais do ESP32. Os motores podem não responder, responder de forma intermitente, girar apenas em alguns comandos ou apresentar comportamento imprevisível. A conexão de GND comum fornece referência aos sinais; ela não une as linhas positivas das duas fontes.
 
 ## VCC, 5 V e 3,3 V
 

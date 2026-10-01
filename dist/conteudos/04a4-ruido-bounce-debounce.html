@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Ruído, bounce e debounce — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>Ruído, bounce e debounce — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=7"></head>
+<body><main><header class="article-hero"><div class="shell"><h1>Ruído, bounce e debounce</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<h3 id="ruido">Ruído</h3>
+<p><strong>Ruído</strong> é uma variação indesejada no sinal. Cabos longos, motores, fontes chaveadas, GND ruim e entradas flutuantes podem causar falsos acionamentos. Fios curtos, conexões firmes e um pull-up ou pull-down adequado ajudam a estabilizar a leitura.</p>
+<h3 id="bounce">Bounce</h3>
+<p><strong>Bounce</strong>, ou repique mecânico, acontece porque os contatos do botão podem abrir e fechar várias vezes durante poucos milissegundos. Um único toque pode ser interpretado como vários acionamentos.</p>
+<h3 id="debounce">Debounce</h3>
+<p><strong>Debounce</strong> é o tratamento usado para aceitar apenas uma mudança válida. Uma introdução simples consiste em aguardar brevemente e confirmar a leitura:</p>
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>if (digitalRead(2) == LOW) {
+  delay(20);
+  if (digitalRead(2) == LOW) {
+    // toque confirmado
+  }
+}</code></pre>
+<p>Esse atraso curto serve para experiências iniciais. Projetos maiores costumam usar temporização sem bloquear o restante do programa.</p>
+<p>O projeto <a href="04a-botoes-entradas.html">Botão controla LED</a> apresenta primeiro as ligações básicas; este tratamento pode ser acrescentado quando um toque precisa produzir apenas um evento.</p>
+<h3 id="verifique-se-entendeu">Verifique se entendeu</h3>
+<ol>
+<li>Qual é a diferença entre ruído elétrico e bounce mecânico?</li>
+<li>Por que um toque pode ser contado mais de uma vez?</li>
+<li>O que o segundo teste do botão confirma?</li>
+</ol>
+<p><a href="04a3-pull-up-pull-down.html">← Pull-up e pull-down</a> · <a href="04b-divisor-potenciometro-ldr.html">Próximo: divisor e sensores resistivos →</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="04a3-pull-up-pull-down.html">← Conteúdo anterior</a><a href="04b-divisor-potenciometro-ldr.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b></div></footer>
+<script>
+document.addEventListener('click', async (event) => {
+  const button = event.target.closest('.copy-code');
+  if (!button) return;
+  const code = button.parentElement.querySelector('code');
+  if (!code) return;
+  try {
+    await navigator.clipboard.writeText(code.textContent);
+    button.textContent = 'Copiado';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1400);
+  } catch {
+    button.textContent = 'Selecione o código';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1600);
+  }
+});
+
+const resistorCalculator = document.querySelector('#resistor-calculator');
+if (resistorCalculator) {
+  const color = resistorCalculator.elements.ledColor;
+  const sourcePreset = resistorCalculator.elements.sourcePreset;
+  const sourceVoltage = resistorCalculator.elements.sourceVoltage;
+  const forwardVoltage = resistorCalculator.elements.forwardVoltage;
+  const result = resistorCalculator.querySelector('.calculator-result');
+  const nextE12 = (required) => {
+    const values = [10, 12, 15, 18, 22, 27, 33, 39, 47, 56, 68, 82];
+    for (let exponent = -1; exponent <= 7; exponent += 1) {
+      const scale = 10 ** exponent;
+      for (const base of values) {
+        const candidate = base * scale;
+        if (candidate >= required) return candidate;
+      }
+    }
+    return required;
+  };
+  const formatOhms = (ohms) => ohms >= 1000
+    ? (ohms / 1000).toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + ' kΩ'
+    : ohms.toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + ' Ω';
+
+  color.addEventListener('change', () => {
+    const custom = color.value === 'custom';
+    forwardVoltage.disabled = !custom;
+    if (!custom) forwardVoltage.value = color.value;
+    forwardVoltage.title = custom
+      ? 'Digite a tensão direta Vf do LED'
+      : 'Escolha Outro valor na cor do LED para editar este campo';
+    if (custom) {
+      forwardVoltage.value = '';
+      forwardVoltage.focus();
+    }
+  });
+
+  sourcePreset.addEventListener('change', () => {
+    const custom = sourcePreset.value === 'custom';
+    sourceVoltage.disabled = !custom;
+    if (!custom) sourceVoltage.value = sourcePreset.value;
+    if (custom) {
+      sourceVoltage.value = '';
+      sourceVoltage.focus();
+    }
+  });
+
+  resistorCalculator.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const source = Number(resistorCalculator.elements.sourceVoltage.value);
+    const vf = Number(forwardVoltage.value);
+    const currentMa = Number(resistorCalculator.elements.currentMa.value);
+    if (!(source > 0) || !(vf > 0) || !(currentMa > 0)) {
+      result.textContent = 'Preencha tensão da fonte, tensão direta e corrente com valores maiores que zero.';
+      return;
+    }
+    if (source <= vf) {
+      result.textContent = 'Tensão insuficiente: a fonte precisa ser maior que a tensão direta do LED para este cálculo.';
+      return;
+    }
+    const currentA = currentMa / 1000;
+    const required = (source - vf) / currentA;
+    const commercial = nextE12(required);
+    const actualMa = ((source - vf) / commercial) * 1000;
+    const power = ((source - vf) ** 2) / commercial;
+    result.textContent = 'Cálculo: ' + formatOhms(required) + '. Próximo valor E12 acima: ' + formatOhms(commercial) + '. Corrente estimada: ' + actualMa.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + ' mA. Potência no resistor: ' + power.toLocaleString('pt-BR', { maximumFractionDigits: 3 }) + ' W.';
+  });
+}
+</script></body></html>

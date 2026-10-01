@@ -26,8 +26,11 @@ Cada **tópico principal** abre a visão geral do grupo, mostrando a relação e
 - [Circuitos, alimentação e polaridade](docs/01c-circuitos-alimentacao.md)
   - [Circuito elétrico](docs/01c-circuitos-alimentacao.md#circuito-elétrico)
   - [Ligação em série](docs/01c-circuitos-alimentacao.md#ligação-em-série)
+  - [Pilhas em série](docs/01c-circuitos-alimentacao.md#pilhas-em-série)
   - [Ligação em paralelo](docs/01c-circuitos-alimentacao.md#ligação-em-paralelo)
+  - [Pilhas em paralelo](docs/01c-circuitos-alimentacao.md#pilhas-em-paralelo)
   - [GND](docs/01c-circuitos-alimentacao.md#gnd)
+  - [GND comum entre ESP32 e ponte H](docs/01c-circuitos-alimentacao.md#gnd-comum-entre-esp32-e-ponte-h)
   - [VCC, 5 V e 3,3 V](docs/01c-circuitos-alimentacao.md#vcc-5-v-e-33-v)
   - [Polaridade](docs/01c-circuitos-alimentacao.md#polaridade)
 - [Montagem e segurança](docs/01d-montagem-seguranca.md)
@@ -49,6 +52,10 @@ Cada **tópico principal** abre a visão geral do grupo, mostrando a relação e
   - [Placa de desenvolvimento](docs/02a-microcontrolador-arduino.md#placa-de-desenvolvimento)
 - [Arduino IDE, USB, drivers e bibliotecas](docs/02b-ide-usb-drivers.md)
   - [Arduino IDE](docs/02b-ide-usb-drivers.md#arduino-ide)
+  - [Como instalar a Arduino IDE](docs/02b-ide-usb-drivers.md#como-instalar-a-arduino-ide)
+  - [Como configurar a placa ESP32-WROOM](docs/02b-ide-usb-drivers.md#como-configurar-a-placa-esp32-wroom)
+  - [Drivers USB do ESP32](docs/02b-ide-usb-drivers.md#drivers-usb-do-esp32)
+  - [Como encontrar a porta no Windows](docs/02b-ide-usb-drivers.md#como-encontrar-a-porta-no-windows)
   - [Sketch](docs/02b-ide-usb-drivers.md#sketch)
   - [Compilação](docs/02b-ide-usb-drivers.md#compilação)
   - [Upload](docs/02b-ide-usb-drivers.md#upload)
@@ -203,10 +210,42 @@ Cada **tópico principal** abre a visão geral do grupo, mostrando a relação e
   - [Blocos, texto e simulação](docs/06d-pictoblox-tinkercad.md#blocos-texto-e-simulação)
   - [Limites do simulador](docs/06d-pictoblox-tinkercad.md#limites-do-simulador)
 
+### 7. ESP32, Wi‑Fi e controle local
+
+- [ESP32, alimentação, Wi‑Fi e Bluetooth](docs/07a-esp32.md)
+  - [Rede Wi‑Fi local](docs/07a-esp32.md#rede-wi-fi-local)
+  - [SoftAP e ponto de acesso](docs/07a-esp32.md#softap-e-ponto-de-acesso)
+  - [SSID e senha](docs/07a-esp32.md#ssid-e-senha)
+  - [Endereço IP local](docs/07a-esp32.md#endereço-ip-local)
+  - [Cliente e servidor](docs/07a-esp32.md#cliente-e-servidor)
+  - [Servidor web](docs/07a-esp32.md#servidor-web)
+  - [Rotas HTTP](docs/07a-esp32.md#rotas-http)
+  - [Interface HTML, CSS e JavaScript](docs/07a-esp32.md#interface-html-css-e-javascript)
+  - [Estado seguro](docs/07a-esp32.md#estado-seguro)
+  - [Brownout](docs/07a-esp32.md#brownout)
+- [Impressão 3D FDM](docs/07b-impressora-3d-fdm.md)
+
+### 8. Integração do carrinho
+
+- [Integração mecânica e elétrica](docs/08a-integracao-mecanica-eletrica-carrinho.md)
+  - [Sistema e subsistemas](docs/08a-integracao-mecanica-eletrica-carrinho.md#sistema-e-subsistemas)
+  - [Protótipo modular](docs/08a-integracao-mecanica-eletrica-carrinho.md#protótipo-modular)
+  - [Vértices, arestas e faces](docs/08a-integracao-mecanica-eletrica-carrinho.md#vértices-arestas-e-faces)
+  - [Rigidez estrutural e alinhamento](docs/08a-integracao-mecanica-eletrica-carrinho.md#rigidez-estrutural)
+  - [Centro de massa](docs/08a-integracao-mecanica-eletrica-carrinho.md#centro-de-massa)
+  - [Tração diferencial e roda boba](docs/08a-integracao-mecanica-eletrica-carrinho.md#tração-diferencial)
+  - [Fixação, alívio de tensão e manutenção](docs/08a-integracao-mecanica-eletrica-carrinho.md#fixação-e-cola-quente)
+  - [Domínios e distribuição de energia](docs/08a-integracao-mecanica-eletrica-carrinho.md#domínios-de-alimentação)
+  - [Pico e corrente de travamento](docs/08a-integracao-mecanica-eletrica-carrinho.md#pico-de-corrente)
+  - [Queda de tensão e continuidade](docs/08a-integracao-mecanica-eletrica-carrinho.md#queda-de-tensão)
+  - [Comissionamento e calibração](docs/08a-integracao-mecanica-eletrica-carrinho.md#comissionamento)
+  - [Teste por etapas e isolamento de falhas](docs/08a-integracao-mecanica-eletrica-carrinho.md#teste-por-etapas)
+
 ## Sumário de projetos
 
 | Projeto | O que será praticado | Material de apoio |
 |---|---|---|
+| Carrinho Wi‑Fi ESP32 PET v1 | ESP32, duas alimentações, LM2596, MX1508, motores, soldagem e testes | [Abrir projeto](docs/08-carrinho-wifi-esp32-pet-v1.md) |
 | LED comum | Saída digital, polaridade, tempo e PWM | [Abrir projeto](docs/03d-guia-pratico-led.md) |
 | Semáforo | Três LEDs, estados, sequência, temporização e brilho | [Abrir projeto](docs/03e-semaforo.md) |
 | LED RGB | Três canais PWM, mistura aditiva e gradientes | [Abrir projeto](docs/03g-cores-definidas.md) |

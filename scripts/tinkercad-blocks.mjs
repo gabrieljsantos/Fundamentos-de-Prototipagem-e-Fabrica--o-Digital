@@ -51,8 +51,7 @@ export const blocks = {
     return { kind: "command", tone: "io", toolbox: "Saída", blockName: "definir LED incorporado", label: `definir LED incorporado como ${value(state)}` };
   },
   digitalWrite(pin, state) {
-    const translated = state === "HIGH" ? "ALTO" : state === "LOW" ? "BAIXO" : state;
-    return { kind: "command", tone: "io", toolbox: "Saída", blockName: "definir pino digital", label: `definir pino ${value(pin)} como ${value(translated)}` };
+    return { kind: "command", tone: state === "HIGH" ? "high" : state === "LOW" ? "low" : "io", toolbox: "Saída", blockName: "definir pino digital", label: `definir pino ${value(pin)} como ${value(state)}` };
   },
   analogWrite(pin, output) {
     return { kind: "command", tone: "io", toolbox: "Saída", blockName: "definir pino PWM", input: output, label: `definir pino ${value(pin)} como ${pinValue(output)}` };
@@ -95,6 +94,18 @@ export const blocks = {
   wait(amount, unit = "ms") {
     return { kind: "command", tone: "wait", toolbox: "Controle", blockName: "aguardar", label: `aguardar ${value(amount)} ${escape(unit)}` };
   },
+  ifElse(condition, whenTrue, whenFalse = []) {
+    return {
+      kind: "ifelse",
+      tone: "condition",
+      toolbox: "Controle",
+      blockName: "se / senão",
+      condition,
+      whenTrue,
+      whenFalse,
+      label: `se ${pinValue(condition)} então`
+    };
+  },
   setVariable(name, initialValue) {
     return { kind: "command", tone: "variable", toolbox: "Variáveis", blockName: "definir variável", variableName: String(name), label: `definir ${value(name)} como ${value(initialValue)}` };
   },
@@ -120,6 +131,9 @@ export const blocks = {
 };
 
 function renderNode(node) {
+  if (node.kind === "ifelse") {
+    return `<div class="block block--condition"><span>${node.label}</span><div class="block__branch"><small>então</small>${node.whenTrue.map(renderNode).join("")}</div><div class="block__branch"><small>senão</small>${node.whenFalse.map(renderNode).join("")}</div></div>`;
+  }
   if (node.kind === "container") {
     return `<div class="block block--loop block--repeat"><span>${node.label}</span><div class="block__inside">${node.children.map(renderNode).join("")}</div></div>`;
   }
@@ -138,9 +152,13 @@ export function renderProgram({ start = [], forever = [] }) {
     if (node.variableName) variables.add(node.variableName);
     if (node.counterName) counters.add(node.counterName);
     if (node.toolbox && node.blockName) locations.set(`${node.toolbox}:${node.blockName}`, [node.toolbox, node.blockName]);
+    if (node.condition?.kind === "math") locations.set("Matemática:comparação", ["Matemática", "comparação ="]);
+    if (node.condition?.left?.kind === "input") locations.set(`Entrada:${node.condition.left.blockName}`, ["Entrada", node.condition.left.blockName]);
     if (node.input?.kind === "math") locations.set("Matemática:operação aritmética", ["Matemática", "operação aritmética"]);
     if (node.input?.kind === "input") locations.set(`Entrada:${node.input.blockName}`, ["Entrada", node.input.blockName]);
     if (node.children) findVariables(node.children);
+    if (node.whenTrue) findVariables(node.whenTrue);
+    if (node.whenFalse) findVariables(node.whenFalse);
   });
   findVariables([...start, ...forever]);
 

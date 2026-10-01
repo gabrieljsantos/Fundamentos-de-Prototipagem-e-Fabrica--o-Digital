@@ -6,7 +6,7 @@
   <meta name="description" content="Material de apoio sobre eletrônica, Arduino, prototipagem e fabricação digital.">
   <title>Fundamentos de Prototipagem e Fabricação Digital</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%2311110f'/%3E%3Cpath d='M18 32h10m8 0h10M28 22v20m8-20v20' stroke='%23b9f227' stroke-width='5'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="stylesheet" href="styles.css?v=7">
 </head>
 <body>
   <main>
@@ -34,7 +34,7 @@
             <div class="module__body"><p><a class="text-link" href="conteudos/01-fundamentos.html">Abrir visão geral do módulo →</a></p><ul class="topic-list">
               <li><a href="conteudos/01a-energia-conversao.html"><b>Energia e conversão</b><br><span>Conservação, conversão e eficiência</span></a></li>
               <li><a href="conteudos/01b-grandezas-eletricas.html"><b>Grandezas elétricas</b><br><span>Tensão, corrente, resistência, potência e Lei de Ohm</span></a></li>
-              <li><a href="conteudos/01c-circuitos-alimentacao.html"><b>Circuitos e alimentação</b><br><span>Série, paralelo, GND, VCC e polaridade</span></a></li>
+              <li><a href="conteudos/01c-circuitos-alimentacao.html"><b>Circuitos e alimentação</b><br><span>Pilhas em série e paralelo, GND comum, VCC e polaridade</span></a></li>
               <li><a href="conteudos/01d-montagem-seguranca.html"><b>Montagem e segurança</b><br><span>Protoboard, curto-circuito, ESD, ruído e bounce</span></a></li>
               <li><b>Multímetro e instrumentos</b><br><span>Escalas, continuidade, medição de tensão, corrente e resistência</span></li>
               <li><b>Fontes e baterias</b><br><span>Fonte linear, fonte chaveada, pilhas, baterias e autonomia</span></li>
@@ -108,7 +108,10 @@
           <details class="module">
             <summary><span class="module__number">05</span><h3>Entradas e buzzer</h3><span class="module__toggle">+</span></summary>
             <div class="module__body"><p><a class="text-link" href="conteudos/04-entradas-buzzer-blocos.html">Abrir visão geral do módulo →</a></p><ul class="topic-list">
-              <li><a href="conteudos/04a-botoes-entradas.html"><b>Botões e entradas</b><br><span>Entrada flutuante, pull-up, ruído e debounce</span></a></li>
+              <li><a href="conteudos/04a1-botoes-interruptores.html"><b>Botões e interruptores</b><br><span>Push button, gangorra e chave SPDT</span></a></li>
+              <li><a href="conteudos/04a2-entrada-digital-flutuante.html"><b>Entrada digital</b><br><span>HIGH, LOW, estado de repouso e entrada flutuante</span></a></li>
+              <li><a href="conteudos/04a3-pull-up-pull-down.html"><b>Pull-up e pull-down</b><br><span>Referência elétrica, 10 kΩ e INPUT_PULLUP</span></a></li>
+              <li><a href="conteudos/04a4-ruido-bounce-debounce.html"><b>Ruído e debounce</b><br><span>Interferência, repique mecânico e confirmação da leitura</span></a></li>
               <li><a href="conteudos/04b-divisor-potenciometro-ldr.html"><b>Potenciômetro e LDR</b><br><span>Divisor de tensão, leitura analógica e mapeamento</span></a></li>
               <li><a href="conteudos/04c-buzzer-som.html"><b>Buzzer e som</b><br><span>Frequência, período, tom e proteção</span></a></li>
               <li><b>Teclados matriciais</b><br><span>Linhas, colunas, varredura e identificação de teclas</span></li>
@@ -174,6 +177,22 @@
               </ul></li>
             </ul></div>
           </details>
+          <details class="module">
+            <summary><span class="module__number">09</span><h3>Projeto integrador: Carrinho Wi‑Fi ESP32 PET v1</h3><span class="module__toggle">+</span></summary>
+            <div class="module__body"><p><a class="text-link" href="conteudos/08-carrinho-wifi-esp32-pet-v1.html">Abrir visão geral do projeto →</a></p><ul class="topic-list">
+              <li><a href="conteudos/08-carrinho-wifi-esp32-pet-v1.html#componentes"><b>Componentes</b><br><span>Grid ilustrado com as peças usadas no projeto</span></a></li>
+              <li><a href="conteudos/08-carrinho-wifi-esp32-pet-v1.html#guia-de-montagem"><b>Guia de montagem</b><br><span>Duas alimentações, chaves, LM2596, multímetro, MX1508 e motores</span></a></li>
+              <li><a href="conteudos/08-carrinho-wifi-esp32-pet-v1.html#imagem-do-circuito"><b>Imagem do circuito</b><br><span>Referência visual das alimentações, sinais e motores</span></a></li>
+              <li><a href="conteudos/08-carrinho-wifi-esp32-pet-v1.html#codigo"><b>Código</b><br><span>Rede Wi‑Fi própria, servidor web e comandos dos motores</span></a></li>
+              <li><a href="conteudos/08-carrinho-wifi-esp32-pet-v1.html#enviar-o-codigo-ao-esp32"><b>Enviar o código</b><br><span>Arduino IDE, placa, porta e documentação para iniciantes</span></a></li>
+              <li><a href="conteudos/01c-circuitos-alimentacao.html"><b>Alimentação e polaridade</b><br><span>Ligação em série, GND, VCC e prevenção de inversões</span></a></li>
+              <li><a href="conteudos/05c-motores-servo.html"><b>Motores e ponte H</b><br><span>Corrente de partida, direção, velocidade e fonte externa</span></a></li>
+              <li><a href="conteudos/05d-lcd-lm2596.html#ajuste-com-multimetro"><b>LM2596 e multímetro</b><br><span>Step-down, trimpot e ajuste obrigatório em 5 V</span></a></li>
+              <li><a href="conteudos/07a-esp32.html"><b>ESP32</b><br><span>VIN/5V, lógica de 3,3 V, GPIO e Wi‑Fi</span></a></li>
+              <li><a href="conteudos/07a-esp32.html#softap-e-ponto-de-acesso"><b>Wi‑Fi e controle web</b><br><span>SoftAP, SSID, IP local, cliente, servidor, rotas HTTP e brownout</span></a></li>
+              <li><a href="conteudos/08a-integracao-mecanica-eletrica-carrinho.html"><b>Conceitos integradores</b><br><span>Estrutura modular, tração, energia, montagem, testes, calibração e diagnóstico</span></a></li>
+            </ul></div>
+          </details>
         </div>
       </div>
     </section>
@@ -182,10 +201,11 @@
       <div class="shell">
     <div class="section__head"><p class="eyebrow">Aplicação prática</p><div><h2>Projetos</h2></div></div>
         <div class="project-grid">
+          <a class="project" href="conteudos/08-carrinho-wifi-esp32-pet-v1.html"><small>Projeto integrador</small><h3>Carrinho Wi‑Fi ESP32 PET v1</h3><p>Componentes, alimentação, conexões, soldagem e testes</p></a>
           <a class="project" href="conteudos/03d-guia-pratico-led.html"><small>Saída digital e PWM</small><h3>LED comum</h3><p>Ligação, tempo, brilho e pulsação</p></a>
           <a class="project" href="conteudos/03e-semaforo.html"><small>Sequência e temporização</small><h3>Semáforo</h3><p>Vermelho, verde, amarelo e controle de brilho</p></a>
           <a class="project" href="conteudos/03g-cores-definidas.html"><small>Três canais PWM</small><h3>LED RGB</h3><p>Cores, gradientes e tempo</p></a>
-          <a class="project" href="conteudos/04a-botoes-entradas.html"><small>Entrada digital</small><h3>Botão controla LED</h3><p>Pull-up e condição</p></a>
+          <a class="project" href="conteudos/04a-botoes-entradas.html"><small>Entrada digital</small><h3>Botão controla LED</h3><p>Chave, botão, pull-up e pull-down</p></a>
           <a class="project" href="conteudos/04b-divisor-potenciometro-ldr.html#potenciometro"><small>Entrada analógica</small><h3>Controle com potenciômetro</h3><p>Divisor, ADC e mapeamento</p></a>
           <a class="project" href="conteudos/04b-divisor-potenciometro-ldr.html#ldr"><small>Sensor</small><h3>Luz automática</h3><p>LDR, leitura e decisão</p></a>
           <a class="project" href="conteudos/04c-buzzer-som.html"><small>Som</small><h3>Alarme sonoro</h3><p>Buzzer, frequência e tempo</p></a>

@@ -101,9 +101,9 @@ const trafficLightPrograms = {
   "sequencia-do-semaforo": {
     start: trafficSetup,
     forever: [
-      ...digitalState("ALTO", "BAIXO", "BAIXO"), b.wait(5, "s"),
-      ...digitalState("BAIXO", "BAIXO", "ALTO"), b.wait(4, "s"),
-      ...digitalState("BAIXO", "ALTO", "BAIXO"), b.wait(1, "s")
+      ...digitalState("HIGH", "LOW", "LOW"), b.wait(5, "s"),
+      ...digitalState("LOW", "LOW", "HIGH"), b.wait(4, "s"),
+      ...digitalState("LOW", "HIGH", "LOW"), b.wait(1, "s")
     ]
   },
   "bonus-controle-de-brilho": {

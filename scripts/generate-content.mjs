@@ -2,6 +2,7 @@ import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { applyBlockPrograms } from "./block-programs.mjs";
 import { blocks as tinkercad, renderProgram } from "./tinkercad-blocks.mjs";
+import * as circuit from "./circuit-kit.mjs";
 
 const root = process.cwd();
 const docsDir = path.join(root, "docs");
@@ -65,6 +66,26 @@ function renderMarkdown(source) {
   };
 
   for (const line of lines) {
+    if (line.trim() === ":::component-grid") {
+      flushParagraph(); flushList(); flushTable();
+      html.push('<div class="component-grid">');
+      continue;
+    }
+    if (line.trim() === ":::end-component-grid") {
+      flushParagraph(); flushList(); flushTable();
+      html.push('</div>');
+      continue;
+    }
+    if (line.trim() === ":::featured-link") {
+      flushParagraph(); flushList(); flushTable();
+      html.push('<aside class="featured-link">');
+      continue;
+    }
+    if (line.trim() === ":::end-featured-link") {
+      flushParagraph(); flushList(); flushTable();
+      html.push('</aside>');
+      continue;
+    }
     if (line.startsWith("```")) {
       flushParagraph(); flushList(); flushTable();
       if (!inCode) { inCode = true; codeLanguage = line.slice(3).trim(); code = []; }
@@ -72,6 +93,12 @@ function renderMarkdown(source) {
       continue;
     }
     if (inCode) { code.push(line); continue; }
+    const image = line.match(/^!\[([^\]]+)\]\(([^)]+)\)$/);
+    if (image) {
+      flushParagraph(); flushList(); flushTable();
+      html.push(`<figure class="article-figure"><img src="${escapeHtml(image[2])}" alt="${escapeHtml(image[1])}"><figcaption>${inline(image[1])}</figcaption></figure>`);
+      continue;
+    }
     if (/^\|.*\|$/.test(line.trim())) { flushParagraph(); flushList(); table.push(line.trim()); continue; }
     flushTable();
     const heading = line.match(/^(#{1,4})\s+(.+)$/);
@@ -243,6 +270,68 @@ const trafficLightWiringSupport = `
 </div>
 <p>Cada LED precisa de um resistor próprio. Os três cátodos podem compartilhar o GND.</p>`;
 
+const buttonDiagramBase = (id, title, content) => `<div class="didactic-panel button-project-visual">
+  <svg class="lesson-diagram" viewBox="0 0 720 300" role="img" aria-labelledby="${id}-title ${id}-desc">
+    <title id="${id}-title">${title}</title><desc id="${id}-desc">Diagrama didático com fios arredondados, pontos de 5 volts e GND, botão ou interruptor, resistores e LED.</desc>
+    ${content.trim()}
+  </svg>
+</div>`;
+
+const ledBranch = `${circuit.wire("M455 105h42v53h18")}${circuit.resistor({ x: 515, y: 143 })}${circuit.wire("M591 158h10")}${circuit.led({ x: 601, y: 133 })}${circuit.wire("M689 158v97H455", "ground")}`;
+
+const buttonDirectSwitch = buttonDiagramBase("direct-switch", "Interruptor de gangorra controlando um LED diretamente", `
+  ${circuit.spdt({ x: 70, y: 42, width: 180, labels: ["saída A", "comum", "saída B"] })}
+  ${circuit.wire("M30 250h40", "power")}${circuit.resistor({ x: 70, y: 235 })}${circuit.wire("M146 250h14v-95", "power")}
+  ${circuit.wire("M110 154v48h310", "power")}${circuit.led({ x: 420, y: 177 })}${circuit.wire("M508 202v66H30", "ground")}
+  <circle cx="30" cy="250" r="9" fill="#d98778"/><text x="18" y="238" class="diagram-terminal">5 V</text><circle cx="30" cy="268" r="9" fill="#59656a"/><text x="18" y="291" class="diagram-terminal">GND</text>
+`);
+
+const buttonDirectPush = buttonDiagramBase("direct-push", "Push button controlando um LED diretamente", `
+  <text x="38" y="91" class="diagram-terminal">5 V</text><circle cx="65" cy="108" r="9" fill="#d98778"/>${circuit.wire("M74 108h106", "power")}${circuit.pushButton({ x: 180, y: 81 })}${circuit.wire("M304 108h76", "power")}${circuit.resistor({ x: 380, y: 93 })}${circuit.wire("M456 108h44", "power")}${circuit.led({ x: 500, y: 83 })}${circuit.wire("M588 108v152H65", "ground")}<circle cx="65" cy="260" r="9" fill="#59656a"/><text x="38" y="283" class="diagram-terminal">GND</text>
+`);
+
+const arduinoBox = circuit.arduinoUno({
+  x: 300, y: 45, width: 155, height: 210,
+  leftPins: [{ label: "5 V", y: 25 }, { label: "D2", y: 100 }, { label: "GND", y: 180 }],
+  rightPins: [{ label: "D9", y: 60 }, { label: "GND", y: 180 }]
+});
+
+const buttonSpdt = buttonDiagramBase("spdt-input", "Chave SPDT selecionando HIGH ou LOW para o Arduino", `
+  ${arduinoBox}${ledBranch}${circuit.spdt({ x: 55, y: 56 })}
+  ${circuit.wire("M95 168H30V25h250v45h20", "neutral")}${circuit.wire("M139 168v-18h161", "neutral")}${circuit.wire("M183 168h80v57h37", "ground")}
+`);
+
+const buttonPulldown = buttonDiagramBase("pulldown-input", "Push button com resistor pull-down de 10 quilohms", `
+  ${arduinoBox}${ledBranch}${circuit.pushButton({ x: 90, y: 48, orientation: "vertical" })}${circuit.resistor({ x: 225, y: 157, label: "10 kΩ", orientation: "vertical" })}
+  ${circuit.wire("M120 71V25h160v45h20", "power")}${circuit.wire("M120 137v15h180", "signal")}${circuit.wire("M200 152h25", "signal")}${circuit.wire("M240 229v-4h60", "ground")}
+`);
+
+const buttonPullup = buttonDiagramBase("pullup-input", "Push button ao GND com pull-up interno do Arduino", `
+  ${arduinoBox}${ledBranch}${circuit.pushButton({ x: 90, y: 82, orientation: "vertical" })}
+  ${circuit.wire("M120 105h65v45h115", "signal")}${circuit.wire("M120 171v54h180", "ground")}${circuit.wire("M380 78h-58v72h-22", "power", 5, 'stroke-dasharray="8 7"')}<text x="334" y="70" font-size="12" font-weight="700">pull-up interno</text>
+`);
+
+const buttonProgram = (mode, activeState) => renderProgram({
+  start: [tinkercad.pinMode(2, mode), tinkercad.pinMode(9)],
+  forever: [tinkercad.ifElse(
+    tinkercad.math(tinkercad.readDigitalPin(2), "==", activeState),
+    [tinkercad.digitalWrite(9, "HIGH")],
+    [tinkercad.digitalWrite(9, "LOW")]
+  )]
+}).replace("<h4>Blocos</h4>", "");
+
+function integrateButtonProjects(article) {
+  const insertAfterIntro = (output, id, support) => output.replace(
+    new RegExp(`(<h([34]) id="${id}">[\\s\\S]*?<\\/h\\2>\\n<p>[\\s\\S]*?<\\/p>)`),
+    `$1${support}`
+  );
+  let output = insertAfterIntro(article, "montagem-1-gangorra-controla-o-led-diretamente", buttonDirectSwitch);
+  output = insertAfterIntro(output, "montagem-2-push-button-controla-o-led-diretamente", buttonDirectPush);
+  output = insertAfterIntro(output, "montagem-3-gangorra-seleciona-high-ou-low", buttonSpdt + `<div class="didactic-panel"><h5>Programação em blocos</h5>${buttonProgram("INPUT", "HIGH")}</div>`);
+  output = insertAfterIntro(output, "montagem-4-push-button-com-pull-down", buttonPulldown + `<div class="didactic-panel"><h5>Programação em blocos</h5>${buttonProgram("INPUT", "HIGH")}</div>`);
+  return insertAfterIntro(output, "montagem-5-push-button-com-pull-up-interno", buttonPullup + `<div class="didactic-panel"><h5>Programação em blocos</h5>${buttonProgram("INPUT_PULLUP", "LOW")}</div>`);
+}
+
 function integrateSupport(base, article) {
   if (base === "02c-gpio-digital") {
     return article.replace('<h3 id="nivel-logico">', `${digitalSupport}<h3 id="nivel-logico">`);
@@ -264,6 +353,9 @@ function integrateSupport(base, article) {
       /(<h3 id="montagem">Montagem<\/h3>)[\s\S]*?(?=<h3 id="sequencia-do-semaforo">)/,
       `$1${trafficLightWiringSupport}`
     );
+  }
+  if (base === "04a-botoes-entradas") {
+    return integrateButtonProjects(article);
   }
   return article;
 }
@@ -309,7 +401,7 @@ for (let index = 0; index < files.length; index++) {
   const article = addCopyButtons(convertBlockLists(applyBlockPrograms(base, supportedArticle)));
   const hasSupport = base === "02c-gpio-digital" || base === "03d-guia-pratico-led";
   const html = `<!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="${escapeHtml(title)} — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>${escapeHtml(title)} — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=6"></head>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="${escapeHtml(title)} — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>${escapeHtml(title)} — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=7"></head>
 <body><main><header class="article-hero"><div class="shell"><h1>${escapeHtml(title)}</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a></aside><article class="article-content">${article}</article></div>
 <nav class="article-pagination shell" aria-label="Navegação entre conteúdos">${previous ? `<a href="${previous}">← Conteúdo anterior</a>` : "<span></span>"}${next ? `<a href="${next}">Próximo conteúdo →</a>` : "<span></span>"}</nav></main>
 <footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b></div></footer>
@@ -397,6 +489,17 @@ if (resistorCalculator) {
 }
 </script></body></html>`;
   await writeFile(path.join(outDir, `${base}.html`), html);
+}
+
+const legacyRedirects = {
+  "04a1-botao-controla-led.html": "04a-botoes-entradas.html"
+};
+
+for (const [legacyFile, destination] of Object.entries(legacyRedirects)) {
+  const redirect = `<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="refresh" content="0; url=${destination}"><link rel="canonical" href="${destination}"><title>Botão controla LED</title></head>
+<body><p>Este projeto mudou de endereço. <a href="${destination}">Abrir Botão controla LED</a>.</p><script>location.replace(${JSON.stringify(destination)});</script></body></html>`;
+  await writeFile(path.join(outDir, legacyFile), redirect);
 }
 
 console.log(`Geradas ${files.length} páginas em conteudos/.`);

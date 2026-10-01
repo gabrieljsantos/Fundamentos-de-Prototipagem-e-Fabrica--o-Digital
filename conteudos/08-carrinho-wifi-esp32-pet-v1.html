@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Carrinho Wi‑Fi ESP32 PET v1 — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>Carrinho Wi‑Fi ESP32 PET v1 — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=7"></head>
+<body><main><header class="article-hero"><div class="shell"><h1>Carrinho Wi‑Fi ESP32 PET v1</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<p>Neste projeto, diferentes <a href="08a-integracao-mecanica-eletrica-carrinho.html#sistema-e-subsistemas">subsistemas</a> trabalham juntos: o ESP32 cria sua própria rede Wi‑Fi e uma página de controle para movimentar dois motores DC por meio da ponte H MX1508. A montagem possui dois <a href="08a-integracao-mecanica-eletrica-carrinho.html#dominios-de-alimentacao">domínios de alimentação</a> e duas chaves: uma para o ESP32 e outra para os motores.</p>
+<h3 id="conceitos">Conceitos</h3>
+<ul>
+<li><a href="01b-grandezas-eletricas.html">Tensão, corrente e potência</a></li>
+<li><a href="01c-circuitos-alimentacao.html#pilhas-em-serie">Pilhas em série</a></li>
+<li><a href="01c-circuitos-alimentacao.html#pilhas-em-paralelo">Pilhas em paralelo</a></li>
+<li><a href="01c-circuitos-alimentacao.html#gnd-comum-entre-esp32-e-ponte-h">GND comum entre ESP32 e ponte H</a></li>
+<li><a href="01c-circuitos-alimentacao.html#vcc-5-v-e-33-v">VCC e polaridade</a></li>
+<li><a href="01d-montagem-seguranca.html">Soldagem, curto-circuito e montagem segura</a></li>
+<li><a href="02b-ide-usb-drivers.html">Arduino IDE, pacote de placa, compilação e upload</a></li>
+<li><a href="02c-gpio-digital.html">GPIO, HIGH e LOW</a></li>
+<li><a href="04a1-botoes-interruptores.html#interruptor">Interruptores</a></li>
+<li><a href="05c-motores-servo.html">Motor DC, corrente de partida e ponte H</a></li>
+<li><a href="05d-lcd-lm2596.html#lm2596">LM2596, step-down, trimpot e multímetro</a></li>
+<li><a href="07a-esp32.html">ESP32, alimentação, Wi‑Fi e níveis lógicos</a></li>
+<li><a href="07b-impressora-3d-fdm.html">Impressão 3D FDM, fatiamento e montagem</a></li>
+<li><a href="08a-integracao-mecanica-eletrica-carrinho.html">Integração mecânica, elétrica, testes e diagnóstico</a></li>
+</ul>
+<p>Essas fundamentações explicam as escolhas do projeto: as <a href="01c-circuitos-alimentacao.html#pilhas-em-serie">pilhas são ligadas em série</a> para somar tensão; a ponte H fornece corrente e inverte o sentido dos motores; o <a href="01c-circuitos-alimentacao.html#gnd-comum-entre-esp32-e-ponte-h">GND comum</a> dá referência aos sinais; o LM2596 reduz a tensão; e as GPIO apenas comandam o driver, sem alimentar motores.</p>
+<h3 id="componentes">Componentes</h3>
+<div class="component-grid">
+<figure class="article-figure"><img src="../assets/images/componentes/placa-esp32-devkit.webp" alt="1× Placa ESP32 DevKit com módulo ESP32-WROOM"><figcaption>1× Placa ESP32 DevKit com módulo ESP32-WROOM</figcaption></figure>
+<figure class="article-figure"><img src="../assets/images/componentes/driver-motor-mx1508.jpg" alt="1× Ponte H MX1508"><figcaption>1× Ponte H MX1508</figcaption></figure>
+<figure class="article-figure"><img src="../assets/images/componentes/conversor-step-down-lm2596.webp" alt="1× Conversor step-down LM2596"><figcaption>1× Conversor step-down LM2596</figcaption></figure>
+<figure class="article-figure"><img src="../assets/images/componentes/motor-dc-tt.jpg" alt="2× Motores DC TT com redução"><figcaption>2× Motores DC TT com redução</figcaption></figure>
+<figure class="article-figure"><img src="../assets/images/componentes/roda-boba-giratoria.jpg" alt="1× Roda boba giratória"><figcaption>1× Roda boba giratória</figcaption></figure>
+<figure class="article-figure"><img src="../assets/images/componentes/chassi-modubot-kit.webp" alt="1× Conjunto impresso do chassi ModuBot"><figcaption>1× Conjunto impresso do chassi ModuBot</figcaption></figure>
+<figure class="article-figure"><img src="../assets/images/componentes/suporte-4-pilhas-aa-2x2.webp" alt="1× Suporte para quatro pilhas AA — formato 2×2"><figcaption>1× Suporte para quatro pilhas AA — formato 2×2</figcaption></figure>
+<figure class="article-figure"><img src="../assets/images/componentes/suporte-2-pilhas-aa-1x2.webp" alt="1× Suporte para duas pilhas AA — formato 1×2"><figcaption>1× Suporte para duas pilhas AA — formato 1×2</figcaption></figure>
+<figure class="article-figure"><img src="../assets/images/componentes/pilhas-aa.jpg" alt="6× Pilhas AA do mesmo tipo"><figcaption>6× Pilhas AA do mesmo tipo</figcaption></figure>
+<figure class="article-figure"><img src="../assets/images/componentes/bateria-9v.jpg" alt="1× Bateria de 9 V"><figcaption>1× Bateria de 9 V</figcaption></figure>
+<figure class="article-figure"><img src="../assets/images/componentes/conector-bateria-9v.webp" alt="1× Conector para bateria de 9 V"><figcaption>1× Conector para bateria de 9 V</figcaption></figure>
+<figure class="article-figure"><img src="../assets/images/componentes/interruptor-gangorra-kcd11-101.jpg" alt="2× Chaves gangorra KCD11-101"><figcaption>2× Chaves gangorra KCD11-101</figcaption></figure>
+<figure class="article-figure"><img src="../assets/images/componentes/jumpers-dupont-macho-macho.jpg" alt="1× Conjunto de jumpers Dupont para conexões removíveis"><figcaption>1× Conjunto de jumpers Dupont para conexões removíveis</figcaption></figure>
+<figure class="article-figure"><img src="../assets/images/componentes/fios-protoboard.jpg" alt="1× Conjunto de fios para ligações soldadas"><figcaption>1× Conjunto de fios para ligações soldadas</figcaption></figure>
+<figure class="article-figure"><img src="../assets/images/componentes/multimetro-digital-dt830d.png" alt="1× Multímetro digital"><figcaption>1× Multímetro digital</figcaption></figure>
+</div>
+<h3 id="chassi-modubot">Chassi ModuBot</h3>
+<p>O chassi será montado com o modelo 3D <a href="https://cults3d.com/pt/modelo-3d/diversos/modubot">ModuBot, disponível no Cults3D</a>. Considere <code>1× conjunto impresso do chassi ModuBot</code> na lista de materiais do projeto.</p>
+<h4 id="montagem-mecanica">Montagem mecânica</h4>
+<ol>
+<li>Separe os <a href="08a-integracao-mecanica-eletrica-carrinho.html#vertices-arestas-e-faces"><strong>vértices e arestas</strong></a>: os vértices são as peças impressas em 3D e as arestas são os palitinhos. Entre os vértices, identifique as peças específicas para os motores TT, a roda boba e o ESP32.</li>
+<li>Planeje o formato do carrinho e introduza as arestas nos pontos de encaixe dos vértices. Os palitinhos formam as arestas da <a href="08a-integracao-mecanica-eletrica-carrinho.html#prototipo-modular">estrutura modular</a> e mantêm as peças impressas conectadas.</li>
+<li>Confira o esquadro da estrutura e confirme que os dois lados possuem comprimentos equivalentes antes do aperto final.</li>
+<li>Recorte as <a href="08a-integracao-mecanica-eletrica-carrinho.html#vertices-arestas-e-faces"><strong>faces</strong></a> em papel-cartão ou papelão, usando a estrutura como referência. Fixe as faces sem deformar as arestas e preserve aberturas para fios, chaves, bateria e <a href="08a-integracao-mecanica-eletrica-carrinho.html#manutenibilidade">manutenção</a>.</li>
+<li>Parafuse cada motor TT em seu vértice específico, parafuse a roda boba em seu vértice específico e parafuse o ESP32 no vértice destinado à placa.</li>
+<li>Conecte esses vértices específicos à estrutura usando as arestas, ou seja, os palitinhos. Verifique a <a href="08a-integracao-mecanica-eletrica-carrinho.html#rigidez-estrutural">rigidez</a>, o <a href="08a-integracao-mecanica-eletrica-carrinho.html#alinhamento">alinhamento</a>, o giro livre das rodas e a estabilidade da <a href="08a-integracao-mecanica-eletrica-carrinho.html#roda-boba">roda boba</a>.</li>
+<li>Posicione temporariamente a MX1508, o LM2596, os suportes de pilhas e as duas chaves. Distribua os itens pesados considerando o <a href="08a-integracao-mecanica-eletrica-carrinho.html#centro-de-massa">centro de massa</a>, planeje os fios e mantenha o USB do ESP32, o trimpot, os bornes e as chaves acessíveis.</li>
+<li>Mantenha a região da antena do ESP32 livre de metal, pilhas e feixes de fios.</li>
+</ol>
+<h3 id="guia-de-montagem">Guia de montagem</h3>
+<blockquote><strong>Regra de segurança:</strong> mantenha as duas chaves desligadas ao soldar, encaixar ou alterar qualquer fio. Siga um <a href="08a-integracao-mecanica-eletrica-carrinho.html#teste-por-etapas">teste por etapas</a>: teste antes de conectar o ESP32, depois de soldar os jumpers e novamente antes da primeira partida.</blockquote>
+<h4 id="fluxo-geral">Fluxo geral</h4>
+<ol>
+<li>Monte a estrutura ModuBot conectando os vértices impressos em 3D por meio das arestas, que são os palitinhos, e adicione as faces de papel-cartão ou papelão. Parafuse os motores TT, a roda boba e o ESP32 aos respectivos vértices específicos e conecte-os ao restante da estrutura por meio das arestas.</li>
+<li>Escolha uma estratégia para a eletrônica: montar e soldar o circuito fora do chassi para depois fazer a <a href="08a-integracao-mecanica-eletrica-carrinho.html#fixacao-e-cola-quente">fixação com cola quente</a>; ou posicionar e colar cada componente no chassi antes de fazer a soldagem.</li>
+<li>Em qualquer estratégia, trabalhe sem alimentação. A cola quente não deve cobrir bornes, conectores, o trimpot do LM2596, botões, a porta USB ou a antena do ESP32. Aguarde a cola esfriar e aplique <a href="08a-integracao-mecanica-eletrica-carrinho.html#alivio-de-tensao">alívio de tensão</a> nos fios antes de aproximar pilhas ou ligar o circuito.</li>
+<li>Solde e conecte os componentes conforme as etapas seguintes.</li>
+<li><strong>Antes de encaixar os jumpers do LM2596 em <code>VIN/5V</code> e <code>GND</code> do ESP32, meça obrigatoriamente a saída e confirme aproximadamente <code>5,0 V</code>. Depois de qualquer nova solda nessa alimentação, meça novamente.</strong></li>
+<li>Encaixe a alimentação somente depois de confirmar <code>5,0 V</code>, ligue a chave do ESP32 e observe os LEDs do LM2596 e da placa. Em seguida, desligue a chave novamente.</li>
+<li>Desenvolva o código ou obtenha um modelo de controle, conecte o ESP32 ao computador por USB e faça o upload com as duas chaves do carrinho desligadas.</li>
+</ol>
+<h4 id="1-alimentacao-de-5-v-do-esp32">1. Alimentação de 5 V do ESP32</h4>
+<ol>
+<li>Confirme com o multímetro qual fio do conector da bateria de 9 V é positivo e qual é negativo.</li>
+<li>Solde o fio positivo do conector em um terminal da primeira chave gangorra.</li>
+<li>Solde outro fio do segundo terminal da chave até <code>IN+</code> do LM2596.</li>
+<li>Ligue o negativo do conector diretamente a <code>IN−</code> do LM2596.</li>
+<li>Isole as soldas. Não conecte a saída ao ESP32 ainda.</li>
+</ol>
+<p>O caminho é <strong>positivo da bateria → chave → <code>IN+</code> do LM2596</strong>. A chave precisa interromper o positivo; nenhum outro fio pode contorná-la.</p>
+<h4 id="2-ajuste-obrigatorio-do-lm2596">2. Ajuste obrigatório do LM2596</h4>
+<ol>
+<li>Conecte a ponta preta do multímetro em <code>COM</code> e a vermelha em <code>V/Ω</code>.</li>
+<li>Selecione tensão contínua, indicada por <code>V⎓</code>, <code>VDC</code> ou uma linha contínua sobre uma tracejada. Em um multímetro manual como o DT830D, use a escala <strong>20 V DC</strong>.</li>
+<li>Ligue somente a chave da bateria de 9 V.</li>
+<li>Encoste a ponta preta em <code>OUT−</code> e a vermelha em <code>OUT+</code>. Não permita que as pontas se toquem.</li>
+<li>Gire lentamente o trimpot até o visor indicar aproximadamente <strong>5,0 V</strong>. Alguns módulos precisam de muitas voltas.</li>
+<li>Desligue a chave e desconecte a bateria.</li>
+</ol>
+<blockquote><strong>Teste obrigatório:</strong> o ESP32 permanece desconectado durante o ajuste. Nunca use a escala de corrente <code>A</code> para medir tensão, pois isso pode provocar curto-circuito. Não confie na posição do trimpot: confirme o valor no multímetro.</blockquote>
+<h4 id="3-jumpers-do-lm2596-e-alimentacao-do-esp32">3. Jumpers do LM2596 e alimentação do ESP32</h4>
+<ol>
+<li>Corte jumpers com extremidade fêmea e solde-os em <code>OUT+</code> e <code>OUT−</code> do LM2596.</li>
+<li>Isole separadamente as duas soldas.</li>
+<li>Reconecte a bateria, ligue a chave e <strong>meça novamente nas extremidades dos jumpers</strong>.</li>
+<li>Confirme polaridade e aproximadamente <code>5,0 V</code>.</li>
+<li>Desligue a chave. Encaixe <code>OUT+</code> no pino <code>VIN/5V</code> e <code>OUT−</code> em um pino <code>GND</code> do ESP32.</li>
+</ol>
+<p>Não solde diretamente no ESP32. Os <code>5 V</code> alimentam a entrada <code>VIN/5V</code> da placa; as GPIO do chip continuam usando lógica de <code>3,3 V</code>. <strong>Medir novamente depois da soldagem dos jumpers é obrigatório.</strong></p>
+<blockquote><strong>Não encaixe <code>VIN/5V</code> e <code>GND</code> por confiança visual. Meça nos jumpers, confirme a polaridade e confirme aproximadamente <code>5,0 V</code> imediatamente antes de conectá-los ao ESP32.</strong></blockquote>
+<h4 id="4-teste-dos-leds-de-alimentacao">4. Teste dos LEDs de alimentação</h4>
+<ol>
+<li>Depois de medir e confirmar aproximadamente <code>5,0 V</code>, encaixe <code>OUT+</code> do LM2596 em <code>VIN/5V</code> e <code>OUT−</code> em <code>GND</code> do ESP32.</li>
+<li>Ligue a chave da bateria de 9 V e observe se o LED do LM2596 e o LED de alimentação do ESP32 acendem.</li>
+<li>Se algum LED não acender, desligue imediatamente e confira bateria, chave, soldas, polaridade e continuidade.</li>
+<li>Mesmo que os dois LEDs acendam, isso <strong>não comprova</strong> que a tensão está correta. O valor de aproximadamente <code>5,0 V</code> precisa ter sido confirmado com o multímetro antes da conexão.</li>
+<li>Desligue a chave novamente antes de continuar a montagem, conectar GPIO, soldar motores ou enviar o código.</li>
+</ol>
+<h4 id="5-pilhas-em-serie-e-chave-dos-motores">5. Pilhas em série e chave dos motores</h4>
+<p>Esta etapa usa o conceito de <a href="01c-circuitos-alimentacao.html#pilhas-em-serie">pilhas em série</a>: as tensões dos dois suportes se somam.</p>
+<ol>
+<li>Separe seis pilhas AA do mesmo tipo, química, capacidade e estado de carga.</li>
+<li>Inspecione as pilhas. Não use unidades amassadas, enferrujadas, aquecidas, inchadas ou com vazamento.</li>
+<li>Coloque quatro pilhas AA no suporte <strong>2×2</strong> e duas pilhas AA no suporte <code>1×2</code>, respeitando os símbolos <code>+</code> e <code>−</code> gravados nos suportes.</li>
+<li>Confira visualmente cada pilha antes de continuar. Uma pilha invertida pode reduzir a tensão do conjunto, aquecer ou vazar.</li>
+<li>Una o negativo de um suporte ao positivo do outro para formar a <a href="01c-circuitos-alimentacao.html#pilhas-em-serie">ligação em série</a>.</li>
+<li>No positivo que sobrou, instale a segunda chave: positivo das pilhas → chave → <code>VCC</code> da MX1508.</li>
+<li>Ligue o negativo que sobrou diretamente ao <code>GND</code> da MX1508.</li>
+<li>Com a chave desligada, confira continuidade, polaridade e ausência de curto.</li>
+<li>Ligue a chave sem os motores, meça a tensão entre <code>VCC</code> e <code>GND</code> e desligue novamente.</li>
+</ol>
+<p>Se as seis pilhas forem alcalinas de <code>1,5 V</code>, o conjunto fornece aproximadamente <code>9 V</code>. Se forem NiMH recarregáveis de <code>1,2 V</code>, fornece aproximadamente <code>7,2 V</code>. Não misture químicas, capacidades, pilhas novas e usadas. Veja também o efeito e os cuidados de uma <a href="01c-circuitos-alimentacao.html#pilhas-em-paralelo">ligação de pilhas em paralelo</a>.</p>
+<h4 id="6-cuidados-com-as-pilhas-aa">6. Cuidados com as pilhas AA</h4>
+<ul>
+<li><strong>Antes da montagem:</strong> com as pilhas fora dos suportes, meça cada uma em <code>V⎓</code>, escala <code>20 V DC</code>. Encoste a ponta preta no polo <code>−</code> e a vermelha no polo <code>+</code>. Compare as seis leituras e substitua unidades muito diferentes das demais.</li>
+<li><strong>Alcalinas:</strong> são pilhas descartáveis de aproximadamente <code>1,5 V</code>; nunca tente recarregá-las.</li>
+<li><strong>NiMH:</strong> são recarregáveis de aproximadamente <code>1,2 V</code>; carregue-as somente em carregador próprio para NiMH e, de preferência, como um conjunto mantido junto.</li>
+<li><strong>Durante o uso:</strong> pare imediatamente se houver aquecimento anormal, cheiro, ruído ou vazamento. Desligue as duas chaves e não toque diretamente em material vazado.</li>
+<li><strong>Após o uso:</strong> desligue as duas chaves. Retire as pilhas dos suportes se o carrinho ficar guardado por vários dias, evitando vazamento e corrosão dos contatos.</li>
+<li><strong>Transporte:</strong> mantenha as pilhas organizadas, sem contato com moedas, parafusos, ferramentas ou outros metais que possam unir os polos.</li>
+<li><strong>Descarte:</strong> não jogue pilhas no fogo nem no lixo comum. Isole os terminais e leve pilhas usadas ou danificadas a um ponto de coleta apropriado.</li>
+</ul>
+<h4 id="7-gnd-comum-e-sinais-da-ponte-h">7. GND comum e sinais da ponte H</h4>
+<p>Com as duas chaves desligadas, ligue um <code>GND</code> do ESP32 ao <code>GND</code> da MX1508. O <a href="01c-circuitos-alimentacao.html#gnd-comum-entre-esp32-e-ponte-h">GND comum</a> é a referência dos sinais de controle; ele não substitui os negativos das duas fontes. Antes dessa etapa, a alimentação do ESP32 já deve ter sido medida e confirmada em aproximadamente <code>5,0 V</code>.</p>
+<p>Solde jumpers com extremidade fêmea nos pontos de controle da MX1508 e encaixe-os no ESP32. Não solde no ESP32.</p>
+<div class="article-table-wrap"><table class="article-table"><thead><tr><th>ESP32</th><th>MX1508</th><th>Função</th></tr></thead><tbody>
+<tr><td><code>D27</code></td><td><code>IN1</code></td><td>Controle 1 do motor A</td></tr>
+<tr><td><code>D26</code></td><td><code>IN2</code></td><td>Controle 2 do motor A</td></tr>
+<tr><td><code>D32</code></td><td><code>IN3</code></td><td>Controle 1 do motor B</td></tr>
+<tr><td><code>D18</code></td><td><code>IN4</code></td><td>Controle 2 do motor B</td></tr>
+</tbody></table></div>
+<p>Depois da soldagem, faça um <a href="08a-integracao-mecanica-eletrica-carrinho.html#continuidade-eletrica">teste de continuidade</a> fio a fio e confirme que não existe curto entre pinos vizinhos. <strong>Teste novamente antes de energizar.</strong></p>
+<h4 id="8-motores">8. Motores</h4>
+<p>Na ponte H deste projeto, as duas saídas estão identificadas como <strong>Motor A</strong> e <strong>Motor B</strong>. Cada saída possui dois bornes sem identificação individual. Para orientar a montagem, eles serão chamados apenas de <strong>primeiro terminal</strong> e <strong>segundo terminal</strong> de cada saída; essa nomenclatura não representa positivo e negativo fixos.</p>
+<p>Os dois motores formam uma <a href="08a-integracao-mecanica-eletrica-carrinho.html#tracao-diferencial">tração diferencial</a>: o movimento depende da combinação dos sentidos do lado A e do lado B.</p>
+<ol>
+<li>Solde os dois fios de um motor no primeiro e no segundo terminal da saída <strong>Motor A</strong>.</li>
+<li>Solde os dois fios do outro motor no primeiro e no segundo terminal da saída <strong>Motor B</strong>.</li>
+<li>Isole as soldas e prenda os fios para a vibração não forçar os terminais.</li>
+<li>A ordem correta dos dois fios será descoberta no teste prático. Suspenda o carrinho, execute um comando de movimento e observe o sentido de cada motor.</li>
+<li>Se um motor girar no sentido contrário ao necessário, desligue as duas chaves e troque entre si os dois fios desse motor. Nunca faça essa inversão com o circuito energizado.</li>
+</ol>
+<h3 id="imagem-do-circuito">Imagem do circuito</h3>
+<figure class="article-figure"><img src="../assets/images/circuitos/carrinho-wifi-esp32-pet-v1.png" alt="Circuito do Carrinho Wi‑Fi ESP32 PET v1"><figcaption>Circuito do Carrinho Wi‑Fi ESP32 PET v1</figcaption></figure>
+<h3 id="codigo">Código</h3>
+<aside class="featured-link">
+<p><strong>Gerador de código e controles para carrinhos com ESP32</strong></p>
+<p>Nesta página é possível obter códigos, modelos de controle e diferentes esquemas de programação que podem ser carregados no ESP32 para controlar carrinhos. Use o gerador para explorar outras formas de comando e adaptar o comportamento do projeto.</p>
+<p><a href="https://gabrieljsantos.github.io/gerador_codigo/index.html">Abrir o gerador de código e modelos de controle →</a></p>
+</aside>
+<p>O programa transforma o ESP32 em um <a href="07a-esp32.html#softap-e-ponto-de-acesso">ponto de acesso SoftAP</a> chamado <code>Carrinho-ESP32</code>. Depois de conectar o celular a essa <a href="07a-esp32.html#rede-wi-fi-local">rede Wi‑Fi local</a>, a página de controle é aberta pelo <a href="07a-esp32.html#endereco-ip-local">endereço IP local</a> <code>192.168.4.1</code>. O ESP32 atua como <a href="07a-esp32.html#cliente-e-servidor">servidor</a>, e os comandos usam <a href="07a-esp32.html#rotas-http">rotas HTTP</a> para acionar os quatro pinos da ponte H. A função <code>parar()</code> estabelece um <a href="07a-esp32.html#estado-seguro">estado seguro</a> antes de iniciar o Wi‑Fi. O sentido físico correspondente a <code>Frente</code> será confirmado na prática, pois depende da ordem dos fios nos dois terminais de Motor A e Motor B.</p>
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>#include &lt;WiFi.h&gt;
+#include &lt;WebServer.h&gt;
+
+const char* nomeRede = "Carrinho-ESP32";
+const char* senhaRede = "carrinho123";
+
+const int IN1 = 27;
+const int IN2 = 26;
+const int IN3 = 32;
+const int IN4 = 18;
+
+// Troque false por true se um dos motores girar invertido.
+const bool inverterMotorA = false;
+const bool inverterMotorB = false;
+
+WebServer servidor(80);
+
+void motores(bool a1, bool a2, bool b1, bool b2) {
+  if (inverterMotorA) {
+    bool temporario = a1;
+    a1 = a2;
+    a2 = temporario;
+  }
+  if (inverterMotorB) {
+    bool temporario = b1;
+    b1 = b2;
+    b2 = temporario;
+  }
+  digitalWrite(IN1, a1); digitalWrite(IN2, a2);
+  digitalWrite(IN3, b1); digitalWrite(IN4, b2);
+}
+
+void parar()    { motores(LOW, LOW, LOW, LOW); }
+void frente()   { motores(HIGH, LOW, HIGH, LOW); }
+void tras()     { motores(LOW, HIGH, LOW, HIGH); }
+void esquerda() { motores(LOW, HIGH, HIGH, LOW); }
+void direita()  { motores(HIGH, LOW, LOW, HIGH); }
+
+const char pagina[] PROGMEM = R"HTML(
+&lt;!doctype html&gt;&lt;html lang="pt-BR"&gt;&lt;head&gt;
+&lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;
+&lt;title&gt;Carrinho ESP32&lt;/title&gt;&lt;style&gt;
+body{font-family:sans-serif;text-align:center;margin:30px;background:#eef2f5}
+.controle{display:grid;grid-template-columns:repeat(3,90px);gap:12px;justify-content:center}
+button{min-height:70px;font-size:18px;border:0;border-radius:12px;background:#2457a7;color:white}
+.parar{background:#b32424}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;Carrinho ESP32&lt;/h1&gt;
+&lt;div class="controle"&gt;&lt;span&gt;&lt;/span&gt;&lt;button onclick="cmd('frente')"&gt;Frente&lt;/button&gt;&lt;span&gt;&lt;/span&gt;
+&lt;button onclick="cmd('esquerda')"&gt;Esquerda&lt;/button&gt;&lt;button class="parar" onclick="cmd('parar')"&gt;Parar&lt;/button&gt;
+&lt;button onclick="cmd('direita')"&gt;Direita&lt;/button&gt;&lt;span&gt;&lt;/span&gt;&lt;button onclick="cmd('tras')"&gt;Ré&lt;/button&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;script&gt;function cmd(c){fetch('/'+c)}&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;
+)HTML";
+
+void responderCom(void (*movimento)()) {
+  movimento();
+  servidor.send(200, "text/plain", "ok");
+}
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(IN1, OUTPUT); pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT); pinMode(IN4, OUTPUT);
+  parar();
+
+  WiFi.mode(WIFI_AP);
+  WiFi.softAP(nomeRede, senhaRede);
+
+  servidor.on("/", []() { servidor.send_P(200, "text/html; charset=utf-8", pagina); });
+  servidor.on("/frente", []() { responderCom(frente); });
+  servidor.on("/tras", []() { responderCom(tras); });
+  servidor.on("/esquerda", []() { responderCom(esquerda); });
+  servidor.on("/direita", []() { responderCom(direita); });
+  servidor.on("/parar", []() { responderCom(parar); });
+  servidor.begin();
+
+  Serial.print("Conecte-se a "); Serial.println(nomeRede);
+  Serial.print("Abra http://"); Serial.println(WiFi.softAPIP());
+}
+
+void loop() {
+  servidor.handleClient();
+}</code></pre>
+<p>Se <code>Frente</code> fizer o carrinho girar ou recuar, identifique qual motor está invertido. No código, altere <code>inverterMotorA</code> ou <code>inverterMotorB</code> de <code>false</code> para <code>true</code>, faça novo upload e repita o teste. A alternativa física é desligar as duas chaves e trocar entre si os dois fios daquele motor.</p>
+<h3 id="enviar-o-codigo-ao-esp32">Enviar o código ao ESP32</h3>
+<p>O código do carrinho deve ser enviado ao ESP32 usando a <strong>Arduino IDE</strong>. Com as duas chaves do carrinho desligadas, conecte o ESP32 ao computador por um cabo USB de dados, abra o código, selecione a placa e a porta corretas e clique em <strong>Carregar</strong>.</p>
+<aside class="featured-link">
+<p><strong>Eu não sei fazer</strong></p>
+<p>Use a documentação de apoio para preparar o computador e a placa:</p>
+<ul>
+<li><a href="02b-ide-usb-drivers.html#arduino-ide">O que é a Arduino IDE</a></li>
+<li><a href="02b-ide-usb-drivers.html#como-instalar-a-arduino-ide">Como instalar a Arduino IDE</a></li>
+<li><a href="02b-ide-usb-drivers.html#como-configurar-a-placa-esp32-wroom">Como configurar e escolher a placa ESP32-WROOM</a></li>
+<li><a href="02b-ide-usb-drivers.html#drivers-usb-do-esp32">Drivers USB do ESP32</a></li>
+<li><a href="02b-ide-usb-drivers.html#como-encontrar-a-porta-no-windows">Como encontrar a porta no Windows</a></li>
+</ul>
+<p><a href="02b-ide-usb-drivers.html">Abrir o guia completo de Arduino IDE e ESP32 →</a></p>
+</aside>
+<p>Depois de configurar a Arduino IDE, crie um sketch, cole o código do projeto, clique em <strong>Verificar</strong> e depois em <strong>Carregar</strong>. Aguarde a confirmação do upload antes de retirar o cabo USB.</p>
+<h3 id="usar-o-controle-wi-fi">Usar o controle Wi‑Fi</h3>
+<p>O ESP32 cria uma <a href="07a-esp32.html#rede-wi-fi-local">rede Wi‑Fi local</a> para controlar o carrinho. Essa rede <strong>não fornece acesso à internet</strong>. O <a href="07a-esp32.html#ssid-e-senha">SSID e a senha</a> são definidos no começo do código pelas variáveis <code>nomeRede</code> e <code>senhaRede</code>; portanto, podem ser alterados antes do upload. Se você mudar esses valores, use no celular o novo nome e a nova senha, e não os exemplos abaixo.</p>
+<ol>
+<li>Desconecte o USB antes de usar a alimentação do carrinho.</li>
+<li>Faça a revisão elétrica e ligue primeiro a chave do ESP32.</li>
+<li>No celular, conecte-se a <code>Carrinho-ESP32</code> com a senha <code>carrinho123</code>.</li>
+<li>Permaneça conectado quando o celular avisar que essa rede não possui internet.</li>
+<li>Abra <code>http://192.168.4.1</code> no navegador.</li>
+<li>Se a página não abrir ou o celular abandonar a rede do ESP32, desligue temporariamente os dados móveis e recursos como troca automática para uma rede com internet. Reconecte-se ao Wi‑Fi do carrinho e tente o endereço novamente.</li>
+<li>Suspenda o carrinho para as rodas não tocarem o chão e ligue a chave dos motores.</li>
+<li>Teste <code>Parar</code>, <code>Frente</code>, <code>Ré</code>, <code>Esquerda</code> e <code>Direita</code>.</li>
+</ol>
+<p>O modo <a href="07a-esp32.html#softap-e-ponto-de-acesso">SoftAP</a> faz o ESP32 criar uma rede própria e servir a <a href="07a-esp32.html#interface-html-css-e-javascript">interface HTML, CSS e JavaScript</a> localmente, sem roteador. O celular conversa diretamente com o ESP32; essa conexão controla o carrinho, mas não oferece internet.</p>
+<h3 id="checklist-antes-da-primeira-partida">Checklist antes da primeira partida</h3>
+<p>Este checklist faz parte do <a href="08a-integracao-mecanica-eletrica-carrinho.html#comissionamento">comissionamento</a> do carrinho: cada verificação deve ser concluída antes do teste seguinte.</p>
+<ul>
+<li>LM2596 medido em <code>V⎓</code>, escala <code>20 V DC</code>, e ajustado para aproximadamente <code>5,0 V</code>.</li>
+<li>Tensão medida novamente depois da soldagem dos jumpers.</li>
+<li><code>OUT+</code> do LM2596 ligado a <code>VIN/5V</code>, nunca a uma GPIO ou ao pino <code>3V3</code>.</li>
+<li>Suporte <code>4×AA</code> no formato <code>2×2</code> ligado em <a href="01c-circuitos-alimentacao.html#pilhas-em-serie">série</a> ao suporte <code>2×AA</code> no formato <code>1×2</code>.</li>
+<li>Seis pilhas AA iguais, saudáveis, com polaridade conferida e leituras individuais compatíveis.</li>
+<li>Uma chave no positivo da bateria de 9 V e outra no positivo das pilhas AA.</li>
+<li>D27/IN1, D26/IN2, D32/IN3 e D18/IN4 conferidos.</li>
+<li><a href="01c-circuitos-alimentacao.html#gnd-comum-entre-esp32-e-ponte-h">GND do ESP32 e GND da MX1508 interligados</a>.</li>
+<li>Um motor ligado aos dois terminais de <strong>Motor A</strong> e o outro aos dois terminais de <strong>Motor B</strong>, nunca diretamente ao ESP32.</li>
+<li>Soldas isoladas, continuidade testada e nenhum curto entre terminais.</li>
+<li>Upload concluído com a placa e a porta corretas.</li>
+</ul>
+<p>Para o carrinho funcionar, <strong>as duas chaves precisam estar ligadas</strong>. Uma alimenta o ESP32 pelo LM2596; a outra alimenta a MX1508 e os motores.</p>
+<h3 id="diagnostico-rapido">Diagnóstico rápido</h3>
+<p>Faça uma alteração por vez e use o método de <a href="08a-integracao-mecanica-eletrica-carrinho.html#isolamento-de-falhas">isolamento de falhas</a> para descobrir em qual subsistema o comportamento se altera.</p>
+<ul>
+<li><strong>Rede Wi‑Fi não aparece:</strong> confira os <code>5 V</code> em <code>VIN/5V</code>, a chave do ESP32, o upload e o nome definido em <code>nomeRede</code>.</li>
+<li><strong>Página não abre:</strong> confirme que o celular continua conectado à rede do ESP32 e digite <code>http://192.168.4.1</code> completo. Se necessário, desligue temporariamente os dados móveis e a troca automática de rede. O Wi‑Fi criado pelo ESP32 é local e não possui internet.</li>
+<li><strong>GND da ponte H e do ESP32 desconectados:</strong> os dois módulos perdem a referência comum dos sinais. Os motores podem ignorar comandos, funcionar de maneira intermitente ou responder de forma imprevisível. Desligue as duas chaves, restaure a ligação entre os GND e consulte o conceito de <a href="01c-circuitos-alimentacao.html#gnd-comum-entre-esp32-e-ponte-h">GND comum entre ESP32 e ponte H</a>.</li>
+<li><strong>Bateria de 9 V descarregada e LED azul do LM2596 apagado:</strong> desligue o circuito e meça a bateria na escala <code>20 V DC</code>. Confira também o conector, a chave e a tensão em <code>IN+</code>/<code>IN−</code> do LM2596. Substitua a bateria descarregada e, antes de reconectar o ESP32, ajuste e confirme novamente aproximadamente <code>5,0 V</code> na saída.</li>
+<li><strong>ESP32 reiniciando:</strong> isso pode ser um <a href="07a-esp32.html#brownout">brownout</a>. Meça a saída do LM2596 durante a inicialização do Wi‑Fi. Reinicializações podem indicar <a href="08a-integracao-mecanica-eletrica-carrinho.html#queda-de-tensao">queda de tensão</a>, bateria fraca, mau contato, solda ruim ou fonte incapaz de fornecer os <a href="08a-integracao-mecanica-eletrica-carrinho.html#pico-de-corrente">picos de corrente</a>. Confirme <code>5,0 V</code> sob carga e use uma fonte com capacidade adequada.</li>
+<li><strong>Motores não giram:</strong> confirme a segunda chave, a tensão em <code>VCC/GND</code> da MX1508, a continuidade e se existe travamento mecânico. Uma roda presa pode levar o motor à <a href="08a-integracao-mecanica-eletrica-carrinho.html#corrente-de-travamento">corrente de travamento</a>.</li>
+<li><strong>Motor invertido:</strong> altere <code>inverterMotorA</code> ou <code>inverterMotorB</code> de <code>false</code> para <code>true</code>, envie novamente o código e repita o teste com o carrinho suspenso. Como alternativa, desligue as duas chaves e troque entre si os dois fios do motor invertido.</li>
+<li><strong>Comandos trocados:</strong> confira D27/IN1, D26/IN2, D32/IN3 e D18/IN4.</li>
+<li><strong>Falta de corrente para o ESP32:</strong> uma ligação de baterias em paralelo mantém a tensão e pode aumentar a capacidade de corrente, mas não deve ser improvisada. Não una diretamente duas baterias de 9 V diferentes ou com cargas diferentes. Prefira uma bateria nova capaz de fornecer a corrente necessária, uma fonte adequada ou um suporte projetado para células iguais e protegido. Consulte <a href="01c-circuitos-alimentacao.html#pilhas-em-paralelo">pilhas em paralelo</a> e <a href="01c-circuitos-alimentacao.html#pilhas-em-serie">pilhas em série</a> antes de alterar a alimentação.</li>
+</ul>
+<p><a href="../index.html">← Voltar ao início</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="07b-impressora-3d-fdm.html">← Conteúdo anterior</a><a href="08a-integracao-mecanica-eletrica-carrinho.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b></div></footer>
+<script>
+document.addEventListener('click', async (event) => {
+  const button = event.target.closest('.copy-code');
+  if (!button) return;
+  const code = button.parentElement.querySelector('code');
+  if (!code) return;
+  try {
+    await navigator.clipboard.writeText(code.textContent);
+    button.textContent = 'Copiado';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1400);
+  } catch {
+    button.textContent = 'Selecione o código';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1600);
+  }
+});
+
+const resistorCalculator = document.querySelector('#resistor-calculator');
+if (resistorCalculator) {
+  const color = resistorCalculator.elements.ledColor;
+  const sourcePreset = resistorCalculator.elements.sourcePreset;
+  const sourceVoltage = resistorCalculator.elements.sourceVoltage;
+  const forwardVoltage = resistorCalculator.elements.forwardVoltage;
+  const result = resistorCalculator.querySelector('.calculator-result');
+  const nextE12 = (required) => {
+    const values = [10, 12, 15, 18, 22, 27, 33, 39, 47, 56, 68, 82];
+    for (let exponent = -1; exponent <= 7; exponent += 1) {
+      const scale = 10 ** exponent;
+      for (const base of values) {
+        const candidate = base * scale;
+        if (candidate >= required) return candidate;
+      }
+    }
+    return required;
+  };
+  const formatOhms = (ohms) => ohms >= 1000
+    ? (ohms / 1000).toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + ' kΩ'
+    : ohms.toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + ' Ω';
+
+  color.addEventListener('change', () => {
+    const custom = color.value === 'custom';
+    forwardVoltage.disabled = !custom;
+    if (!custom) forwardVoltage.value = color.value;
+    forwardVoltage.title = custom
+      ? 'Digite a tensão direta Vf do LED'
+      : 'Escolha Outro valor na cor do LED para editar este campo';
+    if (custom) {
+      forwardVoltage.value = '';
+      forwardVoltage.focus();
+    }
+  });
+
+  sourcePreset.addEventListener('change', () => {
+    const custom = sourcePreset.value === 'custom';
+    sourceVoltage.disabled = !custom;
+    if (!custom) sourceVoltage.value = sourcePreset.value;
+    if (custom) {
+      sourceVoltage.value = '';
+      sourceVoltage.focus();
+    }
+  });
+
+  resistorCalculator.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const source = Number(resistorCalculator.elements.sourceVoltage.value);
+    const vf = Number(forwardVoltage.value);
+    const currentMa = Number(resistorCalculator.elements.currentMa.value);
+    if (!(source > 0) || !(vf > 0) || !(currentMa > 0)) {
+      result.textContent = 'Preencha tensão da fonte, tensão direta e corrente com valores maiores que zero.';
+      return;
+    }
+    if (source <= vf) {
+      result.textContent = 'Tensão insuficiente: a fonte precisa ser maior que a tensão direta do LED para este cálculo.';
+      return;
+    }
+    const currentA = currentMa / 1000;
+    const required = (source - vf) / currentA;
+    const commercial = nextE12(required);
+    const actualMa = ((source - vf) / commercial) * 1000;
+    const power = ((source - vf) ** 2) / commercial;
+    result.textContent = 'Cálculo: ' + formatOhms(required) + '. Próximo valor E12 acima: ' + formatOhms(commercial) + '. Corrente estimada: ' + actualMa.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + ' mA. Potência no resistor: ' + power.toLocaleString('pt-BR', { maximumFractionDigits: 3 }) + ' W.';
+  });
+}
+</script></body></html>

@@ -1,51 +1,110 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Botões, interruptores e entradas digitais — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>Botões, interruptores e entradas digitais — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=6"></head>
-<body><main><header class="article-hero"><div class="shell"><h1>Botões, interruptores e entradas digitais</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a></aside><article class="article-content">
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Botão controla LED — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>Botão controla LED — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=7"></head>
+<body><main><header class="article-hero"><div class="shell"><h1>Botão controla LED</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a></aside><article class="article-content">
 <p><a href="../index.html">← Voltar ao início</a></p>
-<h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
+<p>Este projeto reúne cinco montagens progressivas. As duas primeiras controlam o LED diretamente, sem Arduino. As três seguintes usam uma entrada digital para decidir o estado do LED.</p>
+<h3 id="conceitos">Conceitos</h3>
 <ul>
-<li><a href="#botao">Botão</a></li>
-<li><a href="#interruptor">Interruptor</a></li>
-<li><a href="#entrada-flutuante">Entrada flutuante</a></li>
-<li><a href="#pull-up">Pull-up</a></li>
-<li><a href="#pull-down">Pull-down</a></li>
-<li><a href="#ruido">Ruído</a></li>
-<li><a href="#bounce-e-debounce">Bounce e debounce</a></li>
+<li><a href="04a1-botoes-interruptores.html">Botão e interruptor</a></li>
+<li><a href="04a2-entrada-digital-flutuante.html">Entrada digital: HIGH, LOW e entrada flutuante</a></li>
+<li><a href="04a3-pull-up-pull-down.html#pull-down">Pull-down</a></li>
+<li><a href="04a3-pull-up-pull-down.html#pull-up">Pull-up e lógica ativa em LOW</a></li>
+<li><a href="04a4-ruido-bounce-debounce.html">Ruído, bounce e debounce</a></li>
+<li><a href="03a-led-comum.html">LED, ânodo, cátodo e polaridade</a></li>
+<li><a href="03b-resistor-led.html">Resistor limitador do LED</a></li>
+<li><a href="02c-gpio-digital.html">GPIO e saída digital</a></li>
 </ul>
-<h3 id="botao">Botão</h3>
-<p>Um <strong>botão</strong> é um contato momentâneo: muda de estado enquanto está pressionado e retorna ao ser solto. O microcontrolador não “lê o botão” diretamente; ele lê a tensão produzida pelo circuito ligado ao botão.</p>
-<h3 id="interruptor">Interruptor</h3>
-<p>Um <strong>interruptor</strong> abre ou fecha um caminho e normalmente mantém a posição. Para o programa, botão e interruptor podem ser entradas digitais, mas seu comportamento mecânico e a lógica desejada são diferentes.</p>
-<h3 id="entrada-flutuante">Entrada flutuante</h3>
-<p>Uma <strong>entrada flutuante</strong> não está firmemente ligada a HIGH nem a LOW. Como uma entrada consome corrente mínima, interferências podem alterar sua tensão e produzir leituras imprevisíveis.</p>
-<h3 id="pull-up">Pull-up</h3>
-<p>Um <strong>resistor pull-up</strong> conecta fracamente a entrada ao VCC e define HIGH como estado de repouso. O botão pode conectar a entrada ao GND quando pressionado.</p>
-<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>pinMode(2, INPUT_PULLUP);
-bool pressionado = digitalRead(2) == LOW;</code></pre>
-<p>Nesse circuito, solto significa HIGH e pressionado significa LOW.</p>
-<h3 id="pull-down">Pull-down</h3>
-<p>Um <strong>resistor pull-down</strong> conecta fracamente a entrada ao GND e define LOW como repouso. O botão conecta a entrada ao VCC ao ser pressionado. Algumas placas oferecem pull-down interno; outras exigem resistor externo.</p>
-<p>O resistor impede estado flutuante. Ele também evita que o acionamento una VCC e GND diretamente quando o circuito está montado corretamente.</p>
-<h3 id="ruido">Ruído</h3>
-<p><strong>Ruído</strong> é uma variação indesejada no sinal. Cabos longos, motores, fontes chaveadas, GND ruim e entradas flutuantes podem causar falsos acionamentos.</p>
-<p>Fios curtos, conexões firmes, pull-up/pull-down e filtragem adequada ajudam. A solução depende da origem do ruído.</p>
-<h3 id="bounce-e-debounce">Bounce e debounce</h3>
-<p><strong>Bounce</strong> é o repique mecânico do contato: durante alguns instantes, um único toque pode produzir várias transições. <strong>Debounce</strong> é o tratamento usado para aceitar apenas uma mudança válida.</p>
-<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>if (digitalRead(2) == LOW) {
-  delay(20); // exemplo introdutório; projetos maiores preferem lógica sem bloqueio
-  if (digitalRead(2) == LOW) {
-    // toque confirmado
-  }
+<h3 id="materiais">Materiais</h3>
+<ul>
+<li>fonte de 5 V e GND para as montagens diretas;</li>
+<li>um LED;</li>
+<li>um resistor de 220 Ω para o LED;</li>
+<li>um push button;</li>
+<li>um interruptor de gangorra SPDT de três terminais;</li>
+<li>um resistor de 10 kΩ para a montagem pull-down;</li>
+<li>Arduino Uno e fios para as etapas programadas.</li>
+</ul>
+<h3 id="montagem-1-gangorra-controla-o-led-diretamente">Montagem 1 — gangorra controla o LED diretamente</h3>
+<p>O caminho é <code>5 V → resistor de 220 Ω → terminal central da gangorra</code>. Uma das saídas laterais segue para <code>LED → GND</code>; a outra fica sem ligação nesta primeira montagem. Em uma posição o comum alimenta o LED; na outra, seleciona a saída livre e o LED apaga. Não há programação.</p><div class="didactic-panel button-project-visual">
+  <svg class="lesson-diagram" viewBox="0 0 720 300" role="img" aria-labelledby="direct-switch-title direct-switch-desc">
+    <title id="direct-switch-title">Interruptor de gangorra controlando um LED diretamente</title><desc id="direct-switch-desc">Diagrama didático com fios arredondados, pontos de 5 volts e GND, botão ou interruptor, resistores e LED.</desc>
+    <g data-circuit-part="switch-spdt"><rect x="70" y="42" width="180" height="174" rx="30" fill="#c8d8ee" stroke="#64758a" stroke-width="3"/><circle cx="110" cy="108" r="8" fill="#59656a"/><circle cx="160" cy="131" r="8" fill="#59656a"/><circle cx="210" cy="108" r="8" fill="#59656a"/><path d="M160 131L116 110M110 116v38M160 139v15M210 116v38" stroke="#59656a" stroke-width="6"/><text x="110" y="176" text-anchor="middle" font-size="12" font-weight="700">saída A</text><text x="160" y="176" text-anchor="middle" font-size="12" font-weight="700">comum</text><text x="210" y="176" text-anchor="middle" font-size="12" font-weight="700">saída B</text><text x="160" y="200" text-anchor="middle" font-size="13" font-weight="700">SPDT</text></g>
+  <path d="M30 250h40" stroke="#d98778" stroke-width="7" fill="none" /><g data-circuit-part="resistor"><rect x="70" y="235" width="76" height="30" rx="15" fill="#f1d9aa" stroke="#736956" stroke-width="3"/><text x="108" y="226" text-anchor="middle" font-size="13" font-weight="700">220 Ω</text></g><path d="M146 250h14v-95" stroke="#d98778" stroke-width="7" fill="none" />
+  <path d="M110 154v48h310" stroke="#d98778" stroke-width="7" fill="none" /><g data-circuit-part="led-common"><path d="M420 177h18c20 0 36 11 36 25s-16 25-36 25h-18z" fill="#f3aaa2" stroke="#7c5c58" stroke-width="3"/><path d="M420 189v26m54-13h34" stroke="#59656a" stroke-width="4" fill="none"/><text x="447" y="167" text-anchor="middle" font-size="13" font-weight="700">LED</text></g><path d="M508 202v66H30" stroke="#59656a" stroke-width="7" fill="none" />
+  <circle cx="30" cy="250" r="9" fill="#d98778"/><text x="18" y="238" class="diagram-terminal">5 V</text><circle cx="30" cy="268" r="9" fill="#59656a"/><text x="18" y="291" class="diagram-terminal">GND</text>
+  </svg>
+</div>
+<h3 id="montagem-2-push-button-controla-o-led-diretamente">Montagem 2 — push button controla o LED diretamente</h3>
+<p>O push button substitui a gangorra no mesmo caminho. O LED acende somente enquanto o botão está pressionado. Essa montagem evidencia a diferença entre uma chave que mantém a posição e um botão momentâneo.</p><div class="didactic-panel button-project-visual">
+  <svg class="lesson-diagram" viewBox="0 0 720 300" role="img" aria-labelledby="direct-push-title direct-push-desc">
+    <title id="direct-push-title">Push button controlando um LED diretamente</title><desc id="direct-push-desc">Diagrama didático com fios arredondados, pontos de 5 volts e GND, botão ou interruptor, resistores e LED.</desc>
+    <text x="38" y="91" class="diagram-terminal">5 V</text><circle cx="65" cy="108" r="9" fill="#d98778"/><path d="M74 108h106" stroke="#d98778" stroke-width="7" fill="none" /><g data-circuit-part="push-button"><rect x="180" y="81" width="124" height="54" rx="26" fill="#d9cbea" stroke="#756781" stroke-width="3"/><circle cx="200" cy="108" r="7" fill="#59656a"/><circle cx="284" cy="108" r="7" fill="#59656a"/><path d="M207 108h70" stroke="#59656a" stroke-width="6"/><text x="242" y="71" text-anchor="middle" font-size="13" font-weight="700">botão</text></g><path d="M304 108h76" stroke="#d98778" stroke-width="7" fill="none" /><g data-circuit-part="resistor"><rect x="380" y="93" width="76" height="30" rx="15" fill="#f1d9aa" stroke="#736956" stroke-width="3"/><text x="418" y="84" text-anchor="middle" font-size="13" font-weight="700">220 Ω</text></g><path d="M456 108h44" stroke="#d98778" stroke-width="7" fill="none" /><g data-circuit-part="led-common"><path d="M500 83h18c20 0 36 11 36 25s-16 25-36 25h-18z" fill="#f3aaa2" stroke="#7c5c58" stroke-width="3"/><path d="M500 95v26m54-13h34" stroke="#59656a" stroke-width="4" fill="none"/><text x="527" y="73" text-anchor="middle" font-size="13" font-weight="700">LED</text></g><path d="M588 108v152H65" stroke="#59656a" stroke-width="7" fill="none" /><circle cx="65" cy="260" r="9" fill="#59656a"/><text x="38" y="283" class="diagram-terminal">GND</text>
+  </svg>
+</div>
+<h3 id="montagem-3-gangorra-seleciona-high-ou-low">Montagem 3 — gangorra seleciona HIGH ou LOW</h3>
+<p>O terminal central, ou comum, da chave SPDT vai ao pino 2. Um terminal lateral vai ao pino 5 V do Arduino e o outro vai ao GND da própria placa. Assim, a entrada sempre recebe um estado definido: <code>HIGH</code> de um lado e <code>LOW</code> do outro. O Arduino usa essa leitura para controlar o LED no pino 9.</p><div class="didactic-panel button-project-visual">
+  <svg class="lesson-diagram" viewBox="0 0 720 300" role="img" aria-labelledby="spdt-input-title spdt-input-desc">
+    <title id="spdt-input-title">Chave SPDT selecionando HIGH ou LOW para o Arduino</title><desc id="spdt-input-desc">Diagrama didático com fios arredondados, pontos de 5 volts e GND, botão ou interruptor, resistores e LED.</desc>
+    <g data-circuit-part="arduino-uno"><rect x="300" y="45" width="155" height="210" rx="24" fill="#b9dce7" stroke="#586b72" stroke-width="4"/><text x="377.5" y="146" text-anchor="middle" font-size="19" font-weight="800" fill="#263b43">ARDUINO</text><text x="377.5" y="172" text-anchor="middle" font-size="15" fill="#263b43">UNO</text><text x="310" y="74" text-anchor="start" font-size="12" font-weight="700">5 V</text><text x="310" y="149" text-anchor="start" font-size="12" font-weight="700">D2</text><text x="310" y="229" text-anchor="start" font-size="12" font-weight="700">GND</text><text x="445" y="109" text-anchor="end" font-size="12" font-weight="700">D9</text><text x="445" y="229" text-anchor="end" font-size="12" font-weight="700">GND</text></g><path d="M455 105h42v53h18" stroke="#91acd7" stroke-width="7" fill="none" /><g data-circuit-part="resistor"><rect x="515" y="143" width="76" height="30" rx="15" fill="#f1d9aa" stroke="#736956" stroke-width="3"/><text x="553" y="134" text-anchor="middle" font-size="13" font-weight="700">220 Ω</text></g><path d="M591 158h10" stroke="#91acd7" stroke-width="7" fill="none" /><g data-circuit-part="led-common"><path d="M601 133h18c20 0 36 11 36 25s-16 25-36 25h-18z" fill="#f3aaa2" stroke="#7c5c58" stroke-width="3"/><path d="M601 145v26m54-13h34" stroke="#59656a" stroke-width="4" fill="none"/><text x="628" y="123" text-anchor="middle" font-size="13" font-weight="700">LED</text></g><path d="M689 158v97H455" stroke="#59656a" stroke-width="7" fill="none" /><g data-circuit-part="switch-spdt"><rect x="55" y="56" width="168" height="174" rx="30" fill="#c8d8ee" stroke="#64758a" stroke-width="3"/><circle cx="95" cy="122" r="8" fill="#59656a"/><circle cx="139" cy="145" r="8" fill="#59656a"/><circle cx="183" cy="122" r="8" fill="#59656a"/><path d="M139 145L101 124M95 130v38M139 153v15M183 130v38" stroke="#59656a" stroke-width="6"/><text x="95" y="190" text-anchor="middle" font-size="12" font-weight="700">5 V</text><text x="139" y="190" text-anchor="middle" font-size="12" font-weight="700">comum</text><text x="183" y="190" text-anchor="middle" font-size="12" font-weight="700">GND</text><text x="139" y="214" text-anchor="middle" font-size="13" font-weight="700">SPDT</text></g>
+  <path d="M95 168H30V25h250v45h20" stroke="#879aa8" stroke-width="7" fill="none" /><path d="M139 168v-18h161" stroke="#879aa8" stroke-width="7" fill="none" /><path d="M183 168h80v57h37" stroke="#59656a" stroke-width="7" fill="none" />
+  </svg>
+</div><div class="didactic-panel"><h5>Programação em blocos</h5><div class="block-workspace"><div class="block-stack" data-block-framework="tinkercad-circuits"><div class="block block--loop block--event"><span>no início</span><div class="block__inside"><div class="block block--io">configurar pino <em>2</em> como <em>INPUT</em></div><div class="block block--io">configurar pino <em>9</em> como <em>OUTPUT</em></div></div></div><div class="block block--loop"><span>para sempre</span><div class="block__inside"><div class="block block--condition"><span>se <span class="block-token--math"><span class="block-token--input">ler pino digital <em>2</em></span> <b>==</b> <em>HIGH</em></span> então</span><div class="block__branch"><small>então</small><div class="block block--high">definir pino <em>9</em> como <em>HIGH</em></div></div><div class="block__branch"><small>senão</small><div class="block block--low">definir pino <em>9</em> como <em>LOW</em></div></div></div></div></div></div><aside class="block-instructions" aria-label="Localização dos blocos"><strong>Onde encontrar</strong><ul><li><b>no início</b> — categoria <b>Controle</b>.</li><li><b>para sempre</b> — categoria <b>Controle</b>.</li><li><b>configurar pino</b> — categoria <b>Saída</b>.</li><li><b>se / senão</b> — categoria <b>Controle</b>.</li><li><b>comparação =</b> — categoria <b>Matemática</b>.</li><li><b>ler pino digital</b> — categoria <b>Entrada</b>.</li><li><b>definir pino digital</b> — categoria <b>Saída</b>.</li></ul><p>Arraste cada peça da categoria indicada e encaixe-a na posição mostrada.</p></aside></div></div>
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>const int chave = 2; // terminal central da chave SPDT
+const int led = 9;   // saída do LED
+
+void setup() {
+  pinMode(chave, INPUT); // a chave sempre seleciona 5 V ou GND
+  pinMode(led, OUTPUT);  // configura o controle do LED
+}
+
+void loop() {
+  int estado = digitalRead(chave); // lê HIGH ou LOW
+  digitalWrite(led, estado);       // reproduz o estado no LED
 }</code></pre>
-<h3 id="verifique-se-entendeu">Verifique se entendeu</h3>
-<ol>
-<li>Por que pressionado equivale a LOW com <code>INPUT_PULLUP</code>?</li>
-<li>Qual é a diferença entre botão e interruptor?</li>
-<li>Por que debounce e combate a ruído não são exatamente a mesma coisa?</li>
-</ol>
-<p><a href="04b-divisor-potenciometro-ldr.html">Próximo: divisor e sensores resistivos →</a></p>
-<p><a href="../index.html">← Voltar ao início</a></p></article></div>
-<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="04-entradas-buzzer-blocos.html">← Conteúdo anterior</a><a href="04b-divisor-potenciometro-ldr.html">Próximo conteúdo →</a></nav></main>
+<h3 id="montagem-4-push-button-com-pull-down">Montagem 4 — push button com pull-down</h3>
+<p>O botão conecta o pino 2 aos 5 V quando é pressionado. O resistor de 10 kΩ conecta o mesmo pino ao GND e garante <code>LOW</code> quando o botão está solto. O programa acende o LED quando lê <code>HIGH</code>.</p><div class="didactic-panel button-project-visual">
+  <svg class="lesson-diagram" viewBox="0 0 720 300" role="img" aria-labelledby="pulldown-input-title pulldown-input-desc">
+    <title id="pulldown-input-title">Push button com resistor pull-down de 10 quilohms</title><desc id="pulldown-input-desc">Diagrama didático com fios arredondados, pontos de 5 volts e GND, botão ou interruptor, resistores e LED.</desc>
+    <g data-circuit-part="arduino-uno"><rect x="300" y="45" width="155" height="210" rx="24" fill="#b9dce7" stroke="#586b72" stroke-width="4"/><text x="377.5" y="146" text-anchor="middle" font-size="19" font-weight="800" fill="#263b43">ARDUINO</text><text x="377.5" y="172" text-anchor="middle" font-size="15" fill="#263b43">UNO</text><text x="310" y="74" text-anchor="start" font-size="12" font-weight="700">5 V</text><text x="310" y="149" text-anchor="start" font-size="12" font-weight="700">D2</text><text x="310" y="229" text-anchor="start" font-size="12" font-weight="700">GND</text><text x="445" y="109" text-anchor="end" font-size="12" font-weight="700">D9</text><text x="445" y="229" text-anchor="end" font-size="12" font-weight="700">GND</text></g><path d="M455 105h42v53h18" stroke="#91acd7" stroke-width="7" fill="none" /><g data-circuit-part="resistor"><rect x="515" y="143" width="76" height="30" rx="15" fill="#f1d9aa" stroke="#736956" stroke-width="3"/><text x="553" y="134" text-anchor="middle" font-size="13" font-weight="700">220 Ω</text></g><path d="M591 158h10" stroke="#91acd7" stroke-width="7" fill="none" /><g data-circuit-part="led-common"><path d="M601 133h18c20 0 36 11 36 25s-16 25-36 25h-18z" fill="#f3aaa2" stroke="#7c5c58" stroke-width="3"/><path d="M601 145v26m54-13h34" stroke="#59656a" stroke-width="4" fill="none"/><text x="628" y="123" text-anchor="middle" font-size="13" font-weight="700">LED</text></g><path d="M689 158v97H455" stroke="#59656a" stroke-width="7" fill="none" /><g data-circuit-part="push-button"><rect x="90" y="48" width="60" height="112" rx="28" fill="#d9cbea" stroke="#756781" stroke-width="3"/><circle cx="120" cy="71" r="7" fill="#59656a"/><circle cx="120" cy="137" r="7" fill="#59656a"/><path d="M120 78v52" stroke="#59656a" stroke-width="6"/><text x="120" y="36" text-anchor="middle" font-size="13" font-weight="700">botão</text></g><g data-circuit-part="resistor"><rect x="225" y="157" width="30" height="72" rx="15" fill="#f1d9aa" stroke="#736956" stroke-width="3"/><text x="217" y="198" text-anchor="end" font-size="13" font-weight="700">10 kΩ</text></g>
+  <path d="M120 71V25h160v45h20" stroke="#d98778" stroke-width="7" fill="none" /><path d="M120 137v15h180" stroke="#91acd7" stroke-width="7" fill="none" /><path d="M200 152h25" stroke="#91acd7" stroke-width="7" fill="none" /><path d="M240 229v-4h60" stroke="#59656a" stroke-width="7" fill="none" />
+  </svg>
+</div><div class="didactic-panel"><h5>Programação em blocos</h5><div class="block-workspace"><div class="block-stack" data-block-framework="tinkercad-circuits"><div class="block block--loop block--event"><span>no início</span><div class="block__inside"><div class="block block--io">configurar pino <em>2</em> como <em>INPUT</em></div><div class="block block--io">configurar pino <em>9</em> como <em>OUTPUT</em></div></div></div><div class="block block--loop"><span>para sempre</span><div class="block__inside"><div class="block block--condition"><span>se <span class="block-token--math"><span class="block-token--input">ler pino digital <em>2</em></span> <b>==</b> <em>HIGH</em></span> então</span><div class="block__branch"><small>então</small><div class="block block--high">definir pino <em>9</em> como <em>HIGH</em></div></div><div class="block__branch"><small>senão</small><div class="block block--low">definir pino <em>9</em> como <em>LOW</em></div></div></div></div></div></div><aside class="block-instructions" aria-label="Localização dos blocos"><strong>Onde encontrar</strong><ul><li><b>no início</b> — categoria <b>Controle</b>.</li><li><b>para sempre</b> — categoria <b>Controle</b>.</li><li><b>configurar pino</b> — categoria <b>Saída</b>.</li><li><b>se / senão</b> — categoria <b>Controle</b>.</li><li><b>comparação =</b> — categoria <b>Matemática</b>.</li><li><b>ler pino digital</b> — categoria <b>Entrada</b>.</li><li><b>definir pino digital</b> — categoria <b>Saída</b>.</li></ul><p>Arraste cada peça da categoria indicada e encaixe-a na posição mostrada.</p></aside></div></div>
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>const int botao = 2; // ponto de leitura do botão
+const int led = 9;   // saída que controla o LED
+
+void setup() {
+  pinMode(botao, INPUT); // o resistor externo define o repouso em LOW
+  pinMode(led, OUTPUT);  // permite ao Arduino comandar o LED
+}
+
+void loop() {
+  int estado = digitalRead(botao); // HIGH pressionado; LOW solto
+  digitalWrite(led, estado);       // copia o estado do botão para o LED
+}</code></pre>
+<h3 id="montagem-5-push-button-com-pull-up-interno">Montagem 5 — push button com pull-up interno</h3>
+<p>O botão conecta o pino 2 ao GND. O Arduino mantém a entrada em <code>HIGH</code> pelo pull-up interno quando o botão está solto. Como pressionar produz <code>LOW</code>, o programa precisa inverter a decisão.</p><div class="didactic-panel button-project-visual">
+  <svg class="lesson-diagram" viewBox="0 0 720 300" role="img" aria-labelledby="pullup-input-title pullup-input-desc">
+    <title id="pullup-input-title">Push button ao GND com pull-up interno do Arduino</title><desc id="pullup-input-desc">Diagrama didático com fios arredondados, pontos de 5 volts e GND, botão ou interruptor, resistores e LED.</desc>
+    <g data-circuit-part="arduino-uno"><rect x="300" y="45" width="155" height="210" rx="24" fill="#b9dce7" stroke="#586b72" stroke-width="4"/><text x="377.5" y="146" text-anchor="middle" font-size="19" font-weight="800" fill="#263b43">ARDUINO</text><text x="377.5" y="172" text-anchor="middle" font-size="15" fill="#263b43">UNO</text><text x="310" y="74" text-anchor="start" font-size="12" font-weight="700">5 V</text><text x="310" y="149" text-anchor="start" font-size="12" font-weight="700">D2</text><text x="310" y="229" text-anchor="start" font-size="12" font-weight="700">GND</text><text x="445" y="109" text-anchor="end" font-size="12" font-weight="700">D9</text><text x="445" y="229" text-anchor="end" font-size="12" font-weight="700">GND</text></g><path d="M455 105h42v53h18" stroke="#91acd7" stroke-width="7" fill="none" /><g data-circuit-part="resistor"><rect x="515" y="143" width="76" height="30" rx="15" fill="#f1d9aa" stroke="#736956" stroke-width="3"/><text x="553" y="134" text-anchor="middle" font-size="13" font-weight="700">220 Ω</text></g><path d="M591 158h10" stroke="#91acd7" stroke-width="7" fill="none" /><g data-circuit-part="led-common"><path d="M601 133h18c20 0 36 11 36 25s-16 25-36 25h-18z" fill="#f3aaa2" stroke="#7c5c58" stroke-width="3"/><path d="M601 145v26m54-13h34" stroke="#59656a" stroke-width="4" fill="none"/><text x="628" y="123" text-anchor="middle" font-size="13" font-weight="700">LED</text></g><path d="M689 158v97H455" stroke="#59656a" stroke-width="7" fill="none" /><g data-circuit-part="push-button"><rect x="90" y="82" width="60" height="112" rx="28" fill="#d9cbea" stroke="#756781" stroke-width="3"/><circle cx="120" cy="105" r="7" fill="#59656a"/><circle cx="120" cy="171" r="7" fill="#59656a"/><path d="M120 112v52" stroke="#59656a" stroke-width="6"/><text x="120" y="70" text-anchor="middle" font-size="13" font-weight="700">botão</text></g>
+  <path d="M120 105h65v45h115" stroke="#91acd7" stroke-width="7" fill="none" /><path d="M120 171v54h180" stroke="#59656a" stroke-width="7" fill="none" /><path d="M380 78h-58v72h-22" stroke="#d98778" stroke-width="5" fill="none" stroke-dasharray="8 7"/><text x="334" y="70" font-size="12" font-weight="700">pull-up interno</text>
+  </svg>
+</div><div class="didactic-panel"><h5>Programação em blocos</h5><div class="block-workspace"><div class="block-stack" data-block-framework="tinkercad-circuits"><div class="block block--loop block--event"><span>no início</span><div class="block__inside"><div class="block block--io">configurar pino <em>2</em> como <em>INPUT_PULLUP</em></div><div class="block block--io">configurar pino <em>9</em> como <em>OUTPUT</em></div></div></div><div class="block block--loop"><span>para sempre</span><div class="block__inside"><div class="block block--condition"><span>se <span class="block-token--math"><span class="block-token--input">ler pino digital <em>2</em></span> <b>==</b> <em>LOW</em></span> então</span><div class="block__branch"><small>então</small><div class="block block--high">definir pino <em>9</em> como <em>HIGH</em></div></div><div class="block__branch"><small>senão</small><div class="block block--low">definir pino <em>9</em> como <em>LOW</em></div></div></div></div></div></div><aside class="block-instructions" aria-label="Localização dos blocos"><strong>Onde encontrar</strong><ul><li><b>no início</b> — categoria <b>Controle</b>.</li><li><b>para sempre</b> — categoria <b>Controle</b>.</li><li><b>configurar pino</b> — categoria <b>Saída</b>.</li><li><b>se / senão</b> — categoria <b>Controle</b>.</li><li><b>comparação =</b> — categoria <b>Matemática</b>.</li><li><b>ler pino digital</b> — categoria <b>Entrada</b>.</li><li><b>definir pino digital</b> — categoria <b>Saída</b>.</li></ul><p>Arraste cada peça da categoria indicada e encaixe-a na posição mostrada.</p></aside></div></div>
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>const int botao = 2; // botão ligado entre este pino e o GND
+const int led = 9;   // LED com resistor de 220 ohms até o GND
+
+void setup() {
+  pinMode(botao, INPUT_PULLUP); // ativa o resistor interno para 5 V
+  pinMode(led, OUTPUT);         // configura a saída do LED
+}
+
+void loop() {
+  bool pressionado = digitalRead(botao) == LOW; // LOW significa pressionado
+  digitalWrite(led, pressionado ? HIGH : LOW);  // acende somente ao pressionar
+}</code></pre>
+<h3 id="antes-de-avancar">Antes de avançar</h3>
+<p>Compare as montagens 3, 4 e 5. Em todas, o pino 2 recebe sempre <code>HIGH</code> ou <code>LOW</code>; o que muda é como o circuito define o repouso e qual estado significa “acionado”.</p>
+<p><a href="04b-divisor-potenciometro-ldr.html">Próximo: divisor e sensores resistivos →</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="04-entradas-buzzer-blocos.html">← Conteúdo anterior</a><a href="04a1-botoes-interruptores.html">Próximo conteúdo →</a></nav></main>
 <footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b></div></footer>
 <script>
 document.addEventListener('click', async (event) => {

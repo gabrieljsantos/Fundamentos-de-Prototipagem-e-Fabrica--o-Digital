@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Pull-up e pull-down — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>Pull-up e pull-down — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=7"></head>
+<body><main><header class="article-hero"><div class="shell"><h1>Pull-up e pull-down</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a></aside><article class="article-content">
+<p><a href="../index.html">← Voltar ao início</a></p>
+<h3 id="pull-down">Pull-down</h3>
+<p>Um <strong>resistor pull-down</strong> liga fracamente a entrada ao GND. Com o botão solto, o resistor estabelece <code>LOW</code>. Quando o botão conecta a entrada aos 5 V, a leitura muda para <code>HIGH</code>.</p>
+<p>Um valor de <strong>10 kΩ</strong> é comum em experiências introdutórias. Ele mantém a entrada definida e limita a corrente quando o botão é pressionado. Nesse momento, há aproximadamente <code>5 V / 10 kΩ = 0,5 mA</code> pelo resistor.</p>
+<p>O resistor de pull-down não substitui o resistor do LED: o pull-down define o estado da entrada; o resistor em série limita a corrente do LED.</p>
+<h3 id="pull-up">Pull-up</h3>
+<p>Um <strong>resistor pull-up</strong> liga fracamente a entrada aos 5 V. Com o botão solto, a leitura é <code>HIGH</code>; quando o botão conecta a entrada ao GND, a leitura muda para <code>LOW</code>.</p>
+<p>No Arduino Uno, o pull-up interno pode ser ativado por programa:</p>
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>pinMode(2, INPUT_PULLUP);
+bool pressionado = digitalRead(2) == LOW;</code></pre>
+<p>Essa lógica é chamada de <strong>ativa em LOW</strong>: pressionado significa <code>LOW</code>.</p>
+<h3 id="dois-circuitos-equivalentes">Dois circuitos equivalentes</h3>
+<div class="article-table-wrap"><table class="article-table"><thead><tr><th>Montagem</th><th>Repouso</th><th>Pressionado</th><th>Configuração</th></tr></thead><tbody>
+<tr><td>Botão para 5 V + resistor de 10 kΩ para GND</td><td><code>LOW</code></td><td><code>HIGH</code></td><td><code>INPUT</code></td></tr>
+<tr><td>Botão para GND + pull-up interno</td><td><code>HIGH</code></td><td><code>LOW</code></td><td><code>INPUT_PULLUP</code></td></tr>
+</tbody></table></div>
+<p>Nenhuma das duas montagens deixa o pino sem referência. O projeto <a href="04a-botoes-entradas.html">Botão controla LED</a> permite comparar as duas soluções.</p>
+<h3 id="ponte-para-o-divisor-de-tensao">Ponte para o divisor de tensão</h3>
+<p>Pull-up e pull-down antecipam a ideia de um <a href="04b-divisor-potenciometro-ldr.html">divisor de tensão</a>: resistências ligadas entre 5 V e GND determinam a tensão observada no ponto central. Essa relação prepara o estudo do potenciômetro e do LDR.</p>
+<h3 id="verifique-se-entendeu">Verifique se entendeu</h3>
+<ol>
+<li>Qual estado o pull-down produz com o botão solto?</li>
+<li>Por que pressionado significa <code>LOW</code> com <code>INPUT_PULLUP</code>?</li>
+<li>Por que o resistor de 10 kΩ não substitui o resistor do LED?</li>
+</ol>
+<p><a href="04a2-entrada-digital-flutuante.html">← Entrada digital</a> · <a href="04a4-ruido-bounce-debounce.html">Próximo: ruído e debounce →</a></p></article></div>
+<nav class="article-pagination shell" aria-label="Navegação entre conteúdos"><a href="04a2-entrada-digital-flutuante.html">← Conteúdo anterior</a><a href="04a4-ruido-bounce-debounce.html">Próximo conteúdo →</a></nav></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b></div></footer>
+<script>
+document.addEventListener('click', async (event) => {
+  const button = event.target.closest('.copy-code');
+  if (!button) return;
+  const code = button.parentElement.querySelector('code');
+  if (!code) return;
+  try {
+    await navigator.clipboard.writeText(code.textContent);
+    button.textContent = 'Copiado';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1400);
+  } catch {
+    button.textContent = 'Selecione o código';
+    setTimeout(() => { button.textContent = 'Copiar'; }, 1600);
+  }
+});
+
+const resistorCalculator = document.querySelector('#resistor-calculator');
+if (resistorCalculator) {
+  const color = resistorCalculator.elements.ledColor;
+  const sourcePreset = resistorCalculator.elements.sourcePreset;
+  const sourceVoltage = resistorCalculator.elements.sourceVoltage;
+  const forwardVoltage = resistorCalculator.elements.forwardVoltage;
+  const result = resistorCalculator.querySelector('.calculator-result');
+  const nextE12 = (required) => {
+    const values = [10, 12, 15, 18, 22, 27, 33, 39, 47, 56, 68, 82];
+    for (let exponent = -1; exponent <= 7; exponent += 1) {
+      const scale = 10 ** exponent;
+      for (const base of values) {
+        const candidate = base * scale;
+        if (candidate >= required) return candidate;
+      }
+    }
+    return required;
+  };
+  const formatOhms = (ohms) => ohms >= 1000
+    ? (ohms / 1000).toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + ' kΩ'
+    : ohms.toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + ' Ω';
+
+  color.addEventListener('change', () => {
+    const custom = color.value === 'custom';
+    forwardVoltage.disabled = !custom;
+    if (!custom) forwardVoltage.value = color.value;
+    forwardVoltage.title = custom
+      ? 'Digite a tensão direta Vf do LED'
+      : 'Escolha Outro valor na cor do LED para editar este campo';
+    if (custom) {
+      forwardVoltage.value = '';
+      forwardVoltage.focus();
+    }
+  });
+
+  sourcePreset.addEventListener('change', () => {
+    const custom = sourcePreset.value === 'custom';
+    sourceVoltage.disabled = !custom;
+    if (!custom) sourceVoltage.value = sourcePreset.value;
+    if (custom) {
+      sourceVoltage.value = '';
+      sourceVoltage.focus();
+    }
+  });
+
+  resistorCalculator.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const source = Number(resistorCalculator.elements.sourceVoltage.value);
+    const vf = Number(forwardVoltage.value);
+    const currentMa = Number(resistorCalculator.elements.currentMa.value);
+    if (!(source > 0) || !(vf > 0) || !(currentMa > 0)) {
+      result.textContent = 'Preencha tensão da fonte, tensão direta e corrente com valores maiores que zero.';
+      return;
+    }
+    if (source <= vf) {
+      result.textContent = 'Tensão insuficiente: a fonte precisa ser maior que a tensão direta do LED para este cálculo.';
+      return;
+    }
+    const currentA = currentMa / 1000;
+    const required = (source - vf) / currentA;
+    const commercial = nextE12(required);
+    const actualMa = ((source - vf) / commercial) * 1000;
+    const power = ((source - vf) ** 2) / commercial;
+    result.textContent = 'Cálculo: ' + formatOhms(required) + '. Próximo valor E12 acima: ' + formatOhms(commercial) + '. Corrente estimada: ' + actualMa.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + ' mA. Potência no resistor: ' + power.toLocaleString('pt-BR', { maximumFractionDigits: 3 }) + ' W.';
+  });
+}
+</script></body></html>

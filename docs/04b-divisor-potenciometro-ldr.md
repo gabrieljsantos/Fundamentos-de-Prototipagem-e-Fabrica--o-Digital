@@ -26,11 +26,24 @@ Vout = Vin × R2 / (R1 + R2)
 
 Com 5 V, R1 de 10 kΩ e R2 de 20 kΩ, a saída ideal é aproximadamente 3,33 V. Um divisor é apropriado para sinais de pequena corrente. A carga conectada à saída altera o resultado, por isso ele não substitui regulador para alimentar motores ou módulos.
 
+### Casos-limite
+
+Os extremos ajudam a entender o circuito:
+
+- se R1 se aproxima de 0 Ω, Vout se aproxima de Vin;
+- se R2 se aproxima de 0 Ω, Vout se aproxima de 0 V;
+- se R1 e R2 são iguais, Vout fica próximo de metade de Vin;
+- se um caminho fica aberto, a tensão pode perder a referência, como acontece com uma entrada digital flutuante.
+
+O botão com pull-up ou pull-down é um caso especial: o contato alterna entre resistência muito baixa e circuito aberto, enquanto o resistor fixo mantém o ponto de leitura em um estado conhecido.
+
 ## Potenciômetro
 
 Um **potenciômetro** contém uma pista resistiva e três terminais. A resistência total entre as extremidades costuma ser fixa; a posição mecânica altera a divisão produzida pelo terminal central.
 
 Para leitura, ligue as extremidades a VCC e GND e o terminal central ao ADC, respeitando a tensão máxima da entrada.
+
+Em um potenciômetro de 10 kΩ, a resistência total entre as extremidades continua próxima de 10 kΩ. O cursor apenas divide essa pista em duas parcelas. No centro, elas ficam aproximadamente em 5 kΩ e 5 kΩ, produzindo perto de 2,5 V quando as extremidades estão em 5 V e GND.
 
 ## Cursor
 

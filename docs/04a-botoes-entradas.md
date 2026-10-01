@@ -1,71 +1,97 @@
-# Botões, interruptores e entradas digitais
+# Botão controla LED
 
 [← Voltar ao início](../README.md)
 
-## Conceitos deste arquivo
+Este projeto reúne cinco montagens progressivas. As duas primeiras controlam o LED diretamente, sem Arduino. As três seguintes usam uma entrada digital para decidir o estado do LED.
 
-- [Botão](#botão)
-- [Interruptor](#interruptor)
-- [Entrada flutuante](#entrada-flutuante)
-- [Pull-up](#pull-up)
-- [Pull-down](#pull-down)
-- [Ruído](#ruído)
-- [Bounce e debounce](#bounce-e-debounce)
+## Conceitos
 
-## Botão
+- [Botão e interruptor](04a1-botoes-interruptores.md)
+- [Entrada digital: HIGH, LOW e entrada flutuante](04a2-entrada-digital-flutuante.md)
+- [Pull-down](04a3-pull-up-pull-down.md#pull-down)
+- [Pull-up e lógica ativa em LOW](04a3-pull-up-pull-down.md#pull-up)
+- [Ruído, bounce e debounce](04a4-ruido-bounce-debounce.md)
+- [LED, ânodo, cátodo e polaridade](03a-led-comum.md)
+- [Resistor limitador do LED](03b-resistor-led.md)
+- [GPIO e saída digital](02c-gpio-digital.md)
 
-Um **botão** é um contato momentâneo: muda de estado enquanto está pressionado e retorna ao ser solto. O microcontrolador não “lê o botão” diretamente; ele lê a tensão produzida pelo circuito ligado ao botão.
+## Materiais
 
-## Interruptor
+- fonte de 5 V e GND para as montagens diretas;
+- um LED;
+- um resistor de 220 Ω para o LED;
+- um push button;
+- um interruptor de gangorra SPDT de três terminais;
+- um resistor de 10 kΩ para a montagem pull-down;
+- Arduino Uno e fios para as etapas programadas.
 
-Um **interruptor** abre ou fecha um caminho e normalmente mantém a posição. Para o programa, botão e interruptor podem ser entradas digitais, mas seu comportamento mecânico e a lógica desejada são diferentes.
+## Montagem 1 — gangorra controla o LED diretamente
 
-## Entrada flutuante
+O caminho é `5 V → resistor de 220 Ω → terminal central da gangorra`. Uma das saídas laterais segue para `LED → GND`; a outra fica sem ligação nesta primeira montagem. Em uma posição o comum alimenta o LED; na outra, seleciona a saída livre e o LED apaga. Não há programação.
 
-Uma **entrada flutuante** não está firmemente ligada a HIGH nem a LOW. Como uma entrada consome corrente mínima, interferências podem alterar sua tensão e produzir leituras imprevisíveis.
+## Montagem 2 — push button controla o LED diretamente
 
-## Pull-up
+O push button substitui a gangorra no mesmo caminho. O LED acende somente enquanto o botão está pressionado. Essa montagem evidencia a diferença entre uma chave que mantém a posição e um botão momentâneo.
 
-Um **resistor pull-up** conecta fracamente a entrada ao VCC e define HIGH como estado de repouso. O botão pode conectar a entrada ao GND quando pressionado.
+## Montagem 3 — gangorra seleciona HIGH ou LOW
 
-```cpp
-pinMode(2, INPUT_PULLUP);
-bool pressionado = digitalRead(2) == LOW;
-```
-
-Nesse circuito, solto significa HIGH e pressionado significa LOW.
-
-## Pull-down
-
-Um **resistor pull-down** conecta fracamente a entrada ao GND e define LOW como repouso. O botão conecta a entrada ao VCC ao ser pressionado. Algumas placas oferecem pull-down interno; outras exigem resistor externo.
-
-O resistor impede estado flutuante. Ele também evita que o acionamento una VCC e GND diretamente quando o circuito está montado corretamente.
-
-## Ruído
-
-**Ruído** é uma variação indesejada no sinal. Cabos longos, motores, fontes chaveadas, GND ruim e entradas flutuantes podem causar falsos acionamentos.
-
-Fios curtos, conexões firmes, pull-up/pull-down e filtragem adequada ajudam. A solução depende da origem do ruído.
-
-## Bounce e debounce
-
-**Bounce** é o repique mecânico do contato: durante alguns instantes, um único toque pode produzir várias transições. **Debounce** é o tratamento usado para aceitar apenas uma mudança válida.
+O terminal central, ou comum, da chave SPDT vai ao pino 2. Um terminal lateral vai ao pino 5 V do Arduino e o outro vai ao GND da própria placa. Assim, a entrada sempre recebe um estado definido: `HIGH` de um lado e `LOW` do outro. O Arduino usa essa leitura para controlar o LED no pino 9.
 
 ```cpp
-if (digitalRead(2) == LOW) {
-  delay(20); // exemplo introdutório; projetos maiores preferem lógica sem bloqueio
-  if (digitalRead(2) == LOW) {
-    // toque confirmado
-  }
+const int chave = 2; // terminal central da chave SPDT
+const int led = 9;   // saída do LED
+
+void setup() {
+  pinMode(chave, INPUT); // a chave sempre seleciona 5 V ou GND
+  pinMode(led, OUTPUT);  // configura o controle do LED
+}
+
+void loop() {
+  int estado = digitalRead(chave); // lê HIGH ou LOW
+  digitalWrite(led, estado);       // reproduz o estado no LED
 }
 ```
 
-## Verifique se entendeu
+## Montagem 4 — push button com pull-down
 
-1. Por que pressionado equivale a LOW com `INPUT_PULLUP`?
-2. Qual é a diferença entre botão e interruptor?
-3. Por que debounce e combate a ruído não são exatamente a mesma coisa?
+O botão conecta o pino 2 aos 5 V quando é pressionado. O resistor de 10 kΩ conecta o mesmo pino ao GND e garante `LOW` quando o botão está solto. O programa acende o LED quando lê `HIGH`.
+
+```cpp
+const int botao = 2; // ponto de leitura do botão
+const int led = 9;   // saída que controla o LED
+
+void setup() {
+  pinMode(botao, INPUT); // o resistor externo define o repouso em LOW
+  pinMode(led, OUTPUT);  // permite ao Arduino comandar o LED
+}
+
+void loop() {
+  int estado = digitalRead(botao); // HIGH pressionado; LOW solto
+  digitalWrite(led, estado);       // copia o estado do botão para o LED
+}
+```
+
+## Montagem 5 — push button com pull-up interno
+
+O botão conecta o pino 2 ao GND. O Arduino mantém a entrada em `HIGH` pelo pull-up interno quando o botão está solto. Como pressionar produz `LOW`, o programa precisa inverter a decisão.
+
+```cpp
+const int botao = 2; // botão ligado entre este pino e o GND
+const int led = 9;   // LED com resistor de 220 ohms até o GND
+
+void setup() {
+  pinMode(botao, INPUT_PULLUP); // ativa o resistor interno para 5 V
+  pinMode(led, OUTPUT);         // configura a saída do LED
+}
+
+void loop() {
+  bool pressionado = digitalRead(botao) == LOW; // LOW significa pressionado
+  digitalWrite(led, pressionado ? HIGH : LOW);  // acende somente ao pressionar
+}
+```
+
+## Antes de avançar
+
+Compare as montagens 3, 4 e 5. Em todas, o pino 2 recebe sempre `HIGH` ou `LOW`; o que muda é como o circuito define o repouso e qual estado significa “acionado”.
 
 [Próximo: divisor e sensores resistivos →](04b-divisor-potenciometro-ldr.md)
-
-[← Voltar ao início](../README.md)

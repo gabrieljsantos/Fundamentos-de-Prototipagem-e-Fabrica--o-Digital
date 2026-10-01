@@ -1,13 +1,16 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Circuitos em série e paralelo, GND, VCC e polaridade — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>Circuitos em série e paralelo, GND, VCC e polaridade — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=6"></head>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Circuitos em série e paralelo, GND, VCC e polaridade — material de apoio de Fundamentos de Prototipagem e Fabricação Digital."><title>Circuitos em série e paralelo, GND, VCC e polaridade — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=7"></head>
 <body><main><header class="article-hero"><div class="shell"><h1>Circuitos em série e paralelo, GND, VCC e polaridade</h1></div></header><div class="article-layout shell"><aside class="article-aside"><a href="../index.html#conteudos">← Voltar ao sumário</a></aside><article class="article-content">
 <p><a href="../index.html">← Voltar ao início</a></p>
 <h3 id="conceitos-deste-arquivo">Conceitos deste arquivo</h3>
 <ul>
 <li><a href="#circuito-eletrico">Circuito elétrico</a></li>
 <li><a href="#ligacao-em-serie">Ligação em série</a></li>
+<li><a href="#pilhas-em-serie">Pilhas em série</a></li>
 <li><a href="#ligacao-em-paralelo">Ligação em paralelo</a></li>
+<li><a href="#pilhas-em-paralelo">Pilhas em paralelo</a></li>
 <li><a href="#gnd">GND</a></li>
+<li><a href="#gnd-comum-entre-esp32-e-ponte-h">GND comum entre ESP32 e ponte H</a></li>
 <li><a href="#vcc-5-v-e-33-v">VCC, 5 V e 3,3 V</a></li>
 <li><a href="#polaridade">Polaridade</a></li>
 </ul>
@@ -17,12 +20,21 @@
 <h3 id="ligacao-em-serie">Ligação em série</h3>
 <p>Componentes estão <strong>em série</strong> quando a mesma corrente percorre todos eles. As quedas de tensão se distribuem entre os componentes.</p>
 <p>Um LED e seu resistor limitador ficam em série. O resistor pode estar antes ou depois do LED, pois a mesma corrente atravessa ambos.</p>
+<h3 id="pilhas-em-serie">Pilhas em série</h3>
+<p>Em uma associação de pilhas em série, liga-se o positivo de uma ao negativo da seguinte. As tensões se somam, mas a capacidade em ampère-hora não se soma da mesma forma. Seis pilhas alcalinas de <code>1,5 V</code> em série fornecem aproximadamente <code>9 V</code>; seis pilhas NiMH de <code>1,2 V</code>, aproximadamente <code>7,2 V</code>.</p>
+<p>Todas as pilhas do conjunto devem possuir a mesma química, capacidade e estado de carga. Uma unidade invertida, descarregada ou diferente limita o conjunto e pode aquecer ou vazar.</p>
 <h3 id="ligacao-em-paralelo">Ligação em paralelo</h3>
 <p>Componentes estão <strong>em paralelo</strong> quando seus terminais se conectam aos mesmos dois nós. Eles recebem a mesma tensão, enquanto a corrente total se divide entre os ramos.</p>
 <p>Dois LEDs em paralelo devem ter resistores individuais. Pequenas diferenças entre os LEDs podem fazer um deles conduzir corrente excessiva quando ambos compartilham apenas um resistor.</p>
+<h3 id="pilhas-em-paralelo">Pilhas em paralelo</h3>
+<p>Em paralelo, os polos positivos são ligados entre si e os negativos também. A tensão permanece igual à de uma pilha ou bateria, enquanto a capacidade e a corrente disponível podem aumentar. Duas baterias de <code>9 V</code> em paralelo continuam fornecendo aproximadamente <code>9 V</code>; elas não formam <code>18 V</code>.</p>
+<p>Fontes conectadas diretamente em paralelo podem trocar corrente entre si quando suas tensões são diferentes. Por isso, não improvise o paralelo com baterias de marcas, químicas, capacidades, idades ou cargas diferentes. Para alimentar um ESP32 com maior corrente, prefira uma fonte dimensionada corretamente ou um suporte projetado para células iguais em paralelo e com a proteção apropriada. Uma bateria retangular de 9 V descarregada ou inadequada não se torna uma boa fonte apenas pela adição improvisada de outra bateria.</p>
 <h3 id="gnd">GND</h3>
 <p><strong>GND</strong> é o ponto escolhido como referência de 0 V. As demais tensões são medidas em relação a ele. GND não significa obrigatoriamente terra físico nem é um lugar onde a energia “desaparece”.</p>
 <p>Quando dois dispositivos trocam sinais elétricos, geralmente compartilham GND para concordarem sobre HIGH, LOW e valores analógicos. Sistemas com isolamento elétrico são uma exceção.</p>
+<h3 id="gnd-comum-entre-esp32-e-ponte-h">GND comum entre ESP32 e ponte H</h3>
+<p>O ESP32 envia níveis HIGH e LOW para as entradas da ponte H. Para interpretar esses níveis, os dois módulos precisam usar a mesma referência de <code>0 V</code>; por isso, um <code>GND</code> do ESP32 deve ser ligado ao <code>GND</code> da ponte H, mesmo quando motores e ESP32 usam fontes positivas diferentes.</p>
+<p>Sem esse GND comum, as entradas da ponte H ficam sem uma referência confiável para os sinais do ESP32. Os motores podem não responder, responder de forma intermitente, girar apenas em alguns comandos ou apresentar comportamento imprevisível. A conexão de GND comum fornece referência aos sinais; ela não une as linhas positivas das duas fontes.</p>
 <h3 id="vcc-5-v-e-3-3-v">VCC, 5 V e 3,3 V</h3>
 <p><strong>VCC</strong> designa frequentemente uma linha positiva de alimentação. Pinos marcados 5 V e 3,3 V fornecem ou recebem tensões específicas, conforme a placa. Eles não são GPIOs e não devem ser unidos diretamente.</p>
 <p>Alimentação fornece energia. GPIO transporta sinais e suporta apenas correntes pequenas. Essa diferença explica por que uma GPIO não deve alimentar um motor.</p>

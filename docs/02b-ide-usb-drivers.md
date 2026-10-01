@@ -5,6 +5,10 @@
 ## Conceitos
 
 - [Arduino IDE](#arduino-ide)
+- [Como instalar a Arduino IDE](#como-instalar-a-arduino-ide)
+- [Como configurar a placa ESP32-WROOM](#como-configurar-a-placa-esp32-wroom)
+- [Drivers USB do ESP32](#drivers-usb-do-esp32)
+- [Como encontrar a porta no Windows](#como-encontrar-a-porta-no-windows)
 - [Sketch](#sketch)
 - [Compilação](#compilação)
 - [Upload](#upload)
@@ -20,6 +24,54 @@
 A **Arduino IDE** é o ambiente usado para editar o programa, verificar erros, compilar, carregar o código na placa, instalar suporte a placas e bibliotecas e acessar a comunicação serial. No menu **Ferramentas**, normalmente são escolhidos a placa, a porta, o programador e opções como frequência, partição e velocidade de upload.
 
 Na IDE 2, a barra lateral reúne o editor, o gerenciador de placas, o gerenciador de bibliotecas, o Monitor Serial e o Serial Plotter. A IDE 1.x oferece as mesmas funções em menus diferentes. O importante é conferir a versão da IDE e seguir a documentação da placa instalada.
+
+## Como instalar a Arduino IDE
+
+1. Acesse a página oficial de software do Arduino: [arduino.cc/en/software](https://www.arduino.cc/en/software).
+2. Baixe a versão da Arduino IDE correspondente ao seu sistema operacional. No Windows, escolha o instalador adequado à arquitetura do computador.
+3. Execute o instalador e acompanhe as etapas apresentadas. Permita a instalação dos componentes do Arduino quando o Windows solicitar.
+4. Abra a Arduino IDE depois da instalação.
+5. Conecte a placa usando um cabo USB com transmissão de dados. Cabos destinados somente a carregamento podem acender a placa sem criar uma porta de comunicação.
+
+## Como configurar a placa ESP32-WROOM
+
+O texto `ESP32-WROOM-32` normalmente identifica o módulo instalado sobre a placa de desenvolvimento, e não necessariamente o nome exato da DevKit. Quando a placa possuir uma identificação própria, use o modelo correspondente. Para uma DevKit genérica com ESP32-WROOM-32, use **ESP32 Dev Module**.
+
+1. Abra **Arquivo → Preferências** na Arduino IDE.
+2. Em **URLs adicionais para Gerenciadores de Placas**, adicione a URL estável oficial da Espressif: `https://espressif.github.io/arduino-esp32/package_esp32_index.json`.
+3. Abra **Ferramentas → Placa → Gerenciador de Placas**.
+4. Pesquise por `esp32` e instale **esp32 by Espressif Systems**.
+5. Abra **Ferramentas → Placa → esp32** e selecione **ESP32 Dev Module** para a DevKit genérica com ESP32-WROOM-32.
+6. Mantenha inicialmente as demais opções nos valores padrão. Altere frequência, flash, partições ou velocidade somente quando houver uma necessidade identificada.
+7. Selecione também a porta COM correspondente à placa antes de carregar o programa.
+
+Escolher a placa errada pode provocar erro de compilação, falha no upload ou configuração incompatível de memória. A documentação oficial da Espressif recomenda selecionar o modelo específico quando estiver disponível e usar o módulo genérico correspondente quando a placa não aparecer na lista.
+
+## Drivers USB do ESP32
+
+O ESP32-WROOM não cria sozinho uma porta USB. A placa de desenvolvimento costuma possuir um conversor USB/serial, frequentemente das famílias **CP210x** ou **CH340/CH341**. O driver necessário depende do conversor realmente instalado na sua placa.
+
+Antes de instalar um driver:
+
+1. observe as inscrições do pequeno circuito integrado próximo ao conector USB;
+2. consulte o anúncio, o esquema ou a documentação do fabricante da DevKit;
+3. verifique no Gerenciador de Dispositivos do Windows como o dispositivo foi identificado;
+4. baixe o driver somente do fabricante do conversor ou da documentação oficial da placa.
+
+Não instale vários drivers aleatórios para tentar descobrir por tentativa. Se a porta já aparece corretamente, talvez o Windows já tenha instalado o driver necessário.
+
+## Como encontrar a porta no Windows
+
+1. Desconecte o ESP32 do computador.
+2. Pressione `Win + X` e abra **Gerenciador de Dispositivos**.
+3. Expanda **Portas (COM e LPT)**. Se essa categoria não estiver visível, mantenha a janela aberta.
+4. Conecte o ESP32 com um cabo USB de dados e observe qual item aparece. Ele pode ser mostrado como `USB Serial`, `CP210x`, `CH340`, `CH341` ou outro nome acompanhado de `COM` e um número.
+5. Anote a porta, por exemplo `COM3` ou `COM7`.
+6. Na Arduino IDE, abra **Ferramentas → Porta** e selecione a mesma porta COM.
+
+Uma forma segura de confirmar é desconectar e reconectar a placa, observando qual porta desaparece e reaparece. Na Arduino IDE 2, a opção **Ferramentas → Porta** pode não aparecer quando nenhuma porta é detectada.
+
+Se nenhuma porta surgir, teste nesta ordem: outro cabo de dados, outra porta USB do computador, conexão sem hub, inspeção do conector da placa e instalação do driver correto do conversor USB/serial. Um LED aceso comprova alimentação, mas não comprova comunicação USB.
 
 ## Sketch
 
