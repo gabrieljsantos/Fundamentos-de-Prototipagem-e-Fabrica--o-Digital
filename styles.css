@@ -131,6 +131,7 @@ ender3-display { display: block; max-width: 360px; margin: 1.5rem auto; }
 .article-content .article-figure img[src*="interruptor-energia"],
 .article-content .article-figure img[src*="extrusora-e-alavanca"],
 .article-content .article-figure img[src*="bico-hotend"],
+.article-content .article-figure img[src*="carretel-sentido-filamento"],
 .article-content .article-figure img[src*="mesa-removida"] { max-width: min(100%, 240px); max-height: 320px; }
 .article-content .article-figure img[src*="tela-informacoes"],
 .article-content .article-figure img[src*="tela-aquecendo"],
