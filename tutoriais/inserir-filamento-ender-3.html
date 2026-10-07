@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tutorial para aquecer a Ender 3, inserir filamento no guia e confirmar a saída pelo bico.">
+  <title>Inserir filamento na Ender 3 — Fundamentos de Prototipagem e Fabricação Digital</title>
+  <link rel="stylesheet" href="../styles.css?v=24">
+  <script defer src="../scripts/ender3-display.mjs?v=5"></script>
+</head>
+<body>
+  <main>
+    <header class="article-hero"><div class="shell"><p class="eyebrow">Tutorial · Impressora 3D</p><h1>Inserir filamento na Ender 3</h1><p>Aqueça o bico, libere a extrusora e conduza o filamento até o hotend.</p></div></header>
+    <div class="article-layout shell">
+      <aside class="article-aside"><a href="../index.html#lista-tutoriais">← Voltar aos tutoriais</a><p><strong>Neste tutorial</strong></p><p><a href="#conceitos">Conceitos essenciais</a><br><a href="#ligar">Ligar a Ender 3</a><br><a href="#aquecer">Aquecer até 180 °C</a><br><a href="#inserir">Inserir o filamento</a><br><a href="#confirmar">Confirmar no bico</a><br><a href="#checklist">Checklist</a></p></aside>
+      <article class="article-content">
+        <div class="tutorial-safety"><strong>O bico precisa estar aquecido</strong>Não force o filamento com o bico frio. Durante o procedimento, não toque no bico nem na mesa.</div>
+
+        <h2 id="conceitos">Conceitos essenciais</h2>
+        <div class="tutorial-concepts">
+          <div><b>Filamento</b><p>Material termoplástico fornecido em carretel. Ao aquecer, ele amolece e pode ser empurrado pelo bico.</p></div>
+          <div><b>Extrusora</b><p>Mecanismo que prende e movimenta o filamento. A trava libera manualmente a passagem.</p></div>
+          <div><b>Guia</b><p>Tubo que conduz o filamento da extrusora até o hotend sem deixá-lo escapar do caminho.</p></div>
+          <div><b>Hotend e bico</b><p>Conjunto que aquece o filamento e o deposita. A saída de material confirma que o caminho foi percorrido.</p></div>
+        </div>
+
+        <h2 id="ligar">1. Ligue a Ender 3</h2>
+        <p>Localize o interruptor na lateral direita e pressione o lado marcado com <strong>I</strong>.</p>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/lateral-interruptor.jpeg" alt="Lateral da Ender 3 com o interruptor destacado"><figcaption>Posição do interruptor na lateral.</figcaption></figure>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/interruptor-energia.jpeg" alt="Interruptor da Ender 3 em detalhe"><figcaption>Pressione <strong>I</strong> para ligar.</figcaption></figure>
+        <p>Aguarde a tela inicial e pressione o encoder para entrar no menu.</p>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/encoder-painel.jpeg" alt="Encoder da Ender 3 destacado em amarelo"><figcaption>Gire para navegar e pressione para selecionar.</figcaption></figure>
+
+        <h2 id="aquecer">2. Aqueça o bico e a mesa</h2>
+        <p>Gire até <strong>Temperatura</strong>, pressione o encoder e selecione <strong>Pre-aquecer PLA</strong>. No submenu, confirme novamente <strong>Pre-aquecer PLA</strong>.</p>
+        <ender3-display screen="main-menu-temperature"></ender3-display>
+        <ender3-display screen="temperature"></ender3-display>
+        <ender3-display screen="preheat-pla"></ender3-display>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/tela-aquecendo-melhorada.png" alt="Tela da Ender 3 durante o aquecimento"><figcaption>A Ender 3 mostra as temperaturas enquanto aquece.</figcaption></figure>
+        <p>Observe o indicador superior destacado e aguarde a temperatura atual do bico chegar a <strong>180 °C</strong>.</p>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/indicador-temperatura.png" alt="Indicador de temperatura do bico destacado em laranja"><figcaption>Não prossiga antes de o bico chegar a 180 °C.</figcaption></figure>
+
+        <h2 id="inserir">3. Insira o filamento</h2>
+        <p>Localize a extrusora, circulada em amarelo, e a trava marcada em vermelho.</p>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/extrusora-e-alavanca.jpeg" alt="Extrusora e trava da Ender 3 destacadas"><figcaption>Extrusora e trava de liberação.</figcaption></figure>
+        <p>Aperte a trava e mantenha-a pressionada.</p>
+        <figure class="article-figure tutorial-gif"><img src="../assets/images/tutoriais/ender-3/pressionar-alavanca.gif" alt="GIF mostrando a trava da extrusora sendo pressionada"><figcaption>Mantenha a trava apertada durante a inserção.</figcaption></figure>
+        <p>Com a trava pressionada, introduza a ponta pelo furo e empurre o filamento para dentro do guia.</p>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/entrada-filamento.jpeg" alt="Furo de entrada do filamento destacado"><figcaption>Entrada do filamento na extrusora.</figcaption></figure>
+
+        <h2 id="confirmar">4. Confirme a saída pelo bico</h2>
+        <p>Continue empurrando até uma pequena quantidade de material sair pelo bico. Depois, solte a trava. Não toque no material nem no bico quente.</p>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/bico-hotend.jpeg" alt="Bico da Ender 3 com a saída de filamento destacada"><figcaption>A saída confirma que o filamento chegou ao hotend.</figcaption></figure>
+
+        <h2 id="checklist">Checklist do procedimento</h2>
+        <ul class="task-checklist"><li><label><input type="checkbox"> Liguei a Ender 3.</label></li><li><label><input type="checkbox"> Abri o menu pelo encoder.</label></li><li><label><input type="checkbox"> Selecionei Pre-aquecer PLA.</label></li><li><label><input type="checkbox"> Confirmei que o bico chegou a 180 °C.</label></li><li><label><input type="checkbox"> Mantive a trava pressionada.</label></li><li><label><input type="checkbox"> Introduzi o filamento no furo e no guia.</label></li><li><label><input type="checkbox"> Confirmei a saída de material pelo bico.</label></li></ul>
+        <div class="article-pagination"><a href="../index.html#lista-tutoriais">← Tutoriais</a><a href="imprimir-ender-3.html">Como imprimir →</a></div>
+      </article>
+    </div>
+  </main>
+  <footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material de apoio pedagógico</p></div></footer>
+</body>
+</html>
