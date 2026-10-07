@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tutorial para aquecer a Ender 3, retirar o filamento com segurança e guardar o carretel protegido da umidade.">
+  <title>Remover e guardar o filamento da Ender 3 — Fundamentos de Prototipagem e Fabricação Digital</title>
+  <link rel="stylesheet" href="../styles.css?v=17">
+  <script defer src="../scripts/ender3-display.mjs?v=5"></script>
+</head>
+<body>
+  <main>
+    <header class="article-hero">
+      <div class="shell">
+        <p class="eyebrow">Tutorial · Impressora 3D</p>
+        <h1>Remover o filamento da Ender 3 e guardar</h1>
+        <p>Aqueça o bico antes da retirada, libere a extrusora e proteja o carretel da umidade.</p>
+      </div>
+    </header>
+
+    <div class="article-layout shell">
+      <aside class="article-aside">
+        <a href="../index.html#lista-tutoriais">← Voltar aos tutoriais</a>
+        <p><strong>Neste tutorial</strong></p>
+        <p><a href="#ligar">Ligar a Ender 3</a><br><a href="#aquecer">Aquecer antes de retirar</a><br><a href="#remover">Remover o filamento</a><br><a href="#carretel">Organizar o carretel</a><br><a href="#guardar">Guardar protegido</a><br><a href="#desligar">Resfriar e desligar</a></p>
+      </aside>
+
+      <article class="article-content">
+        <div class="tutorial-safety"><strong>Nunca puxe o filamento com o bico frio</strong>O material pode estar preso dentro do hotend. A retirada começa somente depois que o bico foi aquecido. Não toque no bico nem na mesa durante o procedimento.</div>
+
+        <h2 id="ligar">1. Ligue a Ender 3</h2>
+        <p>O interruptor fica na lateral direita da base. Observe primeiro a posição dele na visão ampla.</p>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/lateral-interruptor.jpeg" alt="Lateral direita da Ender 3 com o interruptor de energia destacado"><figcaption>O círculo verde mostra onde fica o interruptor.</figcaption></figure>
+        <p>Pressione o lado marcado com <strong>I</strong> para ligar a máquina.</p>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/interruptor-energia.jpeg" alt="Interruptor vermelho de energia da Ender 3 em detalhe"><figcaption>Interruptor usado para ligar a Ender 3.</figcaption></figure>
+        <p>Aguarde a tela inicial de informações aparecer.</p>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/tela-informacoes.jpeg" alt="Tela inicial de informações da Ender 3"><figcaption>Tela inicial da máquina.</figcaption></figure>
+
+        <h2 id="aquecer">2. Aqueça antes de retirar o filamento</h2>
+        <p>Pressione o encoder para abrir o menu. Gire até <strong>Temperatura</strong> e pressione novamente.</p>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/encoder-painel.jpeg" alt="Encoder do painel da Ender 3 destacado em amarelo"><figcaption>Gire para navegar e pressione para selecionar.</figcaption></figure>
+        <ender3-display screen="main-menu-temperature"></ender3-display>
+        <ender3-display screen="temperature"></ender3-display>
+
+        <p>Entre em <strong>Pre-aquecer PLA</strong>. No submenu, mantenha <strong>Pre-aquecer PLA</strong> selecionado e pressione o encoder. O bico e a mesa começarão a aquecer.</p>
+        <ender3-display screen="preheat-pla"></ender3-display>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/tela-aquecendo.jpeg" alt="Tela real da Ender 3 durante o pré-aquecimento PLA"><figcaption>Aguarde o bico atingir a temperatura antes de puxar o filamento.</figcaption></figure>
+
+        <h2 id="remover">3. Remova o filamento</h2>
+        <p>Localize a extrusora. Na fotografia, ela está circulada em amarelo; a trava que libera o filamento está marcada em vermelho.</p>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/extrusora-e-alavanca.jpeg" alt="Extrusora da Ender 3 circulada em amarelo e trava marcada em vermelho"><figcaption>Extrusora e trava de liberação do filamento.</figcaption></figure>
+
+        <ol class="tutorial-checklist">
+          <li>Com o bico aquecido, aperte completamente a trava da extrusora e mantenha-a pressionada.</li>
+          <li>Sem soltar a trava, empurre o filamento alguns milímetros para a frente, até sair um pouco de material pelo bico.</li>
+          <li>Continue pressionando a trava e puxe o filamento para trás com um movimento contínuo, retirando-o do guia.</li>
+          <li>Solte a trava somente depois que a ponta do filamento sair da extrusora.</li>
+        </ol>
+
+        <figure class="article-figure tutorial-gif"><img src="../assets/images/tutoriais/ender-3/pressionar-alavanca.gif" alt="GIF mostrando a trava da extrusora sendo pressionada"><figcaption>Mantenha a trava apertada durante a retirada.</figcaption></figure>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/bico-hotend.jpeg" alt="Bico aquecido da Ender 3 com a saída de filamento destacada"><figcaption>Com a trava pressionada, empurre levemente até o material sair pelo bico. Não toque nessa região.</figcaption></figure>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/entrada-filamento.jpeg" alt="Furo da extrusora por onde o filamento deve ser retirado"><figcaption>Puxe o filamento para fora pelo mesmo caminho de entrada.</figcaption></figure>
+
+        <div class="tutorial-safety"><strong>Se o filamento não sair</strong>Não use força excessiva. Confira se o bico já atingiu a temperatura de pré-aquecimento. Se continuar preso, interrompa o procedimento e peça ajuda ao responsável.</div>
+
+        <h2 id="carretel">4. Enrole e prenda o filamento no carretel</h2>
+        <ol class="tutorial-checklist">
+          <li>Segure a ponta para impedir que as voltas do carretel se soltem ou se cruzem.</li>
+          <li>Gire o carretel e recolha o filamento mantendo as voltas organizadas.</li>
+          <li>Introduza a ponta em um dos furos ou encaixes laterais do próprio carretel.</li>
+          <li>Confirme que a ponta está presa e que nenhuma volta ficou solta.</li>
+        </ol>
+        <blockquote><strong>Por que prender a ponta?</strong> Uma ponta solta pode passar por baixo de outra volta e formar um nó durante a próxima impressão.</blockquote>
+
+        <h2 id="guardar">5. Guarde o carretel protegido da umidade</h2>
+        <p>O filamento absorve umidade do ar. Depois de prendê-lo no carretel:</p>
+        <ul>
+          <li>coloque o carretel em um saco bem fechado ou recipiente com tampa;</li>
+          <li>adicione sílica dessecante em boas condições, sem contato com partes quentes;</li>
+          <li>identifique o material e a cor;</li>
+          <li>guarde em local seco, protegido do sol e de fontes de calor.</li>
+        </ul>
+        <p>Não deixe o carretel aberto sobre a máquina depois do uso.</p>
+
+        <h2 id="desligar">6. Aguarde o resfriamento e desligue</h2>
+        <p>Pressione o encoder, entre novamente em <strong>Temperatura</strong> e ajuste <strong>Bocal</strong> e <strong>Mesa</strong> para <strong>0</strong>. Isso encerra o pré-aquecimento. Volte à tela de informações e acompanhe a queda das temperaturas; não encoste para testar.</p>
+        <p>Quando o procedimento estiver concluído, as temperaturas estiverem caindo e a máquina não for mais usada, desligue-a pelo interruptor lateral. Mesmo desligadas, as partes podem continuar quentes por alguns minutos.</p>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/interruptor-energia.jpeg" alt="Interruptor lateral da Ender 3"><figcaption>Pressione o lado marcado com <strong>O</strong> para desligar.</figcaption></figure>
+
+        <h2>Resumo do processo</h2>
+        <ol class="tutorial-checklist"><li>Ligar a Ender 3.</li><li>Abrir <strong>Temperatura → Pre-aquecer PLA → Pre-aquecer PLA</strong>.</li><li>Aguardar o bico aquecer.</li><li>Apertar e manter pressionada a trava da extrusora.</li><li>Com a trava pressionada, empurrar levemente e depois puxar o filamento continuamente para trás.</li><li>Enrolar e prender a ponta no carretel.</li><li>Guardar o carretel fechado e protegido da umidade.</li><li>Ajustar bocal e mesa para 0, acompanhar o resfriamento e desligar a máquina.</li></ol>
+
+        <div class="article-pagination"><a href="imprimir-ender-3.html">← Como imprimir</a><a href="../index.html#lista-tutoriais">Voltar aos tutoriais →</a></div>
+      </article>
+    </div>
+  </main>
+  <footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material de apoio pedagógico</p></div></footer>
+</body>
+</html>

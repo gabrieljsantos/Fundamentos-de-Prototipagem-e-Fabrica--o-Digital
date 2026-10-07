@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tutorial para aquecer, colocar o filamento, selecionar o G-code e iniciar uma impressão na Ender 3.">
+  <title>Como imprimir na Ender 3 — Fundamentos de Prototipagem e Fabricação Digital</title>
+  <link rel="stylesheet" href="../styles.css?v=17">
+  <script defer src="../scripts/ender3-display.mjs?v=5"></script>
+</head>
+<body>
+  <main>
+    <header class="article-hero">
+      <div class="shell">
+        <p class="eyebrow">Tutorial · Impressora 3D</p>
+        <h1>Colocar algo para imprimir na Ender 3</h1>
+        <p>Ligue a máquina, aqueça o bico e a mesa, coloque o filamento e selecione o arquivo G-code.</p>
+      </div>
+    </header>
+
+    <div class="article-layout shell">
+      <aside class="article-aside">
+        <a href="../index.html#lista-tutoriais">← Voltar aos tutoriais</a>
+        <p><strong>Neste tutorial</strong></p>
+        <p><a href="#ligar">Ligar a Ender 3</a><br><a href="#painel">Abrir o menu</a><br><a href="#aquecer">Aquecer a máquina</a><br><a href="#filamento">Colocar o filamento</a><br><a href="#selecionar">Selecionar o arquivo</a><br><a href="#confirmar">Confirmar a impressão</a><br><a href="#acompanhar">Acompanhar o início</a></p>
+      </aside>
+
+      <article class="article-content">
+        <div class="tutorial-safety"><strong>Atenção: partes quentes e partes móveis</strong>O bico e a mesa aquecem. Não toque neles e não coloque as mãos na área de movimento durante a impressão. Use um cartão SD com um arquivo <code>.gcode</code> preparado para esta Ender 3.</div>
+
+        <h2 id="ligar">1. Ligue a Ender 3</h2>
+        <p>O interruptor fica na lateral direita da base. Primeiro, observe a posição dele na visão ampla da impressora.</p>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/lateral-interruptor.jpeg" alt="Lateral direita da Ender 3 com o interruptor de energia destacado"><figcaption>O círculo verde mostra onde fica o interruptor.</figcaption></figure>
+        <p>Veja agora o interruptor de perto. Pressione o lado marcado com <strong>I</strong> para ligar.</p>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/interruptor-energia.jpeg" alt="Interruptor vermelho de energia da Ender 3 em detalhe"><figcaption>Interruptor usado para ligar a Ender 3.</figcaption></figure>
+        <p>Aguarde a inicialização. Quando a máquina estiver pronta, ela mostrará a tela de informações fotografada abaixo.</p>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/tela-informacoes.jpeg" alt="Tela de informações da Ender 3 após a inicialização"><figcaption>Tela de informações mostrada após ligar a impressora.</figcaption></figure>
+
+        <h2 id="painel">2. Pressione o encoder para abrir o menu</h2>
+        <p>O botão redondo do painel é o <strong>encoder</strong>. Pressione-o uma vez para sair da tela de informações e entrar no menu.</p>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/encoder-painel.jpeg" alt="Encoder rotativo do painel da Ender 3 destacado por um círculo amarelo"><figcaption>O círculo amarelo indica o encoder.</figcaption></figure>
+        <p>No menu, <strong>gire o encoder</strong> para navegar. Quando a opção desejada estiver destacada, <strong>pressione o encoder</strong> para selecioná-la.</p>
+        <ender3-display screen="main-menu"></ender3-display>
+
+        <h2 id="aquecer">3. Aqueça a Ender 3</h2>
+        <p>Antes de colocar o filamento, aqueça o bico e a mesa. No menu principal, gire o encoder até <strong>Temperatura</strong> e pressione.</p>
+        <ender3-display screen="main-menu-temperature"></ender3-display>
+        <ender3-display screen="temperature"></ender3-display>
+        <p>Selecione <strong>Pre-aquecer PLA</strong>. No submenu seguinte, mantenha <strong>Pre-aquecer PLA</strong> selecionado e pressione o encoder. Essa opção aquece o bico e a mesa.</p>
+        <ender3-display screen="preheat-pla"></ender3-display>
+        <p>Depois da confirmação, a tela de informações mostra que a Ender 3 está aquecendo. Aguarde as temperaturas subirem antes de colocar o filamento.</p>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/tela-aquecendo.jpeg" alt="Tela real da Ender 3 durante o pré-aquecimento PLA"><figcaption>Tela de informações durante o pré-aquecimento do bico e da mesa.</figcaption></figure>
+        <div class="tutorial-safety"><strong>Aguarde o aquecimento</strong>Não empurre o filamento com o bico frio. Depois do pré-aquecimento, o bico estará quente e não poderá ser tocado.</div>
+
+        <h2 id="filamento">4. Coloque o filamento</h2>
+        <p>A extrusora fica na parte superior esquerda da máquina. Na fotografia, o conjunto está circulado em amarelo e a trava que libera o filamento está marcada em vermelho.</p>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/extrusora-e-alavanca.jpeg" alt="Extrusora da Ender 3 circulada em amarelo e trava marcada em vermelho"><figcaption>Localização da extrusora e da trava.</figcaption></figure>
+        <p>O GIF mostra como apertar a trava. Mantenha-a pressionada enquanto introduz o filamento.</p>
+        <figure class="article-figure tutorial-gif"><img src="../assets/images/tutoriais/ender-3/pressionar-alavanca.gif" alt="GIF demonstrando a trava da extrusora da Ender 3 sendo pressionada"><figcaption>Aperte e mantenha pressionada a trava da extrusora.</figcaption></figure>
+        <p>Com a trava pressionada, coloque a ponta do filamento no furo mostrado abaixo. Empurre o filamento até ele entrar no guia e seguir em direção ao hotend.</p>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/entrada-filamento.jpeg" alt="Furo de entrada do filamento na extrusora da Ender 3 circulado em amarelo"><figcaption>Insira o filamento nesse furo e conduza-o para dentro do guia.</figcaption></figure>
+        <p>Continue avançando o filamento até uma pequena quantidade de material sair pelo bico aquecido. Isso confirma que ele percorreu todo o guia.</p>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/bico-hotend.jpeg" alt="Bico do hotend da Ender 3 com a saída de filamento destacada"><figcaption>O filamento deve sair pelo ponto circulado. Não toque no bico.</figcaption></figure>
+
+        <h2 id="selecionar">5. Selecione o arquivo G-code</h2>
+        <p>Depois de inserir o filamento, a Ender 3 estará novamente na tela inicial de informações. <strong>Pressione o encoder para entrar no menu principal.</strong></p>
+        <p>Dentro do menu, gire o encoder até <strong>Select from SD Card</strong> e pressione-o novamente para abrir a lista de arquivos.</p>
+        <ender3-display screen="main-menu-sd"></ender3-display>
+        <p>A lista mostra os arquivos <code>.gcode</code> do cartão. <code>nome_do_arquivo.gcode</code> e <code>nome_do_arquivo_2.gcode</code> representam arquivos genéricos; os demais são exemplos encontrados no material da máquina.</p>
+        <ender3-display screen="sd-browser"></ender3-display>
+        <p>Gire o encoder até destacar o arquivo correto. Confira o nome e pressione o encoder para selecioná-lo.</p>
+
+        <h2 id="confirmar">6. Mova a seleção para “Imprimir”</h2>
+        <p>A caixa começa com <strong>Cancelar</strong> selecionado. Gire o encoder para mover a seleção para o lado, até <strong>Imprimir</strong> ficar destacado. Depois, pressione o encoder para confirmar.</p>
+        <ender3-display screen="print-confirmation"></ender3-display>
+        <div class="tutorial-safety"><strong>Não remova o cartão SD durante a impressão</strong>A Ender 3 lê o G-code durante o trabalho. Retirar o cartão pode interromper a impressão.</div>
+
+        <h2 id="acompanhar">7. Acompanhe o aquecimento e a primeira camada</h2>
+        <p>Depois da confirmação, a tela de informações mostra as temperaturas e o estado de aquecimento. Aguarde a Ender 3 atingir os valores definidos no G-code.</p>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/tela-aquecendo.jpeg" alt="Tela real da Ender 3 durante o aquecimento para iniciar uma impressão"><figcaption>Tela de informações durante o aquecimento.</figcaption></figure>
+        <p>Quando as temperaturas forem atingidas, a Ender 3 fará os movimentos iniciais e começará a depositar o filamento. Observe sem tocar na máquina.</p>
+        <h3>Observe a primeira camada</h3>
+        <ul><li>o filamento deve aderir à mesa;</li><li>as linhas devem ser contínuas;</li><li>o material não deve acompanhar o bico;</li><li>o bico não deve raspar a superfície.</li></ul>
+
+        <h2>Resumo do processo</h2>
+        <ol class="tutorial-checklist"><li>Ligar a Ender 3 e aguardar a tela de informações.</li><li>Pressionar o encoder para abrir o menu.</li><li>Selecionar <strong>Temperatura → Pre-aquecer PLA → Pre-aquecer PLA</strong>.</li><li>Apertar a trava da extrusora e inserir o filamento no guia.</li><li>Confirmar que o filamento sai pelo bico aquecido.</li><li>Abrir <strong>Select from SD Card</strong> e selecionar o G-code.</li><li>Mover a seleção para <strong>Imprimir</strong> e pressionar o encoder.</li><li>Acompanhar o aquecimento e observar a primeira camada.</li></ol>
+
+        <div class="article-pagination"><a href="../index.html#lista-tutoriais">← Tutoriais</a><span>Próximo: remover a impressão</span></div>
+      </article>
+    </div>
+  </main>
+  <footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material de apoio pedagógico</p></div></footer>
+</body>
+</html>

@@ -88,6 +88,37 @@ p { margin-top: 0; }
 .project small { color: var(--muted); font-size: .72rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
 .project h3 { margin: 18px 0 4px; font-family: inherit; font-size: 1.02rem; font-weight: 650; }
 .project p { margin: 0; color: var(--muted); font-size: .9rem; }
+.tutorials-index { background: var(--bg); }
+.tutorial-card h3 { margin-top: 0; }
+.tutorial-card:not(a) { cursor: default; }
+
+/* Visor reutilizável da Ender 3 */
+ender3-display { display: block; max-width: 520px; margin: 1.5rem auto; }
+.ender3-panel { margin: 0; padding: 22px 22px 14px; background: #171b1d; border: 1px solid #30383d; border-radius: 10px; box-shadow: 0 15px 35px rgba(0,0,0,.18); }
+.ender3-screen { min-height: 250px; padding: 18px; overflow: hidden; color: #d7ecff; background: #0645b5; border: 7px solid #07090a; border-radius: 3px; box-shadow: inset 0 0 28px rgba(91,192,255,.5); font: 600 .94rem/1.35 "Courier New", monospace; text-shadow: 0 0 5px rgba(210,240,255,.72); }
+.ender3-screen__heading { display: block; margin-bottom: 9px; font-size: 1rem; }
+.ender3-screen__message { min-height: 72px; margin: 24px 0 10px; overflow-wrap: anywhere; }
+.ender3-menu { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; }
+.ender3-menu li { display: flex; justify-content: space-between; gap: 12px; padding: 2px 7px; overflow-wrap: anywhere; }
+.ender3-menu li b { flex: 0 0 auto; font: inherit; }
+.ender3-menu li.is-selected { color: #063784; background: #d7ecff; text-shadow: none; }
+.ender3-menu li.is-parent { border-bottom: 1px solid rgba(215,236,255,.72); }
+.ender3-actions { display: flex; justify-content: space-between; gap: 14px; margin-top: 28px; }
+.ender3-actions span { padding: 4px 8px; border: 1px solid currentColor; }
+.ender3-actions .is-selected { color: #063784; background: #d7ecff; text-shadow: none; }
+.ender3-status { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 18px; margin: 10px 0 0; }
+.ender3-status div { border-bottom: 1px dotted rgba(215,236,255,.45); }
+.ender3-status dt, .ender3-status dd { display: inline; margin: 0; }
+.ender3-status dt::after { content: ": "; }
+.tutorial-checklist { padding-left: 0; list-style: none; counter-reset: tutorial-step; }
+.tutorial-checklist > li { position: relative; min-height: 38px; margin: 10px 0; padding: 8px 12px 8px 48px; background: var(--surface); border-left: 3px solid var(--accent); counter-increment: tutorial-step; }
+.tutorial-checklist > li::before { content: counter(tutorial-step); position: absolute; top: 7px; left: 10px; display: grid; width: 27px; height: 27px; place-items: center; color: #213207; background: var(--accent); border-radius: 50%; font-size: .76rem; font-weight: 800; }
+.tutorial-safety { margin: 1.5rem 0; padding: 16px 18px; color: #402e00; background: #fff4ce; border: 1px solid #e0c96d; border-radius: 4px; }
+.tutorial-safety strong { display: block; margin-bottom: 4px; }
+.tutorial-next { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 1.5rem 0; }
+.tutorial-next > div { padding: 15px; background: var(--surface); border: 1px solid var(--border-soft); border-radius: 4px; }
+.tutorial-next b { display: block; margin-bottom: 4px; }
+.article-figure.tutorial-gif img { width: auto; max-width: min(100%, 320px); margin-inline: auto; image-rendering: auto; }
 .questions { display: grid; grid-template-columns: 1fr 1fr; gap: 0 45px; margin: 0; padding: 0; counter-reset: question; }
 .questions li { position: relative; padding: 15px 0 15px 42px; border-top: 1px solid var(--border-soft); list-style: none; counter-increment: question; }
 .questions li::before { content: counter(question); position: absolute; top: 15px; left: 0; width: 25px; height: 25px; display: grid; place-items: center; color: var(--muted); border: 1px solid var(--border); border-radius: 50%; font-size: .75rem; font-weight: 700; }
@@ -97,7 +128,7 @@ p { margin-top: 0; }
 .home-page .activity-back { display: none; }
 .activities-index { background: #f2f5f6; }
 .activity-content-frame { display: block; width: 100%; height: 2020px; margin: 22px 0 0; border: 1px solid var(--border-soft); border-radius: 4px; }
-.activity-view .hero, .activity-view .safety, .activity-view #conteudos, .activity-view #projetos, .activity-view #lista-atividades, .activity-view main > .section:not(.activity-section), .activity-view .todo-link, .activity-view .footer { display: none; }
+.activity-view .hero, .activity-view .safety, .activity-view #conteudos, .activity-view #projetos, .activity-view #lista-tutoriais, .activity-view #lista-atividades, .activity-view main > .section:not(.activity-section), .activity-view .todo-link, .activity-view .footer { display: none; }
 .activity-view .activity-section { display: block; min-height: 100vh; padding: 0 0 56px; color: var(--text); background: var(--bg); border-top: 0; }
 .activity-view .section-tabs, .activity-view .activity-heading, .activity-view .activity-index { display: none; }
 .activity-view .activity-back { display: inline-block; margin: 22px 0 18px; color: var(--link); font-size: .84rem; font-weight: 650; }
