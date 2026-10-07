@@ -6,9 +6,9 @@
   <meta name="description" content="Material de apoio sobre eletrônica, Arduino, prototipagem e fabricação digital.">
   <title>Fundamentos de Prototipagem e Fabricação Digital</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%2311110f'/%3E%3Cpath d='M18 32h10m8 0h10M28 22v20m8-20v20' stroke='%23b9f227' stroke-width='5'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=7">
+  <link rel="stylesheet" href="styles.css?v=11">
 </head>
-<body>
+<body class="home-page">
   <main>
     <section class="hero">
       <div class="hero__grid shell">
@@ -55,6 +55,7 @@
               <li><a href="conteudos/02b-ide-usb-drivers.html"><b>IDE, USB e bibliotecas</b><br><span>Sketch, compilação, upload, drivers, pacotes de placa, bibliotecas, exemplos e Monitor Serial</span></a></li>
               <li><a href="conteudos/02c-gpio-digital.html"><b>GPIO e sinais digitais</b><br><span>Entrada, saída, níveis lógicos, pull-up e pull-down · com diagrama e blocos</span></a></li>
               <li><a href="conteudos/02d-sinais-comunicacao.html"><b>Sinais e comunicação</b><br><span>ADC, PWM, duty cycle, I²C, SPI e UART</span></a></li>
+              <li><a href="atividades/primeiro-contato.html"><b>Arduino IDE, ESP32 e Comunicação Serial</b><br><span>Configuração, testes, erros de compilação, Monitor Serial e Tinkercad</span></a></li>
               <li><b>Interrupções</b><br><span>Eventos externos, temporização e cuidados com rotinas rápidas</span></li>
               <li><b>Timers e tarefas</b><br><span>Millis, temporizadores, multitarefa e temporização sem bloquear</span></li>
               <li><b>Debounce por software</b><br><span>Filtragem de botões, estados estáveis e máquinas de estado</span></li>
@@ -219,6 +220,15 @@
       </div>
     </section>
 
+    <section class="section activities-index" id="lista-atividades">
+      <div class="shell">
+        <div class="section__head"><p class="eyebrow">Prática guiada</p><div><h2>Atividades</h2><p class="section__intro">Exercícios completos para aplicar os conteúdos em etapas, com simulações e desafios.</p></div></div>
+        <div class="project-grid">
+          <a class="project" href="atividades/primeiro-contato.html"><small>Arduino Uno · ESP32 · Tinkercad</small><h3>Arduino IDE, ESP32 e Comunicação Serial</h3><p>Configuração, testes, erros de compilação e Monitor Serial</p></a>
+        </div>
+      </div>
+    </section>
+
     <section class="section">
       <div class="shell">
         <div class="section__head"><p class="eyebrow">Antes de conectar</p><div><h2>Perguntas fundamentais</h2></div></div>
@@ -228,6 +238,139 @@
           <li>O sinal é digital, analógico, PWM, I²C, SPI ou UART?</li><li>Preciso de resistor, divisor, transistor, driver, diodo ou fonte externa?</li>
           <li>Os dispositivos precisam compartilhar GND?</li><li>Qual bloco representa a ação e qual código ele gera?</li>
         </ol>
+      </div>
+    </section>
+
+    <section class="activity-section" id="atividades" aria-labelledby="activities-title">
+      <div class="shell">
+        <a class="activity-back" href="index.html#lista-atividades" target="_top">← Voltar para atividades</a>
+        <div class="section-tabs" role="tablist" aria-label="Navegação principal do material">
+          <a href="#conteudos" role="tab" aria-selected="false">Conteúdos</a>
+          <a href="#atividades" class="is-active" role="tab" aria-selected="true">Atividades <span>1</span></a>
+        </div>
+        <div class="activity-heading">
+          <div>
+            <p class="eyebrow">Aprender fazendo</p>
+            <h2 id="activities-title">Atividades práticas</h2>
+          </div>
+          <p>Um percurso guiado para sair da instalação, testar em placas reais, investigar erros e comparar o resultado com uma simulação.</p>
+        </div>
+
+        <div class="activity-index" aria-label="Índice de atividades">
+          <a class="activity-card is-active" href="#atividade-primeiro-contato"><span>Prática guiada</span><b>Arduino IDE, ESP32 e Comunicação Serial</b><small>Arduino Uno · erros · Monitor Serial · Tinkercad</small></a>
+          <div class="activity-card activity-card--future"><span>Próximas atividades</span><b>Novas práticas serão adicionadas aqui</b><small>A aba cresce com a disciplina</small></div>
+        </div>
+
+        <article class="activity" id="atividade-primeiro-contato">
+          <header class="activity__header">
+            <div>
+              <p class="activity__kicker">Arduino Uno + ESP32 + Tinkercad</p>
+              <h3>Arduino IDE, ESP32 e Comunicação Serial</h3>
+              <p>Configure o ambiente, execute um sketch correto, provoque um erro e percorra o ciclo de diagnóstico até a correção.</p>
+            </div>
+            <div class="activity__meta"><span>8 etapas</span><span>~90 min</span><span>dupla</span></div>
+          </header>
+
+          <div class="learning-loop" aria-label="Ciclo da atividade">
+            <span>Instalar</span><i>→</i><span>Configurar</span><i>→</i><span>Testar</span><i>→</i><span>Errar</span><i>→</i><span>Interpretar</span><i>→</i><span>Corrigir</span><i>→</i><span>Comparar</span>
+          </div>
+
+          <div class="activity-workspace">
+            <nav class="activity-steps" aria-label="Etapas da atividade">
+              <button class="activity-step is-active" type="button" data-step="1"><span>01</span><b>Instalar a IDE</b><small>Preparar o ambiente</small></button>
+              <button class="activity-step" type="button" data-step="2"><span>02</span><b>Configurar o Uno</b><small>Placa e porta</small></button>
+              <button class="activity-step" type="button" data-step="3"><span>03</span><b>Programa correto</b><small>Compilar e enviar</small></button>
+              <button class="activity-step" type="button" data-step="4"><span>04</span><b>Encontrar o erro</b><small>Ler o console</small></button>
+              <button class="activity-step" type="button" data-step="5"><span>05</span><b>Depurar com IA</b><small>Código + mensagem</small></button>
+              <button class="activity-step" type="button" data-step="6"><span>06</span><b>Configurar ESP32</b><small>Pacote e placa</small></button>
+              <button class="activity-step" type="button" data-step="7"><span>07</span><b>Erro no ESP32</b><small>Corrigir e testar</small></button>
+              <button class="activity-step" type="button" data-step="8"><span>08</span><b>Tinkercad</b><small>Simular e comparar</small></button>
+            </nav>
+
+            <div class="activity-stage">
+              <div class="stage-copy" aria-live="polite">
+              <p class="stage-label" id="stage-label">Instalação e ambiente</p>
+                <h4 id="stage-title">Instale e abra o Arduino IDE</h4>
+                <p id="stage-description">Baixe pelo site oficial, conclua a instalação e confirme que a janela do editor abre corretamente.</p>
+                <ol id="stage-checklist">
+                  <li>Acesse o site oficial do Arduino.</li>
+                  <li>Baixe e instale o Arduino IDE.</li>
+                  <li>Abra o programa e localize editor, console e seletor de placa.</li>
+                </ol>
+                <div class="stage-tip" id="stage-tip"><b>Registre:</b> versão instalada e sistema operacional.</div>
+              </div>
+
+              <div class="app-simulation" id="arduino-simulation">
+                <div class="ide-menubar"><b>Arduino IDE</b><span>Arquivo</span><span>Editar</span><span>Sketch</span><span>Ferramentas</span><span>Ajuda</span></div>
+                <div class="ide-toolbar">
+                  <button type="button" class="ide-icon" id="verify-code" title="Verificar código" aria-label="Verificar código">✓</button>
+                  <button type="button" class="ide-icon" id="upload-code" title="Fazer upload" aria-label="Fazer upload">→</button>
+                  <span class="ide-board" id="ide-board">Arduino Uno · COM3</span>
+                  <button type="button" class="ide-serial-button" id="toggle-serial">Monitor Serial</button>
+                </div>
+                <div class="ide-tabs" role="tablist" aria-label="Arquivos do sketch"><button class="ide-tab is-active" type="button" role="tab">primeiro_contato.ino</button><button class="ide-tab" type="button" role="tab">config.h</button><button class="ide-tab-add" type="button" aria-label="Nova aba">+</button></div>
+                <div class="ide-editor"><pre id="code-editor"><code><span class="ln">1</span><span class="kw">const int</span> led = LED_BUILTIN;
+<span class="ln">2</span>
+<span class="ln">3</span><span class="kw">void</span> <span class="fn">setup</span>() {
+<span class="ln">4</span>  <span class="fn">pinMode</span>(led, OUTPUT);
+<span class="ln">5</span>  Serial.<span class="fn">begin</span>(9600);
+<span class="ln">6</span>}
+<span class="ln">7</span>
+<span class="ln">8</span><span class="kw">void</span> <span class="fn">loop</span>() {
+<span class="ln">9</span>  <span class="fn">digitalWrite</span>(led, HIGH);
+<span class="ln">10</span>  Serial.<span class="fn">println</span>(<span class="str">"LED ligado"</span>);
+<span class="ln">11</span>  <span class="fn">delay</span>(1000);
+<span class="ln">12</span>  <span class="fn">digitalWrite</span>(led, LOW);
+<span class="ln">13</span>  <span class="fn">delay</span>(1000);
+<span class="ln">14</span>}</code></pre></div>
+                <div class="ide-console" id="ide-console"><div><span>Saída</span><button type="button" id="clear-console">Limpar</button></div><pre id="console-output">IDE pronta. Selecione uma etapa ou clique em ✓ para verificar.</pre></div>
+                <div class="serial-monitor" id="serial-monitor" hidden><div><b>Monitor Serial</b><button type="button" id="close-serial" aria-label="Fechar Monitor Serial">×</button></div><pre>LED ligado
+LED ligado
+LED ligado</pre><span>9600 baud</span></div>
+                <div class="ide-status"><span id="ide-status">Arduino Uno</span><span>COM3 · 9600 baud</span></div>
+              </div>
+
+              <div class="tinkercad-simulation" id="tinkercad-simulation" hidden>
+                <div class="tink-header"><b>TINKERCAD</b><span>Circuitos › Primeiro contato</span><button type="button" id="start-simulation">Iniciar simulação</button></div>
+                <div class="tink-tools"><button type="button">Código</button><button type="button" class="is-selected">Componentes</button><button type="button">Monitor Serial</button></div>
+                <div class="circuit-canvas">
+                  <div class="breadboard" aria-label="Protoboard"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                  <div class="arduino-board" aria-label="Arduino Uno virtual"><strong>ARDUINO</strong><small>UNO</small><div class="board-chip"></div><div class="board-usb"></div><div class="board-led" id="virtual-led"></div></div>
+                  <svg class="circuit-wires" viewBox="0 0 700 340" aria-hidden="true"><path d="M260 105 C350 60,390 80,462 118"/><path d="M260 235 C350 285,405 260,462 220"/><path class="wire-signal" d="M270 150 C355 125,410 145,473 175"/></svg>
+                  <div class="tink-serial"><b>Monitor Serial</b><pre id="tink-output">Simulação parada.</pre></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="activity-support">
+            <div class="video-support">
+              <div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/sfCCq2YTOO8" title="Vídeo de apoio para a atividade de Arduino" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+              <div><p class="eyebrow">Vídeo de apoio</p><h4>Acompanhe a demonstração</h4><p>Use o vídeo como referência durante a instalação, configuração e primeiros testes.</p><a href="https://www.youtube.com/watch?v=sfCCq2YTOO8" target="_blank" rel="noopener">Abrir no YouTube ↗</a></div>
+            </div>
+            <div class="debug-prompt">
+              <p class="eyebrow">Prompt de depuração</p>
+              <blockquote>Estou programando um <b>[Arduino Uno / ESP32]</b>. Este é o meu código: <b>[cole o código]</b>. Este foi o erro apresentado pela Arduino IDE: <b>[cole o erro]</b>. Identifique o problema e explique como posso corrigi-lo.</blockquote>
+              <button type="button" id="copy-prompt">Copiar modelo</button><span id="copy-feedback" aria-live="polite"></span>
+            </div>
+          </div>
+
+          <div class="final-challenge">
+            <div><p class="eyebrow">Desafio final</p><h4>Explique com suas palavras</h4><p>Responda depois de concluir as oito etapas. Clique em cada pergunta para revelar uma pista.</p></div>
+            <div class="challenge-grid">
+              <details><summary>1. Para que serve a Arduino IDE?</summary><p>Pense no caminho entre escrever o código e gravá-lo na placa.</p></details>
+              <details><summary>2. Compilar e fazer upload são iguais?</summary><p>Um traduz e verifica; o outro transfere o programa.</p></details>
+              <details><summary>3. O que é uma porta serial?</summary><p>É o canal de comunicação identificado pelo computador.</p></details>
+              <details><summary>4. Para que serve o Monitor Serial?</summary><p>Observe as mensagens que o microcontrolador envia.</p></details>
+              <details><summary>5. O que aparece quando há erro?</summary><p>Leia arquivo, linha, contexto e descrição no console.</p></details>
+              <details><summary>6. A mensagem basta para achar o problema?</summary><p>Ela é uma pista: relacione-a ao código e ao contexto.</p></details>
+              <details><summary>7. Simulação e placa física são iguais?</summary><p>Compare componentes ideais com conexão, energia e ruído reais.</p></details>
+              <details><summary>8. Como a IA pode ajudar?</summary><p>Ela explica pistas; você ainda precisa verificar a correção.</p></details>
+            </div>
+          </div>
+
+          <footer class="activity-deliverable"><b>Produto da atividade</b><span>2 programas corretos</span><span>2 erros corrigidos</span><span>Uno + ESP32</span><span>Serial na IDE + Tinkercad</span></footer>
+        </article>
       </div>
     </section>
   </main>

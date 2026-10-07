@@ -12,5 +12,6 @@ for (const file of ["index.html", "styles.css", "relatorio.html"]) {
 }
 
 await cp(path.join(root, "conteudos"), path.join(output, "conteudos"), { recursive: true });
+await cp(path.join(root, "atividades"), path.join(output, "atividades"), { recursive: true });
 await cp(path.join(root, "assets"), path.join(output, "assets"), { recursive: true });
 console.log("Site da raiz copiado para dist/ para publicação.");

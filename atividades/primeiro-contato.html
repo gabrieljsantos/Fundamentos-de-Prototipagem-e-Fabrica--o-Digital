@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Prática guiada de Arduino IDE, Arduino Uno, ESP32 e comunicação serial."><title>Arduino IDE, ESP32 e Comunicação Serial — Fundamentos de Prototipagem e Fabricação Digital</title><link rel="stylesheet" href="../styles.css?v=12"></head>
+<body><main>
+<header class="article-hero"><div class="shell"><p class="eyebrow">Prática guiada · Arduino Uno · ESP32</p><h1>Arduino IDE, ESP32 e Comunicação Serial</h1><p>Instale o ambiente, selecione a placa, verifique códigos e use as mensagens da IDE para investigar erros.</p></div></header>
+<div class="article-layout shell">
+<aside class="article-aside"><a href="../index.html#lista-atividades">← Voltar às atividades</a><p><strong>Nesta prática</strong></p><p><a href="#conceitos-de-apoio">Conceitos de apoio</a><br><a href="#instalacao">Instalação</a><br><a href="#interface">Interface</a><br><a href="#arduino-uno">Arduino Uno</a><br><a href="#investigar-erros">Investigar erros</a><br><a href="#esp32">ESP32</a><br><a href="#monitor-serial">Monitor Serial</a></p></aside>
+<article class="article-content">
+<h2 id="conceitos-de-apoio">Conceitos de apoio</h2>
+<p>Antes ou durante a prática, consulte estes materiais quando precisar compreender um termo ou revisar a função de uma ferramenta.</p>
+<div class="support-index">
+  <a href="../conteudos/02b-ide-usb-drivers.html#sketch"><span>01</span><div><small>Programa</small><h3>Sketch, <code>setup()</code> e <code>loop()</code></h3><p>Estrutura básica de um programa para Arduino.</p></div><b>→</b></a>
+  <a href="../conteudos/02b-ide-usb-drivers.html#compilacao"><span>02</span><div><small>Verificação</small><h3>Compilação e mensagens de erro</h3><p>Como o código é traduzido e por que os erros aparecem.</p></div><b>→</b></a>
+  <a href="../conteudos/02b-ide-usb-drivers.html#upload"><span>03</span><div><small>Transferência</small><h3>Upload para a placa</h3><p>Diferença entre verificar e gravar o programa.</p></div><b>→</b></a>
+  <a href="../conteudos/02b-ide-usb-drivers.html#porta-serial"><span>04</span><div><small>Conexão</small><h3>USB, porta e driver</h3><p>Como o computador reconhece e se comunica com a placa.</p></div><b>→</b></a>
+  <a href="../conteudos/02b-ide-usb-drivers.html#pacote-de-placa"><span>05</span><div><small>Compatibilidade</small><h3>Pacote de placa</h3><p>Arquivos necessários para compilar e enviar códigos ao ESP32.</p></div><b>→</b></a>
+  <a href="../conteudos/02b-ide-usb-drivers.html#monitor-serial"><span>06</span><div><small>Diagnóstico</small><h3>Monitor Serial</h3><p>Envio de textos, valores e mensagens entre placa e computador.</p></div><b>→</b></a>
+</div>
+<h2 id="instalacao">Instale a Arduino IDE</h2>
+<p>A <strong>Arduino IDE</strong> é o programa usado para escrever, verificar e enviar códigos para placas como o Arduino Uno e o ESP32. Ela também apresenta mensagens de compilação e ferramentas de comunicação serial.</p>
+<div class="featured-link"><p>Baixe a versão adequada ao seu sistema operacional na página oficial. Depois, execute o instalador e conclua a instalação normalmente.</p><p><a href="https://www.arduino.cc/en/software" target="_blank" rel="noopener">Baixar Arduino IDE no site oficial ↗</a></p></div>
+
+<h2 id="interface">Conheça a interface</h2>
+<p>Ao abrir o programa, você verá a barra de ferramentas, o seletor de placa, o editor de código e o painel de saída. É nessa janela que todo o processo será realizado.</p>
+<figure class="article-figure"><img src="../assets/images/atividades/arduino-ide-esp32/visao-geral.png" alt="Visão geral da janela da Arduino IDE, com barra de ferramentas, editor e painel de saída"><figcaption>Visão geral da Arduino IDE.</figcaption></figure>
+
+<h2 id="arduino-uno">Selecione o Arduino Uno</h2>
+<p>Conecte o Arduino Uno ao computador com um cabo USB de dados. Na parte superior da IDE, clique no seletor de placas.</p>
+<figure class="article-figure"><img src="../assets/images/atividades/arduino-ide-esp32/seletor-placa.png" alt="Seta apontando para o seletor de placa da Arduino IDE"><figcaption>Clique em <strong>Select Board</strong> para escolher a placa.</figcaption></figure>
+<p>No menu que aparecer, escolha <strong>Select other board and port…</strong>.</p>
+<figure class="article-figure"><img src="../assets/images/atividades/arduino-ide-esp32/abrir-selecao.png" alt="Opção Select other board and port no menu da Arduino IDE"><figcaption>Abra a janela com todas as placas e portas disponíveis.</figcaption></figure>
+<p>Digite <code>uno</code> no campo de pesquisa, selecione <strong>Arduino UNO</strong> e confirme. Se uma porta estiver disponível, selecione também a porta correspondente à placa.</p>
+<figure class="article-figure"><img src="../assets/images/atividades/arduino-ide-esp32/selecionar-uno.png" alt="Pesquisa por Uno e opção Arduino UNO na janela de seleção"><figcaption>Pesquise por “uno” e selecione Arduino UNO.</figcaption></figure>
+
+<h2 id="primeiro-codigo">Verifique um código correto</h2>
+<p>Apague o conteúdo do editor, copie o código abaixo e cole na Arduino IDE. Este programa faz o LED integrado da placa piscar.</p>
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>const int pinoLed = LED_BUILTIN;
+
+void setup() {
+  pinMode(pinoLed, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(pinoLed, HIGH);
+  delay(1000);
+  digitalWrite(pinoLed, LOW);
+  delay(1000);
+}</code></pre>
+<figure class="article-figure"><img src="../assets/images/atividades/arduino-ide-esp32/editor-codigo.png" alt="Área do editor de código destacada na Arduino IDE"><figcaption>O código deve ser inserido na área central do editor.</figcaption></figure>
+<p>Clique no botão com o símbolo <strong>✓</strong>. Esse comando verifica a sintaxe e compila o programa, mas ainda não envia o código para a placa.</p>
+<figure class="article-figure"><img src="../assets/images/atividades/arduino-ide-esp32/botao-verificar.png" alt="Botão com símbolo de verificação na Arduino IDE"><figcaption>Use o botão ✓ para verificar o código.</figcaption></figure>
+<p>Quando a compilação termina corretamente, o painel de saída informa o uso de memória e não apresenta uma mensagem de erro.</p>
+<figure class="article-figure"><img src="../assets/images/atividades/arduino-ide-esp32/saida-correta.png" alt="Painel de saída da Arduino IDE após compilação correta"><figcaption>Exemplo de saída após uma verificação concluída.</figcaption></figure>
+
+<h2 id="investigar-erros">Provoque e investigue um erro</h2>
+<p>Agora copie o código abaixo. A variável <code>intervalo</code> deveria guardar um número, mas recebeu um texto. O erro é proposital.</p>
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>const int pinoLed = LED_BUILTIN;
+int intervalo = "mil";
+
+void setup() {
+  pinMode(pinoLed, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(pinoLed, HIGH);
+  delay(intervalo);
+  digitalWrite(pinoLed, LOW);
+  delay(intervalo);
+}</code></pre>
+<p>Clique em <strong>✓</strong>. A IDE deverá interromper a compilação e destacar o problema no painel de saída.</p>
+<figure class="article-figure"><img src="../assets/images/atividades/arduino-ide-esp32/saida-erro.png" alt="Painel de saída da Arduino IDE mostrando texto de erro em vermelho"><figcaption>A mensagem de erro indica onde o compilador encontrou um valor incompatível.</figcaption></figure>
+<blockquote><strong>Sua investigação:</strong> copie o código completo e a mensagem completa do painel de saída. Antes de alterar o programa, observe a linha indicada e tente explicar o problema com suas palavras.</blockquote>
+<p>Se ainda não conseguir corrigir, envie ao ChatGPT uma mensagem como esta:</p>
+<blockquote>Estou programando um Arduino Uno. Abaixo estão o meu código completo e a mensagem completa apresentada pela Arduino IDE. Identifique o problema, explique por que ele acontece e indique a menor correção possível.<br><br><strong>Código:</strong> [cole aqui]<br><strong>Mensagem de erro:</strong> [cole aqui]</blockquote>
+<p>Analise a explicação recebida, faça a correção e verifique novamente. Não aceite apenas um código pronto: registre qual era o erro e por que a mudança resolveu o problema.</p>
+
+<h2 id="esp32">Instale e selecione o ESP32</h2>
+<p>O suporte ao ESP32 precisa ser instalado na Arduino IDE. Abra o <strong>Gerenciador de Placas</strong>, pesquise por <code>esp32</code> e instale <strong>esp32 by Espressif Systems</strong>.</p>
+<figure class="article-figure"><img src="../assets/images/atividades/arduino-ide-esp32/instalar-esp32.png" alt="Gerenciador de placas da Arduino IDE com pesquisa por ESP32 e pacote da Espressif"><figcaption>Instale o pacote oficial “esp32 by Espressif Systems”.</figcaption></figure>
+<p>Depois da instalação, abra o menu de placas e selecione <strong>ESP32 WROOM-DA Module</strong>, conforme a placa usada nesta prática.</p>
+<figure class="article-figure"><img src="../assets/images/atividades/arduino-ide-esp32/selecionar-esp32.png" alt="Menu de placas da Arduino IDE com ESP32 WROOM-DA Module selecionado"><figcaption>Seleção da placa ESP32 WROOM-DA Module.</figcaption></figure>
+
+<h3>Código correto para o ESP32</h3>
+<p>Copie o programa, verifique e depois envie para a placa com o botão de upload.</p>
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>const int pinoLed = 2;
+
+void setup() {
+  pinMode(pinoLed, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(pinoLed, HIGH);
+  delay(500);
+  digitalWrite(pinoLed, LOW);
+  delay(500);
+}</code></pre>
+
+<h3>Erro proposital no ESP32</h3>
+<p>Neste segundo programa, a variável que deveria guardar o número do pino recebeu um texto.</p>
+<pre data-language="cpp"><button class="copy-code" type="button">Copiar</button><code>int pinoLed = "2";
+
+void setup() {
+  pinMode(pinoLed, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(pinoLed, HIGH);
+  delay(500);
+  digitalWrite(pinoLed, LOW);
+  delay(500);
+}</code></pre>
+<ol><li>Verifique o código.</li><li>Copie a mensagem completa apresentada pela IDE.</li><li>Tente localizar sozinho a linha e o valor incorreto.</li><li>Se necessário, envie o código e a mensagem ao ChatGPT.</li><li>Explique a correção antes de aplicá-la.</li><li>Verifique novamente e faça o upload para o ESP32.</li></ol>
+
+<h2 id="monitor-serial">Comunicação e Monitor Serial</h2>
+<p>O Monitor Serial permite acompanhar textos e valores enviados pela placa, sendo útil para verificar o funcionamento do programa e investigar problemas. Nesta prática, o estudo dessa ferramenta será feito com o vídeo de apoio.</p>
+<h3>Vídeos de apoio</h3>
+<p>Use o primeiro vídeo para acompanhar o Monitor Serial. Os demais são materiais complementares em português para rever a instalação, a configuração da IDE e o suporte ao ESP32.</p>
+<div class="component-grid">
+  <figure class="article-figure"><a href="https://www.youtube.com/watch?v=sfCCq2YTOO8" target="_blank" rel="noopener"><img src="https://img.youtube.com/vi/sfCCq2YTOO8/hqdefault.jpg" alt="Miniatura do vídeo Utilizando o Tinkercad — Variáveis e Monitor Serial"></a><figcaption><a href="https://www.youtube.com/watch?v=sfCCq2YTOO8" target="_blank" rel="noopener">Variáveis e Monitor Serial no Tinkercad ↗</a><br><small>Marcia Ferreira Cristaldo</small></figcaption></figure>
+  <figure class="article-figure"><a href="https://www.youtube.com/watch?v=RfHCgr7BZb4" target="_blank" rel="noopener"><img src="https://img.youtube.com/vi/RfHCgr7BZb4/hqdefault.jpg" alt="Miniatura de tutorial em português sobre instalação e configuração da Arduino IDE"></a><figcaption><a href="https://www.youtube.com/watch?v=RfHCgr7BZb4" target="_blank" rel="noopener">Instalar e configurar Arduino IDE do zero ↗</a><br><small>ES Developer</small></figcaption></figure>
+  <figure class="article-figure"><a href="https://www.youtube.com/watch?v=Ozr1SXwir9g" target="_blank" rel="noopener"><img src="https://img.youtube.com/vi/Ozr1SXwir9g/hqdefault.jpg" alt="Miniatura de tutorial em português sobre instalação do ESP32 na Arduino IDE"></a><figcaption><a href="https://www.youtube.com/watch?v=Ozr1SXwir9g" target="_blank" rel="noopener">Como instalar o ESP32 na Arduino IDE ↗</a><br><small>Lobo da Robótica</small></figcaption></figure>
+</div>
+<div class="featured-link"><p><strong>Depois de assistir:</strong> abra o Monitor Serial na sua IDE, confira a velocidade configurada e reproduza um exemplo que use <code>Serial.begin()</code> e <code>Serial.println()</code>.</p></div>
+<h3>Ao terminar, confirme se você consegue</h3>
+<ul><li>selecionar uma placa e uma porta na Arduino IDE;</li><li>diferenciar verificar o código de fazer upload;</li><li>localizar o painel de saída e reconhecer uma compilação com erro;</li><li>enviar ao ChatGPT o código e a mensagem completa, sem ocultar o contexto;</li><li>instalar o pacote do ESP32 e selecionar ESP32 WROOM-DA Module;</li><li>abrir o Monitor Serial e interpretar as mensagens enviadas pela placa.</li></ul>
+<div class="article-pagination"><a href="../index.html#lista-atividades">← Atividades</a><a href="../conteudos/02b-ide-usb-drivers.html">Aprofundar IDE, USB e bibliotecas →</a></div>
+</article></div></main>
+<footer class="footer"><div class="shell"><b>Fundamentos de Prototipagem e Fabricação Digital</b><p>Material de apoio pedagógico</p></div></footer>
+<script>
+document.addEventListener('click', async (event) => {
+  const button = event.target.closest('.copy-code');
+  if (!button) return;
+  const code = button.parentElement.querySelector('code');
+  try {
+    await navigator.clipboard.writeText(code.textContent);
+    button.textContent = 'Copiado';
+    window.setTimeout(() => { button.textContent = 'Copiar'; }, 1600);
+  } catch (error) {
+    button.textContent = 'Selecione o código';
+  }
+});
+</script></body></html>
