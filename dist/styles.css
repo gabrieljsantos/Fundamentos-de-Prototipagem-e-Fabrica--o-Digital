@@ -115,6 +115,8 @@ ender3-display { display: block; max-width: 360px; margin: 1.5rem auto; }
 .tutorial-checklist > li::before { content: counter(tutorial-step); position: absolute; top: 7px; left: 10px; display: grid; width: 27px; height: 27px; place-items: center; color: #213207; background: var(--accent); border-radius: 50%; font-size: .76rem; font-weight: 800; }
 .tutorial-safety { margin: 1.5rem 0; padding: 16px 18px; color: #402e00; background: #fff4ce; border: 1px solid #e0c96d; border-radius: 4px; }
 .tutorial-safety strong { display: block; margin-bottom: 4px; }
+.tutorial-navigation-note { margin: 0 0 1.5rem; padding: 16px 18px; color: #173f64; background: #eaf4ff; border: 1px solid #9fc5ea; border-left: 5px solid #397eb8; border-radius: 4px; }
+.tutorial-navigation-note strong { display: block; margin-bottom: 4px; }
 .tutorial-next { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 1.5rem 0; }
 .tutorial-next > div { padding: 15px; background: var(--surface); border: 1px solid var(--border-soft); border-radius: 4px; }
 .tutorial-next b { display: block; margin-bottom: 4px; }

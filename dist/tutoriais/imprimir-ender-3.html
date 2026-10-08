@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Tutorial para aquecer, colocar o filamento, selecionar o G-code e iniciar uma impressão na Ender 3.">
   <title>Como imprimir na Ender 3 — Fundamentos de Prototipagem e Fabricação Digital</title>
-  <link rel="stylesheet" href="../styles.css?v=25">
-  <script defer src="../scripts/ender3-display.mjs?v=5"></script>
+  <link rel="stylesheet" href="../styles.css?v=26">
+  <script defer src="../scripts/ender3-display.mjs?v=7"></script>
 </head>
 <body>
   <main>
@@ -26,6 +26,7 @@
       </aside>
 
       <article class="article-content">
+        <div class="tutorial-navigation-note"><strong>As opções podem não aparecer todas ao mesmo tempo</strong>O visor mostra apenas uma parte de cada lista. Gire o encoder para baixo até a opção procurada aparecer. Durante a rolagem, os primeiros itens podem sair da tela — isso é normal.</div>
         <div class="tutorial-safety"><strong>Atenção: partes quentes e partes móveis</strong>O bico e a mesa aquecem. Não toque neles e não coloque as mãos na área de movimento durante a impressão. Use um cartão SD com um arquivo <code>.gcode</code> preparado para esta Ender 3.</div>
 
         <h2>Conceitos essenciais</h2>
@@ -41,13 +42,14 @@
         <p>Veja agora o interruptor de perto. Pressione o lado marcado com <strong>I</strong> para ligar.</p>
         <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/interruptor-energia.jpeg" alt="Interruptor vermelho de energia da Ender 3 em detalhe"><figcaption>Interruptor usado para ligar a Ender 3.</figcaption></figure>
         <p>Aguarde a inicialização. Quando a máquina estiver pronta, ela mostrará a tela de informações fotografada abaixo.</p>
-        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/tela-informacoes.jpeg" alt="Tela de informações da Ender 3 após a inicialização"><figcaption>Tela de informações mostrada após ligar a impressora.</figcaption></figure>
+        <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/tela-informacoes-melhorada.png" alt="Tela de informações melhorada da Ender 3 após a inicialização"><figcaption>Tela de informações mostrada após ligar a impressora.</figcaption></figure>
 
         <h2 id="painel">2. Pressione o encoder para abrir o menu</h2>
         <p>O botão redondo do painel é o <strong>encoder</strong>. Pressione-o uma vez para sair da tela de informações e entrar no menu.</p>
         <figure class="article-figure"><img src="../assets/images/tutoriais/ender-3/encoder-painel.jpeg" alt="Encoder rotativo do painel da Ender 3 destacado por um círculo amarelo"><figcaption>O círculo amarelo indica o encoder.</figcaption></figure>
         <p>No menu, <strong>gire o encoder</strong> para navegar. Quando a opção desejada estiver destacada, <strong>pressione o encoder</strong> para selecioná-la.</p>
         <ender3-display screen="main-menu"></ender3-display>
+        <p><strong>Não pressione “Informações ↑”.</strong> Essa opção apenas retorna à tela anterior. Continue girando o encoder até a opção indicada no próximo passo.</p>
 
         <h2 id="selecionar">3. Selecione o arquivo G-code</h2>
         <p>No menu principal, gire o encoder até <strong>Select from SD Card</strong> e pressione-o para abrir a lista de arquivos.</p>
@@ -56,8 +58,8 @@
         <ender3-display screen="sd-browser"></ender3-display>
         <p>Gire o encoder até destacar o arquivo correto. Confira o nome e pressione o encoder para selecioná-lo.</p>
 
-        <h2 id="confirmar">4. Mova a seleção para “Imprimir”</h2>
-        <p>A caixa começa com <strong>Cancelar</strong> selecionado. Gire o encoder para mover a seleção para o lado, até <strong>Imprimir</strong> ficar destacado. Depois, pressione o encoder para confirmar.</p>
+        <h2 id="confirmar">4. Confirme em “Imprimir”</h2>
+        <p>Confira novamente o nome do arquivo. Com <strong>Imprimir</strong> destacado, pressione o encoder para iniciar. Se precisar desistir, gire para <strong>Cancelar</strong> e pressione.</p>
         <ender3-display screen="print-confirmation"></ender3-display>
         <div class="tutorial-safety"><strong>Não remova o cartão SD durante a impressão</strong>A Ender 3 lê o G-code durante o trabalho. Retirar o cartão pode interromper a impressão.</div>
 
@@ -69,7 +71,7 @@
         <ul><li>o filamento deve aderir à mesa;</li><li>as linhas devem ser contínuas;</li><li>o material não deve acompanhar o bico;</li><li>o bico não deve raspar a superfície.</li></ul>
 
         <h2>Checklist do procedimento</h2>
-        <ul class="task-checklist"><li><label><input type="checkbox"> Confirmei que o filamento está carregado.</label></li><li><label><input type="checkbox"> Liguei a Ender 3 e aguardei a tela inicial.</label></li><li><label><input type="checkbox"> Pressionei o encoder para abrir o menu.</label></li><li><label><input type="checkbox"> Abri Select from SD Card.</label></li><li><label><input type="checkbox"> Conferi e selecionei o G-code correto.</label></li><li><label><input type="checkbox"> Mudei de Cancelar para Imprimir e confirmei.</label></li><li><label><input type="checkbox"> Acompanhei o aquecimento e a primeira camada.</label></li></ul>
+        <ul class="task-checklist"><li><label><input type="checkbox"> Confirmei que o filamento está carregado.</label></li><li><label><input type="checkbox"> Liguei a Ender 3 e aguardei a tela inicial.</label></li><li><label><input type="checkbox"> Pressionei o encoder para abrir o menu.</label></li><li><label><input type="checkbox"> Abri Select from SD Card.</label></li><li><label><input type="checkbox"> Conferi e selecionei o G-code correto.</label></li><li><label><input type="checkbox"> Confirmei com Imprimir destacado.</label></li><li><label><input type="checkbox"> Acompanhei o aquecimento e a primeira camada.</label></li></ul>
 
         <div class="article-pagination"><a href="inserir-filamento-ender-3.html">← Inserir filamento</a><a href="remover-impressao-ender-3.html">Remover a impressão →</a></div>
       </article>

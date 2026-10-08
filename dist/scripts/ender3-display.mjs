@@ -10,7 +10,7 @@ const screens = {
       { text: "Select from SD Card", suffix: "→" },
       { text: "Sobre", suffix: "→" },
     ],
-    selected: 0,
+    selected: null,
   },
   "main-menu-temperature": {
     label: "menu principal com Temperatura selecionada",
@@ -115,7 +115,7 @@ const screens = {
     heading: "Iniciar Impressão",
     message: "nome_do_arquivo.gcode?",
     actions: ["Cancelar", "Imprimir"],
-    selected: 0,
+    selected: 1,
   },
   "stop-confirmation": {
     label: "confirmação para parar a impressão",
